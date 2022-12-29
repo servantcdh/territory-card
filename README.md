@@ -19,19 +19,19 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 사용한 라이브러리
 
-|name|version|explain|
-|---|---|---|
-|webpack|*^5.75.0*|웹팩 번들러 설치|
-|webpack-cli|*^5.0.1*|웹팩 커맨드라인 인터페이스 설치|
-|webpack-dev-server|*^4.11.1*|웹팩 개발 서버 설치|
+| name               | version   | explain                         |
+| ------------------ | --------- | ------------------------------- |
+| webpack            | _^5.75.0_ | 웹팩 번들러 설치                |
+| webpack-cli        | _^5.0.1_  | 웹팩 커맨드라인 인터페이스 설치 |
+| webpack-dev-server | _^4.11.1_ | 웹팩 개발 서버 설치             |
 
 ## 특이 사항
 
 1. 우선, 더이상 미룰 수 없는 일을 시작합니다. 나 자신에게 응원합니다. :+1::+1:
 
-2. ```bash npm i -D webpack webpack-cli webpack-dev-server```을 호기롭게 실행시켰는데 바로 에러가 나왔다.  
-`Invalid response body while trying to fetch https://registry.npmjs.org/update-browserslist-db`라는 메세지인데 ```bash npm cache clear --force```로도 해결이 되지 않았다.  
-해결방법은 에러 로그 안에 있었는데 ```bash sudo chown -R 501:20 "/Users/{}/.npm"``` 로 파일 권한을 변경하라는 것이었고 이후 정상적으로 `npm`이 실행되었다.
+2. `bash npm i -D webpack webpack-cli webpack-dev-server`을 호기롭게 실행시켰는데 바로 에러가 나왔다.  
+   `Invalid response body while trying to fetch https://registry.npmjs.org/update-browserslist-db`라는 메세지인데 `bash npm cache clear --force`로도 해결이 되지 않았다.  
+   해결방법은 에러 로그 안에 있었는데 `bash sudo chown -R 501:20 "/Users/{}/.npm"` 로 파일 권한을 변경하라는 것이었고 이후 정상적으로 `npm`이 실행되었다.
 
 ## 참고한 곳
 
@@ -42,4 +42,3 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 - Author - [DonghoChoi](https://github.com/servantcdh)
 - github - [servantcdh](https://github.com/servantcdh)
 - Email - [servantcdh@naver.com](servantcdh@naver.com)
-
