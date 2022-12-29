@@ -1,0 +1,25 @@
+{
+  "name": "territory-card",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/servantcdh/territory-card.git"
+  },
+  "keywords": [],
+  "author": "DonghoChoi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/servantcdh/territory-card/issues"
+  },
+  "homepage": "https://github.com/servantcdh/territory-card#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
