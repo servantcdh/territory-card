@@ -35,7 +35,10 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 참고한 곳
 
-[김정환블로그](https://jeonghwan-kim.github.io/series/2019/12/09/frontend-dev-env-npm.html)
+[프론트엔드 개발환경의 이해: 김정환블로그](https://jeonghwan-kim.github.io/series/2019/12/10/frontend-dev-env-webpack-basic.html)
+
+[DevServer: webpack](https://webpack.kr/configuration/dev-server)
+
 
 ## 만든이
 
