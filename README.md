@@ -14,8 +14,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- `npm` 환경을 생성한다.
-- `webpack5` 환경을 생성한다.
+- `babel` 을 설치한다.
+- `babel` 을 `webpack` 에 연동한다.
 
 ## 사용한 라이브러리
 
@@ -35,17 +35,40 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. 우선, 더이상 미룰 수 없는 일을 시작합니다. 나 자신에게 응원합니다. :+1::+1:
+1. 김정환 님의 블로그는 `webpack 4` 환경을 기준으로 정리가 되어있었기 때문에 `5`버전에 대한 추가적인 조사가 필요했다.  
+   `webpack` 공식홈의 레퍼런스를 보니 몇 가지 `loader`들이 `5`에서 통합되어 별도로 설치 필요없이 사용할 수 있음을 알게 됐다.
 
-2. `bash npm i -D webpack webpack-cli webpack-dev-server`을 호기롭게 실행시켰는데 바로 에러가 나왔다.  
-   `Invalid response body while trying to fetch https://registry.npmjs.org/update-browserslist-db`라는 메세지인데 `bash npm cache clear --force`로도 해결이 되지 않았다.  
-   해결방법은 에러 로그 안에 있었는데 `bash sudo chown -R 501:20 "/Users/{}/.npm"` 로 파일 권한을 변경하라는 것이었고 이후 정상적으로 `npm`이 실행되었다.
+2. 그동안 현업에서는 gitlab의 private 저장소를 이용해왔다가 이번 프로젝트부터는 github을 사용하고 있다.  
+   지난 커밋부터 GPG key 서명을 적용해보고 있는데 집과 회사의 mac과 vscode에 GPG 환경을 세팅하던 중 `bash error: gpg failed to sign the data >> fatal: failed to write commit object` 에러로 고생을 했다.
+
+   `bash $ echo "test" | gpg --clearsign`로 터미널에서 직접 gpg 서명을 사용해보면 원인을 알려준다.
+
+   ```bash
+   -----BEGIN PGP SIGNED MESSAGE-----\n
+   Hash: SHA256\n
+   \n
+   test\n
+   gpg: signing failed: No pinentry\n
+    gpg: [stdin]: clear-sign failed: No pinentry\n
+   ```
+
+   `pinentry`라는 프로그램이 없어서였던게 원인이었다. 사실 설치는 되어있지만 mac에서는 `pinentry-mac`이라는 별도의 프로그램을 설치해야한다.
+
+   `bash $ brew install pinentry-mac`
+
+   그 다음 `gpg` 환경에 `pinentry-mac` 경로를 추가해야 한다.
+
+   `bash $ echo "pinentry-program /opt/homebrew/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf`
+
+   마지막으로 `gpg`를 재시작해주면 모든 변경 사항이 적용된다.
+
+   `bash $ gpgconf --kill gpg-agent`
 
 ## 참고한 곳
 
-[프론트엔드 개발환경의 이해: 김정환블로그](https://jeonghwan-kim.github.io/series/2019/12/10/frontend-dev-env-webpack-basic.html)
+[프론트엔드 개발환경의 이해: 김정환블로그](https://jeonghwan-kim.github.io/series/2019/12/22/frontend-dev-env-babel.html)
 
-[DevServer: webpack](https://webpack.kr/configuration/dev-server)
+[How to fix ‘GPG failed to sign the data’ error?: Candid.Tech](https://candid.technology/error-gpg-failed-to-sign-the-data/)
 
 ## 만든이
 
