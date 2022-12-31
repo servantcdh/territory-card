@@ -46,13 +46,13 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
    ```bash
    -----BEGIN PGP SIGNED MESSAGE-----
    Hash: SHA256
-   
+
    test
    gpg: signing failed: No pinentry
-    gpg: [stdin]: clear-sign failed: No pinentry
+   gpg: [stdin]: clear-sign failed: No pinentry
    ```
 
-   `pinentry`라는 프로그램이 없어서였던게 원인이었다. 사실 설치는 되어있지만 mac에서는 `pinentry-mac`이라는 별도의 프로그램을 설치해야한다.
+   `pinentry`라는 프로그램이 환경에 없는게 원인이었다. 사실 설치는 되어있지만 mac에서는 `pinentry-mac`이라는 별도의 프로그램을 설치해야한다.
 
    `$ brew install pinentry-mac`
 
