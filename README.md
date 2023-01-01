@@ -14,8 +14,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- `babel` 을 설치한다.
-- `babel` 을 `webpack` 에 연동한다.
+- `react` 를 설치한다.
+- `react` 을 `babel` 에 연동한다.
 
 ## 사용한 라이브러리
 
@@ -40,40 +40,13 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. 김정환 님의 블로그는 `webpack 4` 환경을 기준으로 정리가 되어있었기 때문에 `5`버전에 대한 추가적인 조사가 필요했다.  
-   `webpack` 공식홈의 레퍼런스를 보니 몇 가지 `loader`들이 `5`에서 통합되어 별도로 설치 필요없이 사용할 수 있음을 알게 됐다.
-
-2. 그동안 현업에서는 gitlab의 private 저장소를 이용해왔다가 이번 프로젝트부터는 github을 사용하고 있다.  
-   지난 커밋부터 GPG key 서명을 적용해보고 있는데 집과 회사의 mac과 vscode에 GPG 환경을 세팅하던 중 `$ error: gpg failed to sign the data >> fatal: failed to write commit object` 에러로 고생을 했다.
-
-   `$ echo "test" | gpg --clearsign`로 터미널에서 직접 gpg 서명을 사용해보면 원인을 알려준다.
-
-   ```bash
-   -----BEGIN PGP SIGNED MESSAGE-----
-   Hash: SHA256
-
-   test
-   gpg: signing failed: No pinentry
-   gpg: [stdin]: clear-sign failed: No pinentry
-   ```
-
-   `pinentry`라는 프로그램이 환경에 없는게 원인이었다. 사실 설치는 되어있지만 mac에서는 `pinentry-mac`이라는 별도의 프로그램을 설치해야한다.
-
-   `$ brew install pinentry-mac`
-
-   그 다음 `gpg` 환경에 `pinentry-mac` 경로를 추가해야 한다.
-
-   `$ echo "pinentry-program /opt/homebrew/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf`
-
-   마지막으로 `gpg`를 재시작해주면 모든 변경 사항이 적용된다.
-
-   `$ gpgconf --kill gpg-agent`
+1. 
 
 ## 참고한 곳
 
-[프론트엔드 개발환경의 이해: 김정환블로그](https://jeonghwan-kim.github.io/series/2019/12/22/frontend-dev-env-babel.html)
+[프론트엔드 개발환경의 이해: 김정환블로그](https://jeonghwan-kim.github.io/series/2020/01/02/frontend-dev-env-webpack-intermediate.html)
 
-[How to fix ‘GPG failed to sign the data’ error?: Candid.Tech](https://candid.technology/error-gpg-failed-to-sign-the-data/)
+[React 개발환경 직접 구성하기: ihl블로그](https://study-ihl.tistory.com/m/218)
 
 ## 만든이
 
