@@ -14,8 +14,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- `tailwindcss`를 설치한다.
-- `tailwindcss`를 `webpack`에 연동한다.
+- 프로젝트 폴더 구조를 확정한다.
 
 ## 사용한 라이브러리
 
@@ -47,16 +46,11 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. `tailwindcss`를 사용하려는 이유는, 이전에 토이프로젝트에 적용해보면서 utility class와 vscode의 intellisense의 편리함에 매료되었기 때문이다.  
-   이거라면 디자이너의 도움 없이도 어느 정도의 화면을 만들 수 있겠다는 인상을 받았다. 그래서 이번 1인 프로젝트에 가장 적합한 css 라이브러리라는 판단을 하게 되었다.
+1. 
 
 ## 참고한 곳
 
-[프론트엔드 개발환경의 이해: 김정환블로그](https://jeonghwan-kim.github.io/series/2020/01/02/frontend-dev-env-webpack-intermediate.html)
-
-[[React] Webpack 프로젝트에 Tailwind 적용하기: googy-blog](https://goo-gy.github.io/2022-01-09-tailwind#webpack-loader-설정)
-
-[tainwindcss](https://tailwindcss.com)
+[아토믹 디자인을 활용한 디자인 시스템 도입기: 카카오 FE 기술블로그](https://fe-developers.kakaoent.com/2022/220505-how-page-part-use-atomic-design-system/)
 
 ## 만든이
 
