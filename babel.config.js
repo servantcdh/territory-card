@@ -7,7 +7,7 @@ module.exports = {
         // targets: 브라우저에 따른 코드 변환
         targets: {
           chrome: "79",
-          ie: "11"
+          ie: "11",
         },
         // useBuiltIns: 폴리필 패키지를 사용할지 여부 옵션 usage | entry | false
         useBuiltIns: "usage",
@@ -17,5 +17,6 @@ module.exports = {
         },
       },
     ],
+    "@babel/preset-react",
   ],
 };

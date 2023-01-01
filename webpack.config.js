@@ -88,11 +88,15 @@ module.exports = {
         },
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         // loader: 사용할 로더가 1개일 때 쓰는 프로퍼티
         loader: "babel-loader",
         // exclude: 읽어올 대상에서 제외할 파일명 규칙을 정규식으로 정의, test의 반대
         exclude: /node_modules/,
+        // resolve: 읽어온 파일의 확장자를 정의하면 import 구문에서 생략 가능
+        resolve: {
+          extensions: ["", ".js", ".jsx"],
+        },
       },
     ],
   },
