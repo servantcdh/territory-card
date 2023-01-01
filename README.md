@@ -37,10 +37,14 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | @babel/preset-env            | _^7.20.2_ | ECMAScript2015+ js코드로 변환할 때 필요한 바벨 플러그인 프리셋                                                 |
 | babel-loader                 | _^9.1.0_  | 바벨을 웹팩에 통합하는 로더                                                                                    |
 | core-js                      | _^3.27.1_ | 구형 브라우저가 이해할 수 있도록 js코드를 변환시켜주는 폴리필 패키지                                           |
+| @babel/preset-react          | _^7.18.6_ | react 문법을 브라우저가 이해할 수 있도록 변환시켜주는 폴리필 패키지                                            |
+| react                        | _^18.2.0_ | react 라이브러리 설치                                                                                          |
+| react-dom                    | _^18.2.0_ | react가 생성한 가상 DOM을 실제 HTML에 연결                                                                     |
 
 ## 특이 사항
 
-1. 
+1. 컴포넌트를 `import` 할 때 내 기억으로는 `.js`나 `.jsx`같은 확장자를 생략했었다.  
+   `webpack.config.js`의 `.js|.jsx`를 불러오는는 `loader`에 `resolve` 옵션을 통해서 `import` 구문의 확장자를 생략할 수 있게 한다.
 
 ## 참고한 곳
 
