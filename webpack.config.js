@@ -112,7 +112,7 @@ module.exports = {
       project: JSON.stringify("TerritoryCard"),
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "./public/index.html",
       templateParameters: {
         env: process.env.NODE_ENV === "development" ? "(개발용)" : "",
       },
