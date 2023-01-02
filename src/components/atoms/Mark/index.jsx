@@ -33,13 +33,20 @@ const getSvg = (markType) => {
 };
 
 const Mark = ({ markType, checked, onCheck }) => {
-  const level = checked ? "600" : "900";
   let className = "";
   if (markType === 1) {
-    className = `bg-secondary-${level}`;
+    if (checked) {
+      className = "bg-secondary-600";
+    } else {
+      className = "bg-secondary-900";
+    }
   }
   if (markType === 2) {
-    className = `bg-red-${level}`;
+    if (checked) {
+      className = "bg-red-600";
+    } else {
+      className = "bg-red-900";
+    }
   }
   const onClickHandler = useCallback(() => {
     onCheck(checked ? 0 : markType);
