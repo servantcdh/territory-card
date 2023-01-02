@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["IBM Plex Mono", "Menlo", "monospace"],
-        body: ["IBM Plex Mono", "Menlo", "monospace"],
+        display: ["IBM Plex Mono", "Do Hyeon", "Menlo", "monospace"],
+        body: ["IBM Plex Mono", "Do Hyeon", "Menlo", "monospace"],
       },
       colors: {
         primary: {
