@@ -2,7 +2,7 @@ import React from "react";
 
 const Profile = (props) => {
   return (
-    <div className="relative">
+    <div className="w-12 relative animate-scale">
       {props.src && (
         <img
           className="p-0 w-12 h-12 rounded-full"
@@ -18,7 +18,10 @@ const Profile = (props) => {
         </div>
       )}
       {props.live === 1 && (
-        <span className="top-0 left-9 absolute w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
+        <span className="top-0 left-9 flex h-3 w-3 absolute">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-green-500"></span>
+        </span>
       )}
     </div>
   );

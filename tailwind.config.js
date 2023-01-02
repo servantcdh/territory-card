@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './public/index.html',
-    './src/**/*.{html,js,jsx}',
-  ],
+  content: ["./public/index.html", "./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
       fontFamily: {
@@ -35,6 +32,14 @@ module.exports = {
           800: "#115e59",
           900: "#134e4a",
         },
+      },
+      keyframes: {
+        scale: {
+          "0%": { transform: 'scale(0)' },
+        },
+      },
+      animation: {
+        scale: "scale 0.3s ease-in-out",
       },
     },
   },
