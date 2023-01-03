@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 const Search = (props) => {
-  const [keyword, setKeyword] = useState("");
+  const [keyword, setKeyword] = useState("init");
   const { onSubmit } = props;
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (keyword) {
+      if (keyword !== "init") {
         onSubmit(keyword);
       }
       clearTimeout(timeout);
