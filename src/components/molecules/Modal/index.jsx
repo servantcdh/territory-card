@@ -12,13 +12,13 @@ const Backdrop = () => {
 const ModalOverlay = (props) => {
   return (
     <Card className="fixed m-auto w-11/12 h-3/5 inset-0 p-0 z-30 animate-scale box-border border-amber-500 border-4 rounded">
-      <header className="p-3 font-bold">
+      <header className="p-3 text-xl font-bold">
         <h2>{props.title}</h2>
       </header>
       <div className="p-3 h-3/4 overflow-y-scroll bg-white text-sm font-thin">
         <p>{props.message}</p>
       </div>
-      <footer className="p-6 text-center">
+      <footer className="p-5 text-center">
         <Button className="animate-bounce" onClick={props.onConfirm}>
           확인
         </Button>

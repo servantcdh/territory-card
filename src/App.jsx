@@ -72,7 +72,7 @@ const App = () => {
       <MarkBox cardContentIdx={1} />
       {isActiveModal && (
         <Modal
-          title="Modal Title"
+          title="일용할 성구"
           message={message}
           onConfirm={modalConfirmController}
         />
