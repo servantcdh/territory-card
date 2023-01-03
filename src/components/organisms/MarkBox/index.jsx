@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Mark from "../../atoms/Mark";
+import Mark from "../../molecules/Mark";
 
 const MarkBox = (props) => {
   const [mark, setMark] = useState(0);

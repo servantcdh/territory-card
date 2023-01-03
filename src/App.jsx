@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import SpeedDial from "./components/atoms/SpeedDial";
-import MarkBox from "./components/molecules/MarkBox";
+import SpeedDial from "./components/molecules/SpeedDial";
+import MarkBox from "./components/organisms/MarkBox";
 import Modal from "./components/molecules/Modal";
 import ProfileCard from "./components/molecules/ProfileCard";
 import ProfileCardList from "./components/organisms/ProfileCardList";
@@ -79,7 +79,15 @@ const App = () => {
           onSearch={onSearchHandler}
         />
       )} */}
-      <SpeedDial items={[1, 2, 3, 4]} />
+      <SpeedDial
+        items={[
+          { route: "card", svg: "table" },
+          { route: "s-13", svg: "document-text" },
+          { route: "profile", svg: "user-circle" },
+          { route: "setting", svg: "cog" },
+          { route: "logout", svg: "logout" },
+        ]}
+      />
     </>
   );
 };

@@ -14,23 +14,33 @@ const getSvgPath = (type) => {
   if (type === "plus") {
     return "M12 6v6m0 0v6m0-6h6m-6 0H6";
   }
-  if (type === "logout") {
-    return "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1";
+  if (type === "table") {
+    return "M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z";
+  }
+  if (type === "document-text") {
+    return "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z";
   }
   if (type === "user-circle") {
-    return "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+    return "M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z";
   }
   if (type === "cog") {
-    return "M15 12a3 3 0 11-6 0 3 3 0 016 0z";
+    return [
+      "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z",
+      "M15 12a3 3 0 11-6 0 3 3 0 016 0z",
+    ];
   }
-  if (type === "table") {
-    return "M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
+  if (type === "logout") {
+    return "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1";
   }
 };
 
 const Svg = (props) => {
   const { type } = props;
   const className = props.className ? props.className : `w-6 h-6`;
+  let d = getSvgPath(type);
+  if (!Array.isArray(d)) {
+    d = [d];
+  }
   return (
     <svg
       className={className}
@@ -39,12 +49,15 @@ const Svg = (props) => {
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d={getSvgPath(type)}
-      ></path>
+      {d.map((value, index) => (
+        <path
+          key={`svg_${index}`}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d={value}
+        ></path>
+      ))}
     </svg>
   );
 };

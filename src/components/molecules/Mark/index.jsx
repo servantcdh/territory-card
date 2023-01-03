@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import Svg from "../Svg";
+import Svg from "../../atoms/Svg";
 
 const Mark = ({ markType, checked, onCheck }) => {
   let className = "";

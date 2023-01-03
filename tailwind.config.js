@@ -19,7 +19,7 @@ module.exports = {
           700: "#374151",
           800: "#1f2937",
           900: "#111827",
-        }
+        },
       },
       keyframes: {
         scale: {
@@ -29,31 +29,24 @@ module.exports = {
           "0%": { opacity: 0 },
           "100%": { opacity: 0.8 },
         },
-        focusX: {
-          "0%": { transform: "rotate(0deg)" },
-          "100%": { transform: "rotate(45deg)" }
+        rotate45: {
+          "0%": { transform: "rotate(0)" },
+          "100%": { transform: "rotate(45deg)" },
         },
-        focusOutX: {
-          "0%": { transform: "rotate(45deg)" },
-          "1000%": { transform: "rotate(0deg)" }
-        },
-        scaleUp: {
-          "0%": { transform: "scale(1, 0)" },
-          "100%": { transform: "scale(1, 1)" },
-        },
-        scaleDown: {
-          "0%": { transform: "scale(1, 1)" },
-          "100%": { transform: "scale(1, 0)" },
+        showUp: {
+          "0%": { transform: "translateY(550%)", opacity: 0 },
+          "100%": { transform: "translateY(0)", opacity: 1 },
         },
       },
       animation: {
         scale: "scale 0.3s ease-in-out",
         fadeIn: "fadeIn 0.5s ease-in-out forwards",
-        focusX: "focusX 0.2s linear forwards",
-        focusOutX: "focusOutX 0.2s linear forwards",
-        scaleUp: "scaleUp 0.2s linear forwards",
-        scaleDown: "scaleDown 0.2s linear forwards",
+        rotate45: "rotate45 0.5s ease-in-out forwards",
+        showUp: "showUp 0.5s ease-in-out forwards",
       },
+      translate: {
+        "550": "550%"
+      }
     },
   },
   plugins: [],
