@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import SpeedDial from "./components/atoms/SpeedDial";
 import MarkBox from "./components/molecules/MarkBox";
 import Modal from "./components/molecules/Modal";
 import ProfileCard from "./components/molecules/ProfileCard";
@@ -47,37 +48,38 @@ const getUsers = async (accessToken) => {
 };
 
 const App = () => {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    const fetchs = async () => {
-      const token = await login();
-      access(token);
-      const users = await getUsers(token);
-      setUsers(users);
-    };
-    fetchs();
-  }, []);
-  const [isActiveModal, setIsActiveModal] = useState(true);
-  const onAssignHandler = (crews) => {
-    console.log(crews);
-    setIsActiveModal(false);
-  };
-  const onSearchHandler = (keyword) => {
-    console.log(keyword);
-  };
+  // const [users, setUsers] = useState([]);
+  // useEffect(() => {
+  //   const fetchs = async () => {
+  //     const token = await login();
+  //     access(token);
+  //     const users = await getUsers(token);
+  //     setUsers(users);
+  //   };
+  //   fetchs();
+  // }, []);
+  // const [isActiveModal, setIsActiveModal] = useState(true);
+  // const onAssignHandler = (crews) => {
+  //   console.log(crews);
+  //   setIsActiveModal(false);
+  // };
+  // const onSearchHandler = (keyword) => {
+  //   console.log(keyword);
+  // };
   return (
     <>
-      {/* {users.length && <ProfileStack users={users} />} */}
-      {/* {users.length && <Profile userIdx={users[0].userIdx} src={users[0].profile} name={users[0].name} live={users[0].live} />} */}
-      {/* {users.length && <ProfileCard user={users[0]} />} */}
+      {/* {!!users.length && <ProfileStack users={users} />} */}
+      {/* {!!users.length && <Profile userIdx={users[0].userIdx} src={users[0].profile} name={users[0].name} live={users[0].live} />} */}
+      {/* {!!users.length && <ProfileCard user={users[0]} />} */}
       {/* <MarkBox cardContentIdx={1}/> */}
-      {isActiveModal && (
+      {/* {isActiveModal && (
         <ProfileCardList
           users={users}
           onAssign={onAssignHandler}
           onSearch={onSearchHandler}
         />
-      )}
+      )} */}
+      <SpeedDial items={[1, 2, 3, 4]} />
     </>
   );
 };

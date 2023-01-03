@@ -39,7 +39,7 @@ const ProfileCardList = ({ users, onAssign, onSearch }) => {
       cancelName="취소"
       buttonDisabled={!checkedUserIdx.length}
     >
-      {users.length &&
+      {!!users.length &&
         users.map((u) => (
           <ProfileCard
             key={u.userIdx}

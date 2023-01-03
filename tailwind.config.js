@@ -29,10 +29,30 @@ module.exports = {
           "0%": { opacity: 0 },
           "100%": { opacity: 0.8 },
         },
+        focusX: {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(45deg)" }
+        },
+        focusOutX: {
+          "0%": { transform: "rotate(45deg)" },
+          "1000%": { transform: "rotate(0deg)" }
+        },
+        scaleUp: {
+          "0%": { transform: "scale(1, 0)" },
+          "100%": { transform: "scale(1, 1)" },
+        },
+        scaleDown: {
+          "0%": { transform: "scale(1, 1)" },
+          "100%": { transform: "scale(1, 0)" },
+        },
       },
       animation: {
         scale: "scale 0.3s ease-in-out",
         fadeIn: "fadeIn 0.5s ease-in-out forwards",
+        focusX: "focusX 0.2s linear forwards",
+        focusOutX: "focusOutX 0.2s linear forwards",
+        scaleUp: "scaleUp 0.2s linear forwards",
+        scaleDown: "scaleDown 0.2s linear forwards",
       },
     },
   },
