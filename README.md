@@ -43,15 +43,21 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | postcss                      | _^8.4.20_  | css 후처리, css 작성을 더 편하게 만들어주는 플러그인                                                           |
 | autoprefixer                 | _^10.4.13_ | css 권고안에 포함되지 못하거나 제정되지 않은 기능을 사용하도록 벤더 프리픽스를 추가해주는 postcss 플러그인     |
 | postcss-loader               | _^7.0.2_   | postcss를 웹팩에 통합하는 로더                                                                                 |
+| react-router-dom             | _^6.6.1_   | url에 따른 페이지 컴포넌트를 지정한 dom에 렌더링시켜주는 라이브러리                                            |
 
 ## 특이 사항
 
-1. 아무리 `tailwindcss`가 강력한 도구라 해도 `css`를 다루는건 역시 디자인 공부를 제대로 하지 않는 이상 쉽지 않다는걸 체감한다. 애니메이션을 욕심껏 구현하려니까 시간이 너무 많이 들어간다.  
-잘 만들어진 라이브러리를 쓰는걸 무조건 죄악시 여기는 것도 정답은 아닌 듯 하다. 서드파티 라이브러리 설치로 인한 빌드 용량이 커지는건 `webpack externals`로 잘 해결하면 될거라 믿으면서..
+1. 이전에 udemy 리액트 강의를 결제해 들었을 때 `react-router-dom 5` 위주의 설명을 들었다. 이번 프로젝트에는 그때 수업을 회상하며 `6`버전을 설치하려 한다.
+
+2. 우선 크게 달라진 점은 `Switch`가 `Routes`로 대체되었다는 점, `Route`로 설정한 컴포넌트에 `match`, `location`, `history`를 `props`로 전달하지 않고 전용 훅으로 조작해야 한다는 점이다.  
+`6`의 또다른 기능으로 `loader`가 있다. udemy 강의에서 들었던 기억으론 `Route`에 `loader` 함수를 바인딩해두면, 해당 페이지로 내비게이팅 시 `loader`가 자동으로 호출되고 `loader`안에 작성한 `data-fetching` 로직을 실행하는 기능이었다.  
+하지만 그 기능은 이번 프로젝트에선 사용하지 않을 예정인데 `react-query`을 적용할 예정이기 때문이다.
 
 ## 참고한 곳
 
-[tailwindcss](https://tailwindcss.com/docs/animation)
+[reactrouter](https://reactrouter.com/en/main)
+
+[react-router-dom v6로 페이지 이동하기: sham.log](https://velog.io/@sham/react-router-dom-v6%EB%A1%9C-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0)
 
 ## 만든이
 
