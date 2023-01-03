@@ -35,11 +35,16 @@ module.exports = {
       },
       keyframes: {
         scale: {
-          "0%": { transform: 'scale(0)' },
+          "0%": { transform: "scale(0)" },
+        },
+        fadeIn: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 0.8 },
         },
       },
       animation: {
         scale: "scale 0.3s ease-in-out",
+        fadeIn: "fadeIn 0.5s ease-in-out forwards",
       },
     },
   },
