@@ -11,8 +11,8 @@ const Profile = (props) => {
         />
       )}
       {!props.src && props.name && (
-        <div className="inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-gray-100 rounded-full dark:bg-gray-600">
-          <span className="font-medium text-gray-600 dark:text-gray-300">
+        <div className="inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-gray-600 rounded-full">
+          <span className="text-base text-gray-300">
             {props.name.substring(1)}
           </span>
         </div>
