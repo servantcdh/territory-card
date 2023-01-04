@@ -1,11 +1,7 @@
 import React from "react";
 
-const Body = (props) => {
-    return (
-        <div className={`w-screen h-screen ${props.className}`}>
-            {props.children}
-        </div>
-    );
+const Body = ({ className, children }) => {
+  return <div className={`w-screen h-screen ${className}`}>{children}</div>;
 };
 
 export default Body;

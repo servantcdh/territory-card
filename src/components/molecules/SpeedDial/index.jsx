@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Svg from "../../atoms/Svg";
 
-const SpeedDial = (props) => {
-  const { items } = props;
+const SpeedDial = ({ items }) => {
   const [active, setActive] = useState(false);
   const onClickDialHandler = () => {
     setActive((prev) => !prev);
@@ -33,7 +32,7 @@ const SpeedDial = (props) => {
             </div>
           ))}
       </div>
-      <div className="fixed bottom-1 m-3 right-0 w-20 h-20">
+      <div className="fixed bottom-1 m-3 right-0 w-20 h-20 animate-scale">
         <div
           className={`rounded-full w-full h-full bg-orange-500 border-8 border-black ${animateRotate}`}
           onClick={onClickDialHandler}

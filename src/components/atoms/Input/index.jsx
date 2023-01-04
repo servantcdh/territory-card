@@ -1,17 +1,36 @@
 import React from "react";
 
-const Input = (props) => {
-  const className = ` ${props.className}`;
+const Input = ({
+  className,
+  type,
+  id,
+  name,
+  inputMode,
+  value,
+  pattern,
+  placeholder,
+  disabled,
+  required,
+  onKeyUp,
+  onChange,
+  error,
+}) => {
   return (
     <input
-      className={className}
-      type={props.type}
-      inputMode={props.inputMode}
-      value={props.value}
-      disabled={props.disabled}
-      placeholder={props.placeholder}
-      pattern={props.pattern}
-      required={props.required}
+      className={`w-100 h-10 border-black border-4 py-1 px-2 rounded font-body focus:ring-cyan-500 focus:border-cyan-500 ${className} ${
+        error ? "animate-error" : ""
+      }`}
+      type={type}
+      id={id}
+      name={name}
+      inputMode={inputMode}
+      value={value}
+      pattern={pattern}
+      placeholder={placeholder}
+      disabled={disabled}
+      required={required}
+      onKeyUp={onKeyUp}
+      onChange={onChange}
     />
   );
 };

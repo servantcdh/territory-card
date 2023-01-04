@@ -1,10 +1,10 @@
 import React from "react";
 import Profile from "../../atoms/Profile";
 
-const ProfileStack = (props) => {
+const ProfileStack = ({ users }) => {
   return (
     <div className="flex -space-x-4">
-      {props.users.map((u) => (
+      {users.map((u) => (
         <Profile key={u.userIdx} src={u.profile} name={u.name} />
       ))}
     </div>

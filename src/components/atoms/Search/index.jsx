@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-const Search = (props) => {
+const Search = ({ className, onSubmit }) => {
   const [keyword, setKeyword] = useState("init");
-  const { onSubmit } = props;
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (keyword !== "init") {
@@ -17,7 +16,7 @@ const Search = (props) => {
     setKeyword(event.target.value);
   };
   return (
-    <div className={props.className}>
+    <div className={`${className}`}>
       <div className="relative">
         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
           <svg

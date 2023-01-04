@@ -3,10 +3,9 @@ import Card from "../../atoms/Card";
 import Profile from "../../atoms/Profile";
 import Tag from "../../atoms/Tag";
 
-const ProfileCard = (props) => {
+const ProfileCard = ({ user, checked, assigned, onClick }) => {
   const { userIdx, profile, name, live, gender, car, guide, auth, baptize } =
-    props.user;
-  const { checked, assigned, onClick } = props;
+    user;
   const liveActive = live ? "bg-primary-200" : "bg-primary-400";
   const checkActive = checked ? "" : liveActive;
   const onClickHandler = () => {

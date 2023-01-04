@@ -1,15 +1,15 @@
 import React, { useCallback } from "react";
 import Svg from "../../atoms/Svg";
 
-const Mark = ({ markType, checked, onCheck }) => {
+const Mark = ({ id, markType, checked, onCheck }) => {
   let className = "";
   let svgType = "";
   if (markType === 1) {
     svgType = "smile";
     if (checked) {
-      className = "bg-secondary-600";
+      className = "bg-emerald-600";
     } else {
-      className = "bg-secondary-900";
+      className = "bg-emerald-900";
     }
   }
   if (markType === 2) {
@@ -25,6 +25,7 @@ const Mark = ({ markType, checked, onCheck }) => {
   }, [checked, markType]);
   return (
     <button
+      id={id}
       className={`p-1 rounded ${className} text-primary-300`}
       onClick={onClickHandler}
     >

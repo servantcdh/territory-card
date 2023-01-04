@@ -37,16 +37,14 @@ const getSvgPath = (type) => {
   }
 };
 
-const Svg = (props) => {
-  const { type } = props;
-  const className = props.className ? props.className : `w-6 h-6`;
+const Svg = ({ className, type }) => {
   let d = getSvgPath(type);
   if (!Array.isArray(d)) {
     d = [d];
   }
   return (
     <svg
-      className={className}
+      className={`${className ? className : `w-6 h-6`}`}
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
