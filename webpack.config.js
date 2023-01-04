@@ -10,6 +10,10 @@ const TerserWebpackPlugin = require("terser-webpack-plugin");
 
 const mode = process.env.NODE_ENV || "development";
 
+require("dotenv").config({
+  path: mode === "development" ? ".env.dev" : ".env.prod",
+});
+
 module.exports = {
   mode,
   // entry: 웹팩이 js를 읽기 시작하는 지점
@@ -31,7 +35,7 @@ module.exports = {
     },
   },
   // devtool: 소스맵 생성 여부 (https://joshua1988.github.io/webpack-guide/devtools/source-map.html)
-  devtool: 'eval-cheap-source-map',
+  devtool: "eval-cheap-source-map",
   devServer: {
     port: 4200,
     client: {
@@ -71,9 +75,7 @@ module.exports = {
         test: /\.css$/,
         // use: 사용할 로더가 2개 이상일 때 쓰는 프로퍼티, 배열 마지막 요소부터 역순으로 실행됨
         use: [
-          process.env.NODE_ENV === "development"
-            ? "style-loader"
-            : MiniCssExtractPlugin.loader,
+          mode === "development" ? "style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
           "postcss-loader",
         ],
@@ -116,18 +118,19 @@ module.exports = {
           Author: ${childProcess.execSync("echo 최동호")}
       `,
     }),
-    // DefinePlugin: process.env.NODE_ENV 변수를 포함하여, 전역 상수 문자열을 웹팩 컴파일 시점에 정의
+    // DefinePlugin: 전역 상수 문자열을 웹팩 컴파일 시점에 정의
     // ** JSON.stringify 함수로 감싸야 문자열로 정의됨
     new webpack.DefinePlugin({
       project: JSON.stringify("TerritoryCard"),
+      apiHost: JSON.stringify(process.env.API_HOST)
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       templateParameters: {
-        env: process.env.NODE_ENV === "development" ? "(개발용)" : "",
+        env: mode === "development" ? "(개발용)" : "",
       },
       minify:
-        process.env.NODE_ENV !== "development"
+        mode !== "development"
           ? {
               collapseWhitespace: true,
               removeComments: true,
@@ -135,7 +138,7 @@ module.exports = {
           : false,
     }),
     new CleanWebpackPlugin(),
-    ...(process.env.NODE_ENV !== "development"
+    ...(mode !== "development"
       ? [
           new MiniCssExtractPlugin({
             filename: "[name].css",
