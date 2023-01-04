@@ -30,6 +30,8 @@ module.exports = {
       return `${filepath}/[name].[hash][ext][query]`;
     },
   },
+  // devtool: 소스맵 생성 여부 (https://joshua1988.github.io/webpack-guide/devtools/source-map.html)
+  devtool: 'eval-cheap-source-map',
   devServer: {
     port: 4200,
     client: {
