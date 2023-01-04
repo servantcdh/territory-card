@@ -22,7 +22,7 @@ const SpeedDial = (props) => {
           items.map((item, idx) => (
             <div
               key={`dial_${idx}`}
-              className={`mb-1 rounded-full w-20 h-20 bg-orange-300 border-8 border-black ${animateShow}`}
+              className={`mb-1 rounded-full w-20 h-20 bg-orange-300 hover:bg-orange-400 border-8 border-black ${animateShow}`}
               onClick={
                 item.callback
                   ? item.callback
