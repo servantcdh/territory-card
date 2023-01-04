@@ -39,7 +39,7 @@ module.exports = {
     },
     // hot: Hot Module Replacement 옵션, 변동된 모듈만 리렌더링
     hot: true,
-    // historyApiFallback: HTML5 History API Fallback 활성화 여부, 404에러 때 index.html로 리다이렉트 시킴
+    // historyApiFallback: HTML5 History API Fallback 활성화 여부, 브라우저에서 페이지 요청시 output.publicPath로 리다이렉트 시킴
     historyApiFallback: true,
   },
   // optimization: 빌드 최적화 옵션을 정의

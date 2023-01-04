@@ -50,14 +50,19 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 1. 이전에 udemy 리액트 강의를 결제해 들었을 때 `react-router-dom 5` 위주의 설명을 들었다. 이번 프로젝트에는 그때 수업을 회상하며 `6`버전을 설치하려 한다.
 
 2. 우선 크게 달라진 점은 `Switch`가 `Routes`로 대체되었다는 점, `Route`로 설정한 컴포넌트에 `match`, `location`, `history`를 `props`로 전달하지 않고 전용 훅으로 조작해야 한다는 점이다.  
-`6`의 또다른 기능으로 `loader`가 있다. udemy 강의에서 들었던 기억으론 `Route`에 `loader` 함수를 바인딩해두면, 해당 페이지로 내비게이팅 시 `loader`가 자동으로 호출되고 `loader`안에 작성한 `data-fetching` 로직을 실행하는 기능이었다.  
-하지만 그 기능은 이번 프로젝트에선 사용하지 않을 예정인데 `react-query`을 적용할 예정이기 때문이다.
+   `6`의 또다른 기능으로 `loader`가 있다. udemy 강의에서 들었던 기억으론 `Route`에 `loader` 함수를 바인딩해두면, 해당 페이지로 내비게이팅 시 `loader`가 자동으로 호출되고 `loader`안에 작성한 `data-fetching` 로직을 실행하는 기능이었다.  
+   하지만 그 기능은 이번 프로젝트에선 사용하지 않을 예정인데 `react-query`을 적용할 예정이기 때문이다.
+
+3. 어떤 페이지로 라우팅된 상태에서 브라우저를 새로고침하면 해당 페이지로 접근할 수 없다는 에러가 표시된다. `nginx`의 `try_files`, `apache`의 `rewrite` 옵션같은 기능을 `webpack-dev-server`에 설정해야 하는데 바로 `historyApiFallback` 옵션이다.  
+   해당 옵션을 `true`로 하면 브라우저가 웹서버로 페이지를 요청시 `output`에 명시한 `publicPath` 경로로 접근하게 된다.
 
 ## 참고한 곳
 
 [reactrouter](https://reactrouter.com/en/main)
 
 [react-router-dom v6로 페이지 이동하기: sham.log](https://velog.io/@sham/react-router-dom-v6%EB%A1%9C-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0)
+
+[historyApiFallback이란?: Basemenks블로그](https://basemenks.tistory.com/270)
 
 ## 만든이
 
