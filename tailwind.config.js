@@ -42,7 +42,7 @@ module.exports = {
         scale: "scale 0.3s ease-in-out",
         fadeIn: "fadeIn 0.5s ease-in-out forwards",
         rotate45: "rotate45 0.5s ease-in-out forwards",
-        showUp: "showUp 0.5s ease-in-out forwards",
+        showUp: "showUp 0.3s ease-in-out forwards",
       },
       translate: {
         "550": "550%"
