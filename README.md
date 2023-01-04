@@ -14,7 +14,10 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- 페이지 전환 시 배경색 애니메이션을 구현한다.
+- `axios`를 설치한다.
+- `react-query`를 설치한다.
+- 로그인 페이지를 구현한다.
+- 로그인 기능을 구현한다.
 
 ## 사용한 라이브러리
 
@@ -44,14 +47,23 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | autoprefixer                 | _^10.4.13_ | css 권고안에 포함되지 못하거나 제정되지 않은 기능을 사용하도록 벤더 프리픽스를 추가해주는 postcss 플러그인     |
 | postcss-loader               | _^7.0.2_   | postcss를 웹팩에 통합하는 로더                                                                                 |
 | react-router-dom             | _^6.6.1_   | url에 따른 페이지 컴포넌트를 지정한 dom에 렌더링시켜주는 라이브러리                                            |
+| axios                        | _^1.2.2_   | ajax request 라이브러리                                                                                        |
+| react-query                  | _^3.39.2_  | ajax 통신을 더 체계적으로 관리할 수 있는 라이브러리. 서버 상태 관리는 덤이지만 후자의 기능으로 더 유명하다.    |
 
 ## 특이 사항
 
-1. 레트로한 맛을 한층 더 올리기 위한 페이지 애니메이션을 적용했다. 이쁘다.
+1. 이번 목표부터 드디어 `data-fetching` 개념에 들어선다. `Insomnia`랑만 놀던 `Nestjs REST API`가 드뎌 제 짝을 만날 예정이다.
+
+2. 상태 관리 라이브러리로 `react-query`를 사용할 것이다. 이유는 여러 사람이 하나의 구역 카드를 바라보고 실시간으로 정보를 주고받아야 하는 서비스를 구축할 것이기 때문이다. `SWR` 라이브러리를 사용하지 않는 이유는 딱히 없다. `api call signature`도 유사하고 `SWR`을 적용하더라도 크게 상관은 없을거같은데 `react-query`가 더 끌릴 뿐이다.
+
+3. 전역 상태 관리 라이브러리는 필요하다면 `redux-toolkit`으로 구현할 생각이지만 아마도 `react-query`로 충분하지 않을까 예상한다. 전역 상태로 사용될만한 데이터가 사용자 정보와 구역 카드 정보밖에 없기 때문이다. 아담한 프로젝트이다.
+
+4. `ajax`라이브러리로 `fetch`를 쓸 지, `axios`를 쓸 지 고민하다가 후자를 선택했다. `request`라이브러리의 갑작스런 지원 중단으로 당황했던 경험이 있어서 `fetch`를 써왔는데 이번엔 `axios`를 한번 써볼까 한다. 이유는 `webpack externals` 옵션을 많이 활용해보기 위함이다.
 
 ## 참고한 곳
 
-[CSS Animation: w3school](https://www.w3schools.com/css/tryit.asp?filename=trycss3_animation2)
+[React Query (useQuery): rlawogks2468블로그](https://velog.io/@rlawogks2468/React-Query)
+[My구독의 React Query 전환기: hugo.0 Kakao Tech](https://tech.kakao.com/2022/06/13/react-query/)
 
 ## 만든이
 
