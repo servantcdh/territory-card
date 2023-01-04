@@ -47,13 +47,11 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. 
+1. 레트로한 맛을 한층 더 올리기 위한 페이지 애니메이션을 적용했다. 이쁘다.
 
 ## 참고한 곳
 
-[reactrouter](https://reactrouter.com/en/main)
-
-[react-router-dom v6로 페이지 이동하기: sham.log](https://velog.io/@sham/react-router-dom-v6%EB%A1%9C-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0)
+[CSS Animation: w3school](https://www.w3schools.com/css/tryit.asp?filename=trycss3_animation2)
 
 ## 만든이
 
