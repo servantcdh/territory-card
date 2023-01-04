@@ -66,6 +66,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 [My구독의 React Query 전환기: hugo.0 Kakao Tech](https://tech.kakao.com/2022/06/13/react-query/)
 
+[react-query: kyounghwan01블로그](https://kyounghwan01.github.io/blog/React/react-query/basic/)
+
 ## 만든이
 
 - Author - [DonghoChoi](https://github.com/servantcdh)
