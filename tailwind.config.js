@@ -37,12 +37,42 @@ module.exports = {
           "0%": { transform: "translateY(550%)", opacity: 0 },
           "100%": { transform: "translateY(0)", opacity: 1 },
         },
+        naviToProfile: {
+          "from": { "background-color": "rgb(254 252 232)" },
+          "to": { "background-color": "rgb(253 224 71)" }
+        },
+        naviToSetting: {
+          "from": { "background-color": "rgb(254 252 232)" },
+          "to": { "background-color": "rgb(253 186 116)" }
+        },
+        naviToCard: {
+          "from": { "background-color": "rgb(254 252 232)" },
+          "to": { "background-color": "rgb(129 140 248)" }
+        },
+        naviToS13: {
+          "from": { "background-color": "rgb(254 252 232)" },
+          "to": { "background-color": "rgb(244 63 94)" }
+        },
+        naviToView: {
+          "from": { "background-color": "rgb(254 252 232)" },
+          "to": { "background-color": "rgb(52 211 153)" }
+        },
+        naviToNotFound: {
+          "from": { "background-color": "rgb(254 252 232)" },
+          "to": { "background-color": "rgb(148 163 184)" }
+        },
       },
       animation: {
         scale: "scale 0.3s ease-in-out",
         fadeIn: "fadeIn 0.5s ease-in-out forwards",
         rotate45: "rotate45 0.5s ease-in-out forwards",
         showUp: "showUp 0.3s ease-in-out forwards",
+        naviToProfile: "naviToProfile 0.5s ease-in-out forwards",
+        naviToSetting: "naviToSetting 0.5s ease-in-out forwards",
+        naviToCard: "naviToCard 0.5s ease-in-out forwards",
+        naviToS13: "naviToS13 0.5s ease-in-out forwards",
+        naviToView: "naviToView 0.5s ease-in-out forwards",
+        naviToNotFound: "naviToNotFound 0.5s ease-in-out forwards",
       },
       translate: {
         "550": "550%"

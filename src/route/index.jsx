@@ -6,6 +6,7 @@ import ProfilePage from "../pages/Profile";
 import SettingPage from "../pages/Setting";
 import CardPage from "../pages/Card";
 import S13Page from "../pages/S-13";
+import ViewPage from "../pages/View";
 import NotFoundPage from "../pages/NotFound";
 
 const RouteWrapper = (props) => {
@@ -19,6 +20,7 @@ const RouteWrapper = (props) => {
         <Route path="/setting" element={<SettingPage />} />
         <Route path="/card" element={<CardPage />} />
         <Route path="/s-13" element={<S13Page />} />
+        <Route path="/view" element={<ViewPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
