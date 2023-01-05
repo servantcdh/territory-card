@@ -43,6 +43,7 @@ const ProfileCardList = ({ users, onAssign, onSearch }) => {
         users.map((u) => (
           <ProfileCard
             key={u.userIdx}
+            className="rounded"
             user={u}
             checked={checkedUserIdx.includes(u.userIdx)}
             assigned={assignedUserIdx === u.userIdx}

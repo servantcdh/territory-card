@@ -1,6 +1,14 @@
 import axios from "axios";
+import { getAccessToken } from "../storage";
 
+if (apiHost) {
+  axios.defaults.baseURL = apiHost;
+}
 axios.defaults.headers.common["Content-Type"] = "application/json";
+const accessToken = getAccessToken();
+if (accessToken) {
+  axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+}
 
 export const useAxios = async (config) => {
   try {

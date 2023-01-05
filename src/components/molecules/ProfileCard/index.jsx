@@ -3,7 +3,7 @@ import Card from "../../atoms/Card";
 import Profile from "../../atoms/Profile";
 import Tag from "../../atoms/Tag";
 
-const ProfileCard = ({ user, checked, assigned, onClick }) => {
+const ProfileCard = ({ className, user, checked, assigned, onClick }) => {
   const { userIdx, profile, name, live, gender, car, guide, auth, baptize } =
     user;
   const liveActive = live ? "bg-primary-200" : "bg-primary-400";
@@ -11,9 +11,11 @@ const ProfileCard = ({ user, checked, assigned, onClick }) => {
   const onClickHandler = () => {
     onClick(userIdx, checked, assigned);
   };
-  const className = `flex items-center space-x-4 text-md font-display p-1 rounded ${checkActive} mb-1`;
   return (
-    <Card className={className} onClick={onClickHandler}>
+    <Card
+      className={`flex items-center space-x-4 text-md font-display p-1 mb-1 ${checkActive} ${className}`}
+      onClick={onClickHandler}
+    >
       <Profile key={userIdx} src={profile} name={name} live={live} />
       <div className="text-base text-black">
         <div>

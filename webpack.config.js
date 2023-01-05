@@ -22,7 +22,6 @@ module.exports = {
   },
   // output: 웹팩이 번들을 내보내는 지점
   output: {
-    publicPath: "/",
     path: path.resolve("./dist"),
     filename: "[name].js",
     assetModuleFilename: (pathData) => {
@@ -41,6 +40,14 @@ module.exports = {
     client: {
       overlay: {
         errors: true,
+      },
+    },
+    proxy: {
+      "/api": {
+        target: process.env.API_HOST,
+        pathRewrite: {
+          "/api": "/",
+        },
       },
     },
     // hot: Hot Module Replacement 옵션, 변동된 모듈만 리렌더링
@@ -122,7 +129,9 @@ module.exports = {
     // ** JSON.stringify 함수로 감싸야 문자열로 정의됨
     new webpack.DefinePlugin({
       project: JSON.stringify("TerritoryCard"),
-      apiHost: JSON.stringify(process.env.API_HOST)
+      apiHost: JSON.stringify(
+        mode !== "development" ? process.env.API_HOST : ""
+      ),
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",

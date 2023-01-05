@@ -1,9 +1,9 @@
 import React from "react";
-import Container from "../../organisms/Container";
+import Body from "../../atoms/Body";
 
 const CardLayout = () => {
     return (
-        <Container className="animate-naviToCard" />
+        <Body className="animate-naviToCard" />
     );
 };
 

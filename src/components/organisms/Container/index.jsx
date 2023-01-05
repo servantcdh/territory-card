@@ -9,7 +9,7 @@ const Container = ({ className, children }) => {
   return (
     <Body className={` ${className}`}>
       {children}
-      <SpeedDial
+      {/* <SpeedDial
         items={[
           { route: "/", svg: "home" },
           { route: "/card", svg: "table" },
@@ -18,7 +18,7 @@ const Container = ({ className, children }) => {
           { route: "/setting", svg: "cog" },
           { callback: onLogoutHandler, svg: "logout" },
         ]}
-      />
+      /> */}
     </Body>
   );
 };
