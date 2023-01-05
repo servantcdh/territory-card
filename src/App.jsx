@@ -7,7 +7,7 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { getAccessToken, setAccessToken } from "./hooks/storage";
 import { accessApi, refreshTokenApi, logoutApi } from "./hooks/api/auth";
 import MainPage from "./pages/Main";
@@ -25,6 +25,7 @@ const App = () => {
   const accessMutation = useMutation(accessApi);
   const refreshTokenMutation = useMutation(refreshTokenApi);
   const logoutMutation = useMutation(logoutApi);
+  const queryClient = useQueryClient();
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
@@ -39,20 +40,30 @@ const App = () => {
   };
   const onSuccessRefreshToken = useCallback(({ accessToken }) => {
     setAccessToken(accessToken);
+    const userInfo = queryClient.getQueryData("user/one");
+    console.log(userInfo);
+    accessMutation.mutate({
+      car: false,
+      live: true,
+    });
+    queryClient.get
+    queryClient.invalidateQueries("user/one");
+    if (isLoginPage) {
+      navigate("/");
+    }
   });
   const onErrorRefreshToken = useCallback(() => {
+    setAccessToken(null);
     navigate("/login");
   });
   useEffect(() => {
-    if (!isLoginPage) {
-      if (!accessToken) {
-        navigate("/login");
-      } else {
-        refreshTokenMutation.mutate(null, {
-          onSuccess: onSuccessRefreshToken,
-          onError: onErrorRefreshToken,
-        });
-      }
+    if (!accessToken) {
+      navigate("/login");
+    } else {
+      refreshTokenMutation.mutate(null, {
+        onSuccess: onSuccessRefreshToken,
+        onError: onErrorRefreshToken,
+      });
     }
   }, [pathname]);
   return (

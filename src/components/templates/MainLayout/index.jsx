@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import Body from "../../atoms/Body";
 import ProfileCard from "../../molecules/ProfileCard";
 import Modal from "../../molecules/Modal";
+import Card from "../../atoms/Card";
 
 const MainLayout = ({ userStatus, user, onChangeAccessHandler }) => {
-  const [activeModal, setActiveModal] = useState(false);
+  const [activeModal, setActiveModal] = useState(user && !!user.driver);
   const onModalConfirmHandler = () => {
     setActiveModal(false);
     onChangeAccessHandler({
@@ -19,13 +20,15 @@ const MainLayout = ({ userStatus, user, onChangeAccessHandler }) => {
           user={user}
         />
       )}
-      {activeModal && user.driver && (
+      {activeModal && (
         <Modal
-          title="차량을 가지고 오셨나요?"
+          title="운전자이시군요!🪪"
           onConfirm={onModalConfirmHandler}
           buttonName="알려주기"
           buttonDisabled={false}
-        ></Modal>
+        >
+          <Card className="bg-gray-100 rounded"></Card>
+        </Modal>
       )}
     </Body>
   );

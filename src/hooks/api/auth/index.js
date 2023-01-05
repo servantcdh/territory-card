@@ -1,6 +1,6 @@
 import { useAxios } from "../use-axios";
 
-const baseUrl = `/api/auth`;
+const baseUrl = `${apiHost ? "" : "/api"}/auth`;
 
 export const loginApi = (data) => {
   return useAxios({
