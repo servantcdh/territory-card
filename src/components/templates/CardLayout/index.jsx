@@ -1,9 +1,9 @@
 import React from "react";
-import Body from "../../atoms/Body";
+import Container from "../../organisms/Container";
 
-const CardLayout = (props) => {
+const CardLayout = () => {
     return (
-        <Body className="animate-naviToCard"></Body>
+        <Container className="animate-naviToCard" />
     );
 };
 

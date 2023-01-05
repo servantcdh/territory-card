@@ -1,9 +1,9 @@
 import React from "react";
-import Body from "../../atoms/Body";
+import Container from "../../organisms/Container";
 
 const SettingLayout = () => {
     return (
-        <Body className="animate-naviToSetting"></Body>
+        <Container className="animate-naviToSetting" />
     );
 };
 

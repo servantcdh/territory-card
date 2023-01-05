@@ -1,9 +1,9 @@
 import React from "react";
-import Body from "../../atoms/Body";
+import Container from "../../organisms/Container";
 
 const S13Layout = () => {
     return (
-        <Body className="animate-naviToS13"></Body>
+        <Container className="animate-naviToS13" />
     );
 };
 

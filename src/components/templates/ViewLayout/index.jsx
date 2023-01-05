@@ -1,9 +1,9 @@
 import React from "react";
-import Body from "../../atoms/Body";
+import Container from "../../organisms/Container";
 
 const ViewLayout = (props) => {
     return (
-        <Body className="animate-naviToView"></Body>
+        <Container className="animate-naviToView" />
     );
 };
 

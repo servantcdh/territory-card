@@ -1,9 +1,9 @@
 import React from "react";
-import Body from "../../atoms/Body";
+import Container from "../../organisms/Container";
 
 const ProfileLayout = () => {
     return (
-        <Body className="animate-naviToProfile"></Body>
+        <Container className="animate-naviToProfile" />
     );
 };
 

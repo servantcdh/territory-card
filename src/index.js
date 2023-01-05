@@ -12,16 +12,13 @@ const queryClient = new QueryClient({
     },
   },
 });
-import RouteWrapper from "./route";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <RouteWrapper>
-        <App />
-      </RouteWrapper>
+      <App />
     </QueryClientProvider>
   </React.StrictMode>
 );
