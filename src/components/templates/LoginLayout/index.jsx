@@ -9,7 +9,7 @@ const LoginLayout = ({ onSubmit, pending, error, success }) => {
   const [password, setPassword] = useState("");
   const isNameError = error ? error.toString().includes("사용자명") : false;
   const isPasswordError = error ? error.toString().includes("암호") : false;
-  let isApiError = error && !isNameError && !isPasswordError;
+  const isApiError = error && !isNameError && !isPasswordError;
   const onNameChangeHandler = (e) => {
     setName(e.target.value);
   };
@@ -22,7 +22,11 @@ const LoginLayout = ({ onSubmit, pending, error, success }) => {
   };
   return (
     <div className="w-screen">
-      <Card className={`fixed inset-x-0 m-auto w-96 top-1/3 text-center border-4 border-amber-500 ${success ? "animate-hideLeft" : ""}`}>
+      <Card
+        className={`fixed inset-x-0 m-auto w-96 top-1/3 text-center border-4 border-amber-500 ${
+          success ? "animate-hideLeft" : ""
+        }`}
+      >
         <div className="text-2xl mb-4">
           <h1>로그인</h1>
         </div>
@@ -52,14 +56,16 @@ const LoginLayout = ({ onSubmit, pending, error, success }) => {
                 className="animate-bounce"
                 disabled={!(name && password) || pending}
               >
-                자동으로 로그인하기
+                내 계정을 기억하고 로그인하기
               </Button>
             </div>
           </form>
-          {isApiError && <p className="text-rose-500 b-3">서버와 통신을 할 수 없습니다.</p>}
+          {isApiError && (
+            <p className="text-rose-500 b-3">서버와 통신을 할 수 없습니다.</p>
+          )}
         </div>
       </Card>
-      <Footer className={`${success ? "animate-hideDown" : ""}`}/>
+      <Footer className={`${success ? "animate-hideDown" : ""}`} />
     </div>
   );
 };
