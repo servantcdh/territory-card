@@ -45,6 +45,10 @@ module.exports = {
           "0%": { transform: "rotate(0)" },
           "100%": { transform: "rotate(45deg)" },
         },
+        rotate0: {
+          "0%": { transform: "rotate(45deg)" },
+          "100%": { transform: "rotate(0)" },
+        },
         showUp: {
           "0%": { transform: "translateY(550%)", opacity: 0 },
           "100%": { transform: "translateY(0)", opacity: 1 },
@@ -87,6 +91,7 @@ module.exports = {
         scale: "scale 0.3s ease-in-out",
         fadeIn: "fadeIn 0.5s ease-in-out forwards",
         rotate45: "rotate45 0.5s ease-in-out forwards",
+        rotate0: "rotate0 0.5s ease-in-out forwards",
         showUp: "showUp 0.3s ease-in-out forwards",
         hideDown: "hideDown 0.5s ease-in-out forwards",
         hideLeft: "hideLeft 1s ease-in-out forwards",
