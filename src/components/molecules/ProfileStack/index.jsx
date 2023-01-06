@@ -5,7 +5,7 @@ const ProfileStack = ({ users }) => {
   return (
     <div className="flex -space-x-4">
       {users.map((u) => (
-        <Profile key={u.userIdx} src={u.profile} name={u.name} />
+        <Profile key={`stack_${u.userIdx}`} src={u.profile} name={u.name} />
       ))}
     </div>
   );

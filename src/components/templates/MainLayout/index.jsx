@@ -4,11 +4,18 @@ import ProfileCard from "../../molecules/ProfileCard";
 import Modal from "../../molecules/Modal";
 import Card from "../../atoms/Card";
 import Button from "../../atoms/Button";
+import CardLabelBox from "../../organisms/CardLabelBox";
 
-const MainLayout = ({ userStatus, user, onChangeAccess }) => {
-  const isDriver = !!(user && user.driver);
-  const isMale = !!(user && user.gender);
-  const hasCar = !!(user && user.car);
+const MainLayout = ({
+  myInfoStatus,
+  myInfo,
+  onChangeAccess,
+  myCardStatus,
+  myCard,
+}) => {
+  const isDriver = !!(myInfo && myInfo.driver);
+  const isMale = !!(myInfo && myInfo.gender);
+  const hasCar = !!(myInfo && myInfo.car);
   const [activeModal, setActiveModal] = useState(false);
   const [checkedCar, setCheckedCar] = useState(isDriver);
   const onModalConfirmHandler = useCallback(() => {
@@ -28,11 +35,11 @@ const MainLayout = ({ userStatus, user, onChangeAccess }) => {
     setActiveModal(isDriver && !hasCar);
   }, [setActiveModal, isDriver, hasCar]);
   return (
-    <Body>
-      {userStatus === "success" && (
+    <Body className="overflow-y-scroll">
+      {myInfoStatus === "success" && (
         <ProfileCard
           className={`animate-showDown p-2 border-b-4 border-yellow-400 bg-amber-500`}
-          user={user}
+          user={myInfo}
         />
       )}
       {activeModal && (
@@ -48,13 +55,17 @@ const MainLayout = ({ userStatus, user, onChangeAccess }) => {
             </div>
             <div className="text-8xl ">
               <Button
-                className={`border-0 mr-2 ${checkedCar ? "" : "bg-primary-400"}`}
+                className={`border-0 mr-2 ${
+                  checkedCar ? "" : "bg-primary-400"
+                }`}
                 onClick={onClickHasCarHandler}
               >
                 🚗
               </Button>
               <Button
-                className={`border-0 mr-2 ${!checkedCar ? "" : "bg-primary-400"}`}
+                className={`border-0 mr-2 ${
+                  !checkedCar ? "" : "bg-primary-400"
+                }`}
                 onClick={onClickNoCarHandler}
               >
                 {isMale ? "🚶🏻‍♂️" : "🚶🏻‍♀️"}
@@ -63,6 +74,7 @@ const MainLayout = ({ userStatus, user, onChangeAccess }) => {
           </Card>
         </Modal>
       )}
+      {myCardStatus === "success" && <CardLabelBox items={myCard} />}
     </Body>
   );
 };

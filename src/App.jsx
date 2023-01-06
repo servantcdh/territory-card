@@ -12,7 +12,7 @@ import { getAccessToken, setAccessToken } from "./hooks/storage";
 import useAccessMutation from "./hooks/query/auth/useAccessMutation";
 import useRefreshMutation from "./hooks/query/auth/useRefreshTokenMutation";
 import useLogoutMutation from "./hooks/query/auth/useLogoutMutation";
-import useUserInfoQuery from "./hooks/query/user/useUserInfoQuery";
+import useMyInfoQuery from "./hooks/query/user/useMyInfoQuery";
 import MainPage from "./pages/Main";
 import LoginPage from "./pages/Login";
 import ProfilePage from "./pages/Profile";
@@ -29,8 +29,8 @@ const App = () => {
   const { mutate: accessMutate } = useAccessMutation();
   const { mutate: refreshMutate } = useRefreshMutation();
   const { mutate: logoutMutate } = useLogoutMutation();
-  const { data: user } = useUserInfoQuery(null);
-  const hasCar = !!user && !!user.car;
+  const { data: myInfo } = useMyInfoQuery();
+  const hasCar = !!myInfo && !!myInfo.car;
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
@@ -44,7 +44,7 @@ const App = () => {
     navigate("/login");
   }, [accessMutate, setAccessToken, logoutMutate, navigate]);
   const onSuccessAccessMutation = useCallback(() => {
-    queryClient.invalidateQueries(["user/one", null]);
+    queryClient.invalidateQueries("myInfo");
   }, []);
   const onFailAccessMutation = useCallback(() => {
     // token 갱신
@@ -94,11 +94,19 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/setting" element={<SettingPage />} />
+        <Route path="/profile">
+          <Route path=":userIdx" element={<ProfilePage />} />
+          <Route path="me" element={<ProfilePage />} />
+        </Route>
+        <Route path="/setting">
+          <Route path=":userIdx" element={<SettingPage />} />
+          <Route path="me" element={<SettingPage />} />
+        </Route>
         <Route path="/card" element={<CardPage />} />
         <Route path="/s-13" element={<S13Page />} />
-        <Route path="/view" element={<ViewPage />} />
+        <Route path="/view">
+          <Route path=":cardIdx" element={<ViewPage />} />
+        </Route>
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       {!isLoginPage && (
@@ -107,8 +115,8 @@ const App = () => {
             { route: "/", svg: "home" },
             { route: "/card", svg: "table" },
             { route: "/s-13", svg: "document-text" },
-            { route: "/profile", svg: "user-circle" },
-            { route: "/setting", svg: "cog" },
+            { route: "/profile/me", svg: "user-circle" },
+            { route: "/setting/me", svg: "cog" },
             { callback: onLogoutHandler, svg: "logout" },
           ]}
         />

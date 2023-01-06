@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  mode: 'jit',
   content: ["./public/index.html", "./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {
@@ -37,6 +38,15 @@ module.exports = {
         scale: {
           "0%": { transform: "scale(0)" },
         },
+        cloudy: {
+          "0%, 100%": { transform: "translate3d(0px, 0px, 0px)" },
+          "50%": { transform: "translate3d(0px, 5px, 0px)" },
+        },
+        wiggle: {
+          "0%, 50% 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(0.5deg)" },
+          "75%": { transform: "rotate(-0.5deg)" },
+        },
         fadeIn: {
           "0%": { opacity: 0 },
           "100%": { opacity: 0.8 },
@@ -59,7 +69,7 @@ module.exports = {
         },
         hideDown: {
           "0%": { transform: "translateY(0)" },
-          "100%": { transform: "translateY(200%)"},
+          "100%": { transform: "translateY(200%)" },
         },
         hideLeft: {
           "0%": { transform: "translateX(0)" },
@@ -93,6 +103,8 @@ module.exports = {
       animation: {
         error: "error 0.5s ease-in-out forwards",
         scale: "scale 0.3s ease-in-out",
+        cloudy: "cloudy 2s ease-in infinite",
+        wiggle: "wiggle 3s ease-in infinite",
         fadeIn: "fadeIn 0.5s ease-in-out forwards",
         rotate45: "rotate45 0.5s ease-in-out forwards",
         rotate0: "rotate0 0.5s ease-in-out forwards",
