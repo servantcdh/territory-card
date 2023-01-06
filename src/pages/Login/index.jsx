@@ -1,13 +1,17 @@
 import React from "react";
 import LoginLayout from "../../components/templates/LoginLayout";
-import { useMutation } from "react-query";
-import { loginApi } from "../../hooks/api/auth";
+import useLoginMutation from "../../hooks/query/auth/useLoginMutation";
 import { setAccessToken } from "../../hooks/storage";
 import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const navigation = useNavigate();
-  const loginMutation = useMutation(loginApi);
+  const {
+    mutate: loginMutate,
+    isLoading: loginLoading,
+    error: loginError,
+    isSuccess: isLoginSuccess,
+  } = useLoginMutation();
   const onSuccessLoginMutate = ({ accessToken }) => {
     setAccessToken(accessToken);
     setTimeout(() => {
@@ -15,17 +19,14 @@ const LoginPage = () => {
     }, 500);
   };
   const onSubmitHandler = (name, password) => {
-    loginMutation.mutate(
-      { name, password },
-      { onSuccess: onSuccessLoginMutate }
-    );
+    loginMutate({ name, password }, { onSuccess: onSuccessLoginMutate });
   };
   return (
     <LoginLayout
       onSubmit={onSubmitHandler}
-      pending={loginMutation.isLoading}
-      error={loginMutation.error}
-      success={loginMutation.isSuccess}
+      pending={loginLoading}
+      error={loginError}
+      success={isLoginSuccess}
     />
   );
 };

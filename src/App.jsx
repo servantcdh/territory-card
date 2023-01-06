@@ -7,9 +7,10 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { useMutation, useQueryClient } from "react-query";
 import { getAccessToken, setAccessToken } from "./hooks/storage";
-import { accessApi, refreshTokenApi, logoutApi } from "./hooks/api/auth";
+import useAccessMutation from "./hooks/query/auth/useAccessMutation";
+import useRefreshMutation from "./hooks/query/auth/useRefreshTokenMutation";
+import useLogoutMutation from "./hooks/query/auth/useLogoutMutation";
 import MainPage from "./pages/Main";
 import LoginPage from "./pages/Login";
 import ProfilePage from "./pages/Profile";
@@ -22,35 +23,34 @@ import SpeedDial from "./components/molecules/SpeedDial";
 
 const App = () => {
   const accessToken = getAccessToken();
-  const accessMutation = useMutation(accessApi);
-  const refreshTokenMutation = useMutation(refreshTokenApi);
-  const logoutMutation = useMutation(logoutApi);
-  const queryClient = useQueryClient();
+  const { mutate: accessMutate } = useAccessMutation();
+  const { mutate: refreshMutate } = useRefreshMutation();
+  const { mutate: logoutMutate } = useLogoutMutation();
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
   const onLogoutHandler = () => {
-    accessMutation.mutate({
+    accessMutate({
       car: false,
       live: false,
     });
     setAccessToken(null);
-    logoutMutation.mutate();
+    logoutMutate();
     navigate("/login");
   };
+  const onFailAccessMutation = useCallback(() => {
+    // token 갱신
+    refreshMutate(null, {
+      onSuccess: onSuccessRefreshToken,
+      onError: onErrorRefreshToken,
+    });
+  });
   const onSuccessRefreshToken = useCallback(({ accessToken }) => {
     setAccessToken(accessToken);
-    const userInfo = queryClient.getQueryData("user/one");
-    console.log(userInfo);
-    accessMutation.mutate({
+    accessMutate({
       car: false,
       live: true,
     });
-    queryClient.get
-    queryClient.invalidateQueries("user/one");
-    if (isLoginPage) {
-      navigate("/");
-    }
   });
   const onErrorRefreshToken = useCallback(() => {
     setAccessToken(null);
@@ -60,10 +60,16 @@ const App = () => {
     if (!accessToken) {
       navigate("/login");
     } else {
-      refreshTokenMutation.mutate(null, {
-        onSuccess: onSuccessRefreshToken,
-        onError: onErrorRefreshToken,
-      });
+      accessMutate(
+        {
+          car: false,
+          live: true,
+        },
+        {
+          // accessToken 만료
+          onError: onFailAccessMutation,
+        }
+      );
     }
   }, [pathname]);
   return (
