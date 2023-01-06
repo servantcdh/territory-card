@@ -19,11 +19,11 @@ const ModalOverlay = ({
   onCancel,
 }) => {
   return (
-    <Card className="fixed m-auto w-11/12 h-3/5 inset-0 p-0 z-30 animate-scale box-border border-amber-500 border-4 rounded">
+    <Card className="fixed m-auto w-11/12 max-h-96 inset-x-0 top-24 p-0 z-30 animate-scale box-border border-amber-500 border-4 rounded">
       <header className="p-3 text-xl font-bold">
         <h2>{title}</h2>
       </header>
-      <div className="relative p-3 h-3/4 overflow-y-scroll bg-white text-sm font-thin">
+      <div className="relative p-3 h-auto max-h-64 overflow-y-scroll bg-white text-sm font-thin">
         {children}
       </div>
       <footer className="p-4 text-center">

@@ -1,24 +1,22 @@
 import React, { useCallback } from "react";
 import MainLayout from "../../components/templates/MainLayout";
-import { useQuery, useMutation, useQueryClient } from "react-query";
-import { myInfoApi } from "../../hooks/api/user";
-import { accessApi } from "../../hooks/api/auth";
+import { useQueryClient } from "react-query";
+import useUserInfoQuery from "../../hooks/query/user/useUserInfoQuery";
+import useAccessMutation from "../../hooks/query/auth/useAccessMutation";
 
 const MainPage = () => {
-  const { status: userStatus, data: user } = useQuery("user/one", myInfoApi, {
-    refetchOnMount: "always",
-  });
+  const { status: userStatus, data: user } = useUserInfoQuery(null);
   const queryClient = useQueryClient();
-  const accessMutation = useMutation(accessApi);
+  const accessMutation = useAccessMutation();
   const onChangeAccessHandler = useCallback(
     (access) => {
       accessMutation.mutate(access, {
         onSuccess: () => {
-          queryClient.invalidateQueries("user/one");
+          queryClient.invalidateQueries(["user/one", null]);
         },
       });
     },
-    [user]
+    [accessMutation, queryClient, user]
   );
   return (
     <MainLayout

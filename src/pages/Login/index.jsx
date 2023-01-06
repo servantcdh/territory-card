@@ -14,8 +14,9 @@ const LoginPage = () => {
   } = useLoginMutation();
   const onSuccessLoginMutate = ({ accessToken }) => {
     setAccessToken(accessToken);
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       navigation("/");
+      clearTimeout(timeout);
     }, 500);
   };
   const onSubmitHandler = (name, password) => {

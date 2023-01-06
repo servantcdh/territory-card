@@ -22,7 +22,7 @@ const Mark = ({ id, markType, checked, onCheck }) => {
   }
   const onClickHandler = useCallback(() => {
     onCheck(checked ? 0 : markType);
-  }, [checked, markType]);
+  }, [onCheck, checked, markType]);
   return (
     <button
       id={id}
