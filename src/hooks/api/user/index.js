@@ -2,10 +2,9 @@ import { useAxios } from "../useAxios";
 
 const baseUrl = `${apiHost ? "" : "/api"}/user`;
 
-export const userInfoApi = ({ queryKey }) => {
-  const userIdx = queryKey[2];
+export const myInfoApi = () => {
   return useAxios({
     method: "GET",
-    url: `${baseUrl}/one${userIdx ? `/${userIdx}` : ""}`,
+    url: `${baseUrl}/one`,
   });
 };
