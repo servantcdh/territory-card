@@ -8,13 +8,13 @@ const CardLabel = ({ item }) => {
   const users = [];
   item.crewAssigned.forEach((crew) => users.push(crew.user));
   const onClickHandler = useCallback(() => {
-    navigate(`/view/${item.cardIdx}`);
+    navigate(`/view/${item.cardIdx}/${item.idx}`);
   }, [navigate]);
   return (
-    <Frame>
+    <Frame className="animate-wiggle">
       <div className="border border-primary-300 w-full h-full p-2 flex z-10 break-all">
         <div className="w-24">
-          <div>카드번호.{item.cardIdx}</div>
+          <div>구역번호.{item.cardIdx}</div>
           <div className="mb-1 text-xl">{item.card.name}</div>
           <div>배정날짜.</div>
           <div className="text-sm">
@@ -24,7 +24,9 @@ const CardLabel = ({ item }) => {
         <div className="border-r border-primary-300 mx-3"></div>
         <div className="">
           <div>함께하는 사람.</div>
-          <ProfileStack key={`stack_${item.idx}`} users={users} />
+          <div>
+            <ProfileStack key={`stack_${item.idx}`} users={users} />
+          </div>
           <div
             className="absolute right-6 bottom-5 text-2xl cursor-pointer text-yellow-200 hover:text-yellow-500"
             onClick={onClickHandler}

@@ -105,7 +105,7 @@ const App = () => {
         <Route path="/card" element={<CardPage />} />
         <Route path="/s-13" element={<S13Page />} />
         <Route path="/view">
-          <Route path=":cardIdx" element={<ViewPage />} />
+          <Route path=":cardIdx/:cardAssignedIdx" element={<ViewPage />} />
         </Route>
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
