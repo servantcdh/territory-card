@@ -138,6 +138,7 @@ module.exports = {
       template: "./public/index.html",
       templateParameters: {
         env: mode === "development" ? "(개발용)" : "",
+        kakao_key: process.env.KAKAO_KEY,
       },
       minify:
         mode !== "development"
