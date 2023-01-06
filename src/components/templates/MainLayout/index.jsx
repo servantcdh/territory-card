@@ -55,7 +55,7 @@ const MainLayout = ({
             </div>
             <div className="text-8xl ">
               <Button
-                className={`border-0 mr-2 ${
+                className={`border-0 mr-2 hover:bg-orange-400 ${
                   checkedCar ? "" : "bg-primary-400"
                 }`}
                 onClick={onClickHasCarHandler}
@@ -63,7 +63,7 @@ const MainLayout = ({
                 🚗
               </Button>
               <Button
-                className={`border-0 mr-2 ${
+                className={`border-0 mr-2 hover:bg-orange-400 ${
                   !checkedCar ? "" : "bg-primary-400"
                 }`}
                 onClick={onClickNoCarHandler}

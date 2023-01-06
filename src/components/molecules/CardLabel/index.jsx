@@ -26,7 +26,7 @@ const CardLabel = ({ item }) => {
             <div>함께하는 사람.</div>
             <ProfileStack key={`stack_${item.idx}`} users={users} />
             <div
-              className="absolute right-6 bottom-5 text-2xl text-yellow-200"
+              className="absolute right-6 bottom-5 text-2xl cursor-pointer text-yellow-200 hover:text-yellow-500"
               onClick={onClickHandler}
             >
               시작하기
