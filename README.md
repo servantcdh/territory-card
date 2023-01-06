@@ -53,7 +53,9 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. 토큰 갱신을 구현하는 중 `refreshToken`을 `cookie`에 담는 것이 `XSS`공격에 좀 더 잘 대비하는 것이라는 글을 보게 되어 수정하던 도중 브라우저가 쿠키를 생성하지 못하는 문제가 발생했다. 이는 `webpack-dev-server`의 `proxy`로 해결할 수 있다.
+1. 토큰 갱신을 구현하는 중 `refreshToken`을 `cookie`에 담는 것이 `XSS`공격에 좀 더 잘 대비하는 것이라는 글을 보게 되어 수정하던 도중 브라우저가 쿠키를 생성하지 못하는 문제가 발생했다. 이는 `api server host`와 달라 발생한 `cors error`가 원인이므로, `webpack-dev-server`의 `proxy`로 해결할 수 있다.
+
+2. `react-query`을 `custom hook`으로 모듈화 진행중이다. 컨벤션(use로 시작, `hook component`내의 최상단에서 호출 등)을 잘 지키지 않으면 `invalid hook call` 에러가 발생하기 때문에 주의해야 한다.
 
 ## 참고한 곳
 
