@@ -8,3 +8,11 @@ export const myCardApi = () => {
     url: `${baseUrl}/card/me`,
   });
 };
+
+export const assignedCardApi = ({ queryKey }) => {
+  const [_, cardAssignedIdx] = queryKey;
+  return useAxios({
+    method: "GET",
+    url: `${baseUrl}/card/${cardAssignedIdx}`,
+  });
+};
