@@ -14,10 +14,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- `accessToken`이 없거나 만료된 경우 `refreshToken`으로 갱신을 시도하는 기능을 구현한다.
-- `accessToken`과 `refreshToken`이 없는 사용자를 로그인 페이지로 리다이렉트시키는 기능을 구현한다.
-- 사용자 정보를 요청하는 api를 연동한다.
-- 사용자 정보 카드를 메인 레이아웃 상단에 배치한다.
+- 메인 페이지에 구역 카드 목록을 표시한다.
 
 ## 사용한 라이브러리
 
@@ -53,15 +50,11 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. 토큰 갱신을 구현하는 중 `refreshToken`을 `cookie`에 담는 것이 `XSS`공격에 좀 더 잘 대비하는 것이라는 글을 보게 되어 수정하던 도중 브라우저가 쿠키를 생성하지 못하는 문제가 발생했다. 이는 `api server host`와 달라 발생한 `cors error`가 원인이므로, `webpack-dev-server`의 `proxy`로 해결할 수 있다.
-
-2. `react-query`을 `custom hook`으로 모듈화 진행중이다. 컨벤션(use로 시작, `hook component`내의 최상단에서 호출 등)을 잘 지키지 않으면 `invalid hook call` 에러가 발생하기 때문에 주의해야 한다.
+1. 메인 페이지의 구역 카드 목록은 사용자들이 실시간으로 카드 배정 현황을 보는 요소이다. `useQuery` 옵션 가운데 `refetchinterval`을 사용해서 지정한 시간마다 자동으로 `refetch`시키므로 사용자가 `server state`를 좀더 신선하게 조회할 수 있게 한다.
 
 ## 참고한 곳
 
-[LocalStorage vs. Cookies: JWT 토큰을 안전하게 저장하기 위해 알아야할 모든것: hshine1226블로그](https://hshine1226.medium.com/localstorage-vs-cookies-jwt-%ED%86%A0%ED%81%B0%EC%9D%84-%EC%95%88%EC%A0%84%ED%95%98%EA%B2%8C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0-%EC%9C%84%ED%95%B4-%EC%95%8C%EC%95%84%EC%95%BC%ED%95%A0-%EB%AA%A8%EB%93%A0%EA%B2%83-4fb7fb41327c)
-
-[[React] Webpack Proxy설정을 이용하여 CORS 해결: J4J블로그](https://jforj.tistory.com/149)
+[React Query 튜토리얼(3) - Background Refetch 옵션: FE-Lex-Kim/-TIL](https://github.com/FE-Lex-Kim/-TIL/blob/master/React/React%20Query%20%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC(3)%20-%20Background%20Refetch%20%EC%98%B5%EC%85%98.md#%EC%9E%90%EB%8F%99-refetch)
 
 ## 만든이
 
