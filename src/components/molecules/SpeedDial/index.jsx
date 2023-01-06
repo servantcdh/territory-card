@@ -1,6 +1,13 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate, useMatch } from "react-router-dom";
 import Svg from "../../atoms/Svg";
+
+const Backdrop = ({ onClose }) => {
+  const onClickHandler = useCallback(() => onClose(), [onClose]);
+  return (
+    <div className="fixed top-0 left-0 w-full h-screen" onClick={onClickHandler} />
+  );
+};
 
 const SpeedDial = ({ items }) => {
   const [active, setActive] = useState(false);
@@ -19,8 +26,10 @@ const SpeedDial = ({ items }) => {
     ? "animate-rotate45"
     : "animate-rotate0";
   const isMainPage = useMatch("/");
+  const onClickCloseHandler = useCallback(() => setActive(false), [setActive]);
   return (
     <div>
+      {active && <Backdrop onClose={onClickCloseHandler}/>}
       <div className="fixed bottom-24 m-3 right-0 w-20">
         {!!items.length &&
           items.map((item, idx) => (

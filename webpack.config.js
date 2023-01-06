@@ -22,6 +22,7 @@ module.exports = {
   },
   // output: 웹팩이 번들을 내보내는 지점
   output: {
+    publicPath: "/",
     path: path.resolve("./dist"),
     filename: "[name].js",
     assetModuleFilename: (pathData) => {

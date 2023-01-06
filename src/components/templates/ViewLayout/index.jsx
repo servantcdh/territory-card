@@ -3,7 +3,8 @@ import Body from "../../atoms/Body";
 
 const ViewLayout = (props) => {
     return (
-        <Body className="animate-naviToView" />
+        <Body className="animate-naviToView">
+        </Body>
     );
 };
 
