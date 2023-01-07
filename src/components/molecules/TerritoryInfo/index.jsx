@@ -52,7 +52,8 @@ const TerritoryInfo = ({
             {!!users.length &&
               users.map((user) => (
                 <Profile
-                  className="mr-1"
+                  className="mr-0.5 w-11 h-11"
+                  liveClassName="left-[2.1rem]"
                   key={`profile_${user.idx}`}
                   {...user}
                   onClick={onProfileClickHandler.bind(null, user.idx)}
