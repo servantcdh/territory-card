@@ -1,17 +1,21 @@
 import React, { useCallback } from "react";
 import Button from "../../atoms/Button";
 import KakaoMapButton from "../../atoms/KakaoMapButton";
+import Profile from "../../atoms/Profile";
+import Tag from "../../atoms/Tag";
 import Textarea from "../../atoms/Textarea";
-import ProfileStack from "../ProfileStack";
 
 const TerritoryInfo = ({
+  className,
   cardData,
-  cardAssignedIdx,
   users,
   isUserAssignedTo,
   dateAssigned,
   address,
   onMemoChange,
+  onMemoFocus,
+  disabledMemo,
+  memoFocusUser,
   onCompleteClick,
 }) => {
   const onMemoChangeHander = useCallback(
@@ -20,8 +24,14 @@ const TerritoryInfo = ({
     },
     [onMemoChange]
   );
+  const onFocusHandler = useCallback(() => {
+    onMemoFocus(true);
+  }, [onMemoFocus]);
+  const onBlurHandler = useCallback(() => {
+    onMemoFocus(false);
+  }, [onMemoFocus]);
   return (
-    <div className="w-auto h-auto">
+    <div className={`w-auto h-auto ${className}`}>
       <div className="border border-primary-300 w-full h-full p-2 flex z-10 break-all mb-1">
         <div className="w-24">
           <div>구역번호.{cardData.idx}</div>
@@ -34,8 +44,15 @@ const TerritoryInfo = ({
         <div className="border-r border-primary-300 mx-3"></div>
         <div className="">
           <div>함께하는 사람.</div>
-          <div className="mb-2">
-            <ProfileStack key={`stack_${cardAssignedIdx}`} users={users} />
+          <div className="mb-2 flex">
+            {!!users.length &&
+              users.map((user) => (
+                <Profile
+                  className="mr-1"
+                  key={`profile_${user.idx}`}
+                  {...user}
+                />
+              ))}
           </div>
           {isUserAssignedTo && (
             <div>
@@ -58,20 +75,23 @@ const TerritoryInfo = ({
       </div>
       <div className="border border-primary-300 w-full h-full p-2 break-all">
         <div className="">
-          <div className="mb-1">메모.</div>
+          <div className="mb-1 flex">
+            <div className="mb-1">메모.</div>
+            {memoFocusUser ? (
+              <p>(다음 사람이 작성중: {memoFocusUser.name})</p>
+            ) : (
+              ""
+            )}
+          </div>
           <div>
-            {isUserAssignedTo && (
-              <Textarea
-                className="w-full py-3 text-primary-700"
-                value={cardData.memo}
-                onChange={onMemoChangeHander}
-              />
-            )}
-            {!isUserAssignedTo && (
-              <div className="bg-amber-100 w-full p-3 text-primary-700 rounded">
-                {cardData.memo}
-              </div>
-            )}
+            <Textarea
+              className="w-full py-3 text-primary-700"
+              value={cardData.memo}
+              onChange={onMemoChangeHander}
+              onFocus={onFocusHandler}
+              onBlur={onBlurHandler}
+              disabled={disabledMemo}
+            />
           </div>
         </div>
       </div>

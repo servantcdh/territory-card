@@ -1,8 +1,9 @@
 import React, { useCallback, useState } from "react";
 import Body from "../../atoms/Body";
 import Modal from "../../molecules/Modal";
+import TerritoryCard from "../../molecules/TerritoryCard";
 import TerritoryInfo from "../../molecules/TerritoryInfo";
-import TerritoryCard from "../../organisms/TerritoryCard";
+import TerritoryContentBox from "../../organisms/TerritoryContentBox";
 
 const ViewLayout = ({
   cardStatus,
@@ -13,6 +14,8 @@ const ViewLayout = ({
   userIdx,
   address,
   onMemoChange,
+  onMemoFocus,
+  onMark,
 }) => {
   const [activeModal, setActiveModal] = useState(false);
   const onCompleteClickHandler = useCallback(() => {
@@ -30,18 +33,28 @@ const ViewLayout = ({
     },
     [onMemoChange]
   );
+  const onMemoFocusHander = useCallback(
+    (focused) => {
+      onMemoFocus(focused);
+    },
+    [onMemoFocus]
+  );
+  const onMarkHandler = useCallback(
+    (cardContentIdx, cardMarkIdx) => {
+      onMark(cardContentIdx, cardMarkIdx);
+    },
+    [onMark]
+  );
   if (cardStatus !== "success" || assignedStatus !== "success") {
     if (cardStatus === "error" || assignedStatus !== "error") {
-      return <p>정보를 불러올 수 없습니다.</p>;
+      return;
     }
-    return <p>불러오는 중...</p>;
+    return;
   }
-  const {
-    idx: cardAssignedIdx,
-    userIdx: userIdxAssignedTo,
-    dateAssigned,
-  } = assignedData;
+  const { userIdx: userIdxAssignedTo, dateAssigned, cardRecord } = assignedData;
   const isUserAssignedTo = userIdx === userIdxAssignedTo;
+  const disabledMemo = !!cardData.memoFocusUserIdx && cardData.memoFocusUserIdx !== userIdx;
+  const memoFocusUser = !disabledMemo ? null : users.find((user) => user.idx === cardData.memoFocusUserIdx);
   return (
     <Body className="animate-naviToView p-1">
       {activeModal && (
@@ -59,25 +72,24 @@ const ViewLayout = ({
       )}
       <TerritoryCard>
         <TerritoryInfo
+          className="mb-3"
           cardData={cardData}
-          cardAssignedIdx={cardAssignedIdx}
           users={users}
           isUserAssignedTo={isUserAssignedTo}
           dateAssigned={dateAssigned}
           address={address}
           onMemoChange={onMemoChangeHander}
+          onMemoFocus={onMemoFocusHander}
+          disabledMemo={disabledMemo}
+          memoFocusUser={memoFocusUser}
           onCompleteClick={onCompleteClickHandler}
         />
-        {/* TerritoryContent */}
-        {/* TerritoryContentRefusal */}
-        {/* TerritoryContentPhone */}
-        {/* TerritoryContentCallModal */}
-        <div>
-          {/* TerritoryContentStreet */}
-          {/* TerritoryContentBuilding */}
-          {/* TerritoryContentName */}
-          {/* MarkBox */}
-        </div>
+        <TerritoryContentBox
+          cardContent={cardData.cardContent}
+          cardRecord={cardRecord}
+          onMark={onMarkHandler}
+          userIdx={userIdx}
+        />
       </TerritoryCard>
     </Body>
   );

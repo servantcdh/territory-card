@@ -1,28 +1,33 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Mark from "../../molecules/Mark";
 
-const MarkBox = (props) => {
-  const [mark, setMark] = useState(0);
+const MarkBox = ({ cardContentIdx, cardMarkIdx, isUpdate , onChange }) => {
+  const [mark, setMark] = useState(cardMarkIdx);
   const markList = [
     {
-      type: 1, // 만남
+      type: 2, // 만남
       checked: false,
     },
     {
-      type: 2, // 방문금지
+      type: 3, // 방문금지
       checked: false,
     },
   ];
-  const onCheckHandler = (mark) => {
-    console.log(mark);
-    setMark(mark);
-  };
+  const onCheckHandler = useCallback((cardMarkIdx) => {
+    setMark(cardMarkIdx);
+    onChange(cardContentIdx, cardMarkIdx);
+  }, [setMark, onChange]);
   markList.forEach((m) => (m.checked = m.type === mark));
+  useEffect(() => {
+    if (isUpdate) {
+      setMark(cardMarkIdx);
+    }
+  }, [cardMarkIdx, isUpdate, setMark])
   return (
     <>
       {markList.map((m) => (
         <Mark
-          key={`${props.cardContentIdx}_${m.type}`}
+          key={`${cardContentIdx}_${m.type}`}
           markType={m.type}
           checked={m.checked}
           onCheck={onCheckHandler}

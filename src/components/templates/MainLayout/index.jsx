@@ -51,9 +51,9 @@ const MainLayout = ({
         >
           <Card className="bg-gray-100 rounded text-center">
             <div className="text-lg mb-3">
-              <p>오늘은 자동차를 가지고 오셨나요?</p>
+              <p>자동차를 가져오셨나요?</p>
             </div>
-            <div className="text-8xl ">
+            <div className="text-8xl">
               <Button
                 className={`border-0 mr-2 hover:bg-orange-400 ${
                   checkedCar ? "" : "bg-primary-400"

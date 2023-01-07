@@ -25,7 +25,7 @@ const ProfileCard = ({ className, user, checked, assigned, onClick }) => {
     >
       <Profile
         key={userIdx}
-        src={profile}
+        profile={profile}
         name={name}
         live={live}
         onClick={onProfileClickHandler}

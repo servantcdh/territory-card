@@ -16,7 +16,7 @@ const ProfileStack = ({ users }) => {
         <Profile
           key={`stack_${u.idx}`}
           userIdx={u.idx}
-          src={u.profile}
+          profile={u.profile}
           name={u.name}
           onClick={onClick}
         />

@@ -29,7 +29,7 @@ const App = () => {
   const { mutate: accessMutate } = useAccessMutation();
   const { mutate: refreshMutate } = useRefreshMutation();
   const { mutate: logoutMutate } = useLogoutMutation();
-  const { data: myInfo } = useMyInfoQuery();
+  const { data: myInfo } = useMyInfoQuery({ enabled: !!accessToken });
   const hasCar = !!myInfo && !!myInfo.car;
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();

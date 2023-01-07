@@ -5,7 +5,10 @@ import Svg from "../../atoms/Svg";
 const Backdrop = ({ onClose }) => {
   const onClickHandler = useCallback(() => onClose(), [onClose]);
   return (
-    <div className="fixed top-0 left-0 w-full h-screen" onClick={onClickHandler} />
+    <div
+      className="fixed top-0 left-0 w-full h-screen"
+      onClick={onClickHandler}
+    />
   );
 };
 
@@ -29,23 +32,25 @@ const SpeedDial = ({ items }) => {
   const onClickCloseHandler = useCallback(() => setActive(false), [setActive]);
   return (
     <div>
-      {active && <Backdrop onClose={onClickCloseHandler}/>}
-      <div className="fixed bottom-24 m-3 right-0 w-20">
-        {!!items.length &&
-          items.map((item, idx) => (
-            <div
-              key={`dial_${idx}`}
-              className={`mb-1 rounded-full w-20 h-20 bg-orange-300 hover:bg-orange-400 border-8 border-black ${animateShow}`}
-              onClick={
-                item.callback
-                  ? item.callback
-                  : onClickRouteHandler.bind(null, item.route)
-              }
-            >
-              <Svg className="w-12 h-12 m-auto mt-2" type={item.svg} />
-            </div>
-          ))}
-      </div>
+      {active && <Backdrop onClose={onClickCloseHandler} />}
+      {active && (
+        <div className="fixed bottom-24 m-3 right-0 w-20">
+          {!!items.length &&
+            items.map((item, idx) => (
+              <div
+                key={`dial_${idx}`}
+                className={`mb-1 rounded-full w-20 h-20 bg-orange-300 hover:bg-orange-400 border-8 border-black ${animateShow}`}
+                onClick={
+                  item.callback
+                    ? item.callback
+                    : onClickRouteHandler.bind(null, item.route)
+                }
+              >
+                <Svg className="w-12 h-12 m-auto mt-2" type={item.svg} />
+              </div>
+            ))}
+        </div>
+      )}
       <div
         className={`fixed bottom-1 m-3 right-0 w-20 h-20 ${
           isMainPage ? "animate-scale" : ""
