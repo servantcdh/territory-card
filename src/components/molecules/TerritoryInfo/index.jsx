@@ -59,23 +59,23 @@ const TerritoryInfo = ({
                 />
               ))}
           </div>
-          {isUserAssignedTo && (
-            <div>
-              <KakaoMapButton
-                className="text-sm border-2 cursor-pointer mr-1 bg-yellow-400 text-black hover:bg-yellow-600"
-                dest={cardData.name}
-                address={address}
-              >
-                카카오내비
-              </KakaoMapButton>
+          <div>
+            <KakaoMapButton
+              className="text-sm border-2 cursor-pointer mr-1 bg-yellow-400 text-black hover:bg-yellow-600"
+              dest={cardData.name}
+              address={address}
+            >
+              카카오내비
+            </KakaoMapButton>
+            {isUserAssignedTo && (
               <Button
                 className="text-sm border-2 cursor-pointer text-black hover:bg-yellow-600"
                 onClick={onCompleteClick}
               >
                 반납하기
               </Button>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
       <div className="border border-primary-300 w-full h-full p-2 break-all">
