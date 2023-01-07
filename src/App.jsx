@@ -88,6 +88,12 @@ const App = () => {
         }
       );
     }
+    window.addEventListener("beforeunload", () => {
+      accessMutate({
+        car: false,
+        live: false,
+      });
+    });
   }, [pathname, hasCar]);
   return (
     <>
