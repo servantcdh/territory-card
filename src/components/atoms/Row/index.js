@@ -13,16 +13,12 @@ const Column = ({ className, children, isLast }) => {
   );
 };
 
-const Row = ({ className, columns, header, firstRow, divide, onClick }) => {
-  const onClickHandler = useCallback(() => {
-    onClick();
-  }, [onClick]);
+const Row = ({ className, columns, header, firstRow, divide }) => {
   return (
     <div
       className={`bg-amber-200 ${!columns ? "rounded" : ""} ${
         firstRow ? "rounded-t" : ""
       } ${divide ? "rounded-b mb-2" : ""} w-auto h-13 p-2 ${className}`}
-      onClick={onClickHandler}
     >
       {!!columns && (
         <>

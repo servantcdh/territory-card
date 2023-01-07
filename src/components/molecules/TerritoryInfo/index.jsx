@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../atoms/Button";
 import KakaoMapButton from "../../atoms/KakaoMapButton";
 import Profile from "../../atoms/Profile";
-import Tag from "../../atoms/Tag";
 import Textarea from "../../atoms/Textarea";
 
 const TerritoryInfo = ({
@@ -18,6 +18,7 @@ const TerritoryInfo = ({
   memoFocusUser,
   onCompleteClick,
 }) => {
+  const navigate = useNavigate();
   const onMemoChangeHander = useCallback(
     (memo) => {
       onMemoChange(memo);
@@ -30,6 +31,9 @@ const TerritoryInfo = ({
   const onBlurHandler = useCallback(() => {
     onMemoFocus(false);
   }, [onMemoFocus]);
+  const onProfileClickHandler = useCallback((userIdx) => {
+    navigate(`/profile/${userIdx}`);
+  }, []);
   return (
     <div className={`w-auto h-auto ${className}`}>
       <div className="border border-primary-300 w-full h-full p-2 flex z-10 break-all mb-1">
@@ -51,6 +55,7 @@ const TerritoryInfo = ({
                   className="mr-1"
                   key={`profile_${user.idx}`}
                   {...user}
+                  onClick={onProfileClickHandler.bind(null, user.idx)}
                 />
               ))}
           </div>

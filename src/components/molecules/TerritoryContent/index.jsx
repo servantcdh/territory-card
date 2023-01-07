@@ -36,8 +36,8 @@ const TerritoryContent = ({
     : { cardMarkIdx: 1, crewAssigned: null };
   const { user } = crewAssigned ? crewAssigned : { user: null };
   const columns = [
-    building,
-    name,
+    <p onClick={onRowClickHandler}>{building}</p>,
+    <p onClick={onRowClickHandler}>{name}</p>,
     <MarkBox
       cardContentIdx={idx}
       cardMarkIdx={cardMarkIdx}
