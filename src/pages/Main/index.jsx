@@ -1,15 +1,27 @@
 import React, { Suspense, useCallback } from "react";
 import MainLayout from "../../components/templates/MainLayout";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQueries } from "react-query";
+import { myInfoApi } from "../../hooks/api/user";
+import { myCardApi } from "../../hooks/api/assign";
 import { ErrorBoundary } from "../../error";
 import useAccessMutation from "../../hooks/query/auth/useAccessMutation";
-import useMyInfoQuery from "../../hooks/query/user/useMyInfoQuery";
-import useMyCardQuery from "../../hooks/query/assign/useMyCardQuery";
 import Body from "../../components/atoms/Body";
 
 const MainPage = () => {
-  const { data: myInfo } = useMyInfoQuery();
-  const { data: myCard } = useMyCardQuery();
+  const results = useQueries([
+    {
+      queryKey: "myInfo",
+      queryFn: myInfoApi,
+      refetchOnMount: "always",
+    },
+    {
+      queryKey: "myCard",
+      queryFn: myCardApi,
+      refetchInterval: 2000,
+    }
+  ]);
+  const { data: myInfo } = results[0];
+  const { data: myCard } = results[1];
   const queryClient = useQueryClient();
   const accessMutation = useAccessMutation();
   const onChangeAccessHandler = useCallback(

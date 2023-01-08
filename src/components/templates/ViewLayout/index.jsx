@@ -43,10 +43,26 @@ const ViewLayout = ({
     },
     [onMark]
   );
-  const { userIdx: userIdxAssignedTo, dateAssigned, cardRecord } = assignedData;
+  const {
+    userIdx: userIdxAssignedTo,
+    dateAssigned,
+    cardRecord,
+  } = assignedData
+    ? assignedData
+    : {
+        userIdx: 0,
+        dateAssigned: "",
+        cardRecord: null,
+      };
   const isUserAssignedTo = userIdx === userIdxAssignedTo;
-  const disabledMemo = !!cardData.memoFocusUserIdx && cardData.memoFocusUserIdx !== userIdx;
-  const memoFocusUser = !disabledMemo ? null : users.find((user) => user.idx === cardData.memoFocusUserIdx);
+  const disabledMemo =
+    cardData &&
+    !!cardData.memoFocusUserIdx &&
+    cardData.memoFocusUserIdx !== userIdx;
+  const memoFocusUser = !disabledMemo
+    ? null
+    : users.find((user) => user.idx === cardData.memoFocusUserIdx);
+  const cardContent = cardData ? cardData.cardContent : null;
   return (
     <Body className="animate-naviToView p-1">
       {activeModal && (
@@ -77,7 +93,7 @@ const ViewLayout = ({
           onCompleteClick={onCompleteClickHandler}
         />
         <TerritoryContentBox
-          cardContent={cardData.cardContent}
+          cardContent={cardContent}
           cardRecord={cardRecord}
           onMark={onMarkHandler}
           userIdx={userIdx}

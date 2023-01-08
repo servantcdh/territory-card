@@ -7,12 +7,11 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQueries } from "react-query";
 import { getAccessToken, setAccessToken } from "./hooks/storage";
 import useAccessMutation from "./hooks/query/auth/useAccessMutation";
 import useRefreshMutation from "./hooks/query/auth/useRefreshTokenMutation";
 import useLogoutMutation from "./hooks/query/auth/useLogoutMutation";
-import useMyInfoQuery from "./hooks/query/user/useMyInfoQuery";
 import MainPage from "./pages/Main";
 import LoginPage from "./pages/Login";
 import ProfilePage from "./pages/Profile";
@@ -22,6 +21,7 @@ import S13Page from "./pages/S-13";
 import ViewPage from "./pages/View";
 import NotFoundPage from "./pages/NotFound";
 import SpeedDial from "./components/molecules/SpeedDial";
+import { myInfoApi } from "./hooks/api/user";
 
 const App = () => {
   const queryClient = useQueryClient();
@@ -29,7 +29,15 @@ const App = () => {
   const { mutate: accessMutate } = useAccessMutation();
   const { mutate: refreshMutate } = useRefreshMutation();
   const { mutate: logoutMutate } = useLogoutMutation();
-  const { data: myInfo } = useMyInfoQuery({ enabled: !!accessToken });
+  const results = useQueries([
+    {
+      queryKey: "myInfo",
+      queryFn: myInfoApi,
+      refetchOnMount: "always",
+      enabled: !!accessToken
+    },
+  ]);
+  const { data: myInfo } = results[0];
   const hasCar = !!myInfo && !!myInfo.car;
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();

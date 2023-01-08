@@ -1,9 +1,17 @@
 import React, { useCallback } from "react";
-import useAddressSearch from "../../../hooks/query/kakaoMap/useAddressSearch";
+import { useQueries } from "react-query";
+import { addressSearch } from "../../../hooks/kakaoMap";
 import Button from "../Button";
 
 const KakaoMapButton = ({ className, children, dest, address }) => {
-  const { data } = useAddressSearch(address);
+  const results = useQueries([
+    {
+      queryKey: [`addressSearch/${address}`, address],
+      queryFn: addressSearch,
+      refetchOnMount: "always",
+    },
+  ]);
+  const { data } = results[0];
   const x = data ? data[0].x : "";
   const y = data ? data[0].y : "";
   const url = `https://map.kakao.com/link/to/${dest},${y},${x}`;

@@ -1,19 +1,31 @@
 import React, { Suspense, useCallback, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQueryClient } from "react-query";
+import { useQueryClient, useQueries } from "react-query";
 import { ErrorBoundary } from "../../error";
 import ViewLayout from "../../components/templates/ViewLayout";
-import useCardQuery from "../../hooks/query/card/useCardQuery";
 import useCardMutation from "../../hooks/query/card/useCardMutation";
 import useRecordCardMutation from "../../hooks/query/record/useRecordCardMutation";
-import useAssignedCardQuery from "../../hooks/query/assign/useAssignedCardQuery";
 import Body from "../../components/atoms/Body";
+import { cardApi } from "../../hooks/api/card";
+import { assignedCardApi } from "../../hooks/api/assign";
 
 const ViewPage = () => {
   const { cardIdx, cardAssignedIdx } = useParams();
   const navigate = useNavigate();
-  const { data: cardData } = useCardQuery(cardIdx);
-  const { data: assignedData } = useAssignedCardQuery(cardAssignedIdx);
+  const results = useQueries([
+    {
+      queryKey: [`card/${cardIdx}`, cardIdx],
+      queryFn: cardApi,
+      refetchInterval: 2000,
+    },
+    {
+      queryKey: [`assignedCard/${cardAssignedIdx}`, cardAssignedIdx],
+      queryFn: assignedCardApi,
+      refetchInterval: 2000,
+    },
+  ]);
+  const { data: cardData } = results[0];
+  const { data: assignedData } = results[1];
   const { mutate: cardMutate } = useCardMutation();
   const { mutate: recordMutate } = useRecordCardMutation();
   const queryClient = useQueryClient();
@@ -57,7 +69,7 @@ const ViewPage = () => {
         name: cardData.name,
         status: cardData.status,
         memo: cardData.memo,
-        memoFocusUserIdx: focused ? userIdx : null,
+        memoFocusUserIdx: focused ? userIdx : 0,
       });
     },
     [cardMutate, cardData, userIdx]

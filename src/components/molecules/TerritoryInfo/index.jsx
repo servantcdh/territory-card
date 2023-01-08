@@ -19,6 +19,9 @@ const TerritoryInfo = ({
   onCompleteClick,
 }) => {
   const navigate = useNavigate();
+  const { idx, name, memo } = cardData
+    ? cardData
+    : { idx: 0, name: "", memo: "" };
   const onMemoChangeHandler = useCallback(
     (memo) => {
       onMemoChange(memo);
@@ -38,8 +41,8 @@ const TerritoryInfo = ({
     <div className={`w-auto h-auto ${className}`}>
       <div className="border border-primary-300 w-full h-full p-2 flex z-10 break-all mb-1">
         <div className="w-24">
-          <div>구역번호.{cardData.idx}</div>
-          <div className="mb-1 text-xl">{cardData.name}</div>
+          <div>구역번호.{idx}</div>
+          <div className="mb-1 text-xl">{name}</div>
           <div>배정날짜.</div>
           <div className="text-sm">
             {new Date(dateAssigned).toLocaleDateString()}
@@ -63,7 +66,7 @@ const TerritoryInfo = ({
           <div>
             <KakaoMapButton
               className="text-sm border-2 cursor-pointer mr-1 bg-yellow-400 text-black hover:bg-yellow-600"
-              dest={cardData.name}
+              dest={name}
               address={address}
             >
               카카오내비
@@ -92,7 +95,7 @@ const TerritoryInfo = ({
           <div>
             <Textarea
               className="w-full py-3 text-primary-700"
-              value={cardData.memo}
+              value={memo}
               onChange={onMemoChangeHandler}
               onFocus={onFocusHandler}
               onBlur={onBlurHandler}
