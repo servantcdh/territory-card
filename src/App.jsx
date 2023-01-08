@@ -1,12 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import "./App.css";
-import {
-  Routes,
-  Route,
-  useMatch,
-  useNavigate,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useMatch, useNavigate } from "react-router-dom";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { getAccessToken, setAccessToken } from "./hooks/storage";
 import useAccessMutation from "./hooks/query/auth/useAccessMutation";
@@ -43,7 +37,6 @@ const App = () => {
   const hasCar = !!myInfo && !!myInfo.car;
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();
-  const pathname = useLocation().pathname;
   const onLogoutHandler = useCallback(() => {
     accessMutate({
       car: false,
@@ -104,7 +97,7 @@ const App = () => {
         live: false,
       });
     });
-  }, [pathname, hasCar]);
+  }, [accessToken, hasCar]);
   return (
     <>
       <Routes>

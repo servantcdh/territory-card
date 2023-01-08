@@ -10,7 +10,6 @@ const KakaoMapButton = ({ className, children, dest, address }) => {
         queryKey: [`addressSearch/${address}`, address],
         queryFn: addressSearch,
         refetchOnMount: "always",
-        suspense: false,
       },
     ],
   });

@@ -1,13 +1,12 @@
-import React, { Suspense, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
-import { ErrorBoundary } from "../../error";
+import { cardApi } from "../../hooks/api/card";
+import { assignedCardApi } from "../../hooks/api/assign";
 import ViewLayout from "../../components/templates/ViewLayout";
 import useCardMutation from "../../hooks/query/card/useCardMutation";
 import useRecordCardMutation from "../../hooks/query/record/useRecordCardMutation";
 import Body from "../../components/atoms/Body";
-import { cardApi } from "../../hooks/api/card";
-import { assignedCardApi } from "../../hooks/api/assign";
 
 const ViewPage = () => {
   const { cardIdx, cardAssignedIdx } = useParams();
@@ -18,13 +17,11 @@ const ViewPage = () => {
         queryKey: [`card/${cardIdx}`, cardIdx],
         queryFn: cardApi,
         refetchInterval: 2000,
-        suspense: true,
       },
       {
         queryKey: [`assignedCard/${cardAssignedIdx}`, cardAssignedIdx],
         queryFn: assignedCardApi,
         refetchInterval: 2000,
-        suspense: true,
       },
     ],
   });
@@ -97,24 +94,20 @@ const ViewPage = () => {
     );
   }, []);
   return (
-    <Suspense
-      fallback={<Body className="animate-naviToView p-1">불러오는 중</Body>}
-    >
-      <ErrorBoundary fallback={<div>에러 발생</div>}>
-        {cardData && assignedData && (
-          <ViewLayout
-            cardData={cardData}
-            assignedData={assignedData}
-            users={users}
-            userIdx={userIdx}
-            address={address}
-            onMemoChange={onMemoChangeHandler}
-            onMemoFocus={onMemoFocusHandler}
-            onMark={onMarkHandler}
-          />
-        )}
-      </ErrorBoundary>
-    </Suspense>
+    <>
+      {cardData && assignedData && (
+        <ViewLayout
+          cardData={cardData}
+          assignedData={assignedData}
+          users={users}
+          userIdx={userIdx}
+          address={address}
+          onMemoChange={onMemoChangeHandler}
+          onMemoFocus={onMemoFocusHandler}
+          onMark={onMarkHandler}
+        />
+      )}
+    </>
   );
 };
 

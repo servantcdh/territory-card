@@ -1,11 +1,9 @@
-import React, { Suspense, useCallback } from "react";
+import React, { useCallback } from "react";
 import MainLayout from "../../components/templates/MainLayout";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { myInfoApi } from "../../hooks/api/user";
 import { myCardApi } from "../../hooks/api/assign";
-import { ErrorBoundary } from "../../error";
 import useAccessMutation from "../../hooks/query/auth/useAccessMutation";
-import Body from "../../components/atoms/Body";
 
 const MainPage = () => {
   const results = useQueries({
@@ -37,15 +35,11 @@ const MainPage = () => {
     [accessMutation, queryClient]
   );
   return (
-    <Suspense fallback={<Body>불러오는 중</Body>}>
-      <ErrorBoundary fallback={<div>에러 발생</div>}>
-        <MainLayout
-          myInfo={myInfo}
-          myCard={myCard}
-          onChangeAccess={onChangeAccessHandler}
-        />
-      </ErrorBoundary>
-    </Suspense>
+    <MainLayout
+      myInfo={myInfo}
+      myCard={myCard}
+      onChangeAccess={onChangeAccessHandler}
+    />
   );
 };
 

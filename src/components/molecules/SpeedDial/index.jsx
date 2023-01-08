@@ -14,21 +14,25 @@ const Backdrop = ({ onClose }) => {
 
 const SpeedDial = ({ items }) => {
   const [active, setActive] = useState(false);
-  const onClickDialHandler = () => {
-    setActive((prev) => !prev);
-  };
   const navigate = useNavigate();
-  const onClickRouteHandler = (route) => {
-    navigate(route);
-    onClickDialHandler();
-  };
-  const animateShow = active ? "animate-showUp" : "translate-y-550 opacity-0";
+  const isMainPage = useMatch("/");
+  const onClickDialHandler = useCallback(
+    () => setActive((prev) => !prev),
+    [setActive]
+  );
+  const onClickRouteHandler = useCallback(
+    (route) => {
+      navigate(route);
+      onClickDialHandler();
+    },
+    [navigate, onClickDialHandler]
+  );
+  const animateShow = active ? "animate-showUp" : "";
   const animateRotate = active
     ? "animate-rotate45"
     : isMainPage
     ? "animate-rotate45"
     : "animate-rotate0";
-  const isMainPage = useMatch("/");
   const onClickCloseHandler = useCallback(() => setActive(false), [setActive]);
   return (
     <div>
