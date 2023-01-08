@@ -6,9 +6,7 @@ import TerritoryInfo from "../../molecules/TerritoryInfo";
 import TerritoryContentBox from "../../organisms/TerritoryContentBox";
 
 const ViewLayout = ({
-  cardStatus,
   cardData,
-  assignedStatus,
   assignedData,
   users,
   userIdx,
@@ -45,12 +43,6 @@ const ViewLayout = ({
     },
     [onMark]
   );
-  if (cardStatus !== "success" || assignedStatus !== "success") {
-    if (cardStatus === "error" || assignedStatus !== "error") {
-      return;
-    }
-    return;
-  }
   const { userIdx: userIdxAssignedTo, dateAssigned, cardRecord } = assignedData;
   const isUserAssignedTo = userIdx === userIdxAssignedTo;
   const disabledMemo = !!cardData.memoFocusUserIdx && cardData.memoFocusUserIdx !== userIdx;

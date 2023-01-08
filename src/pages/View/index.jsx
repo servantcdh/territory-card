@@ -1,18 +1,19 @@
-import React, { useCallback, useEffect } from "react";
+import React, { Suspense, useCallback, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
+import { ErrorBoundary } from "../../error";
 import ViewLayout from "../../components/templates/ViewLayout";
 import useCardQuery from "../../hooks/query/card/useCardQuery";
 import useCardMutation from "../../hooks/query/card/useCardMutation";
 import useRecordCardMutation from "../../hooks/query/record/useRecordCardMutation";
 import useAssignedCardQuery from "../../hooks/query/assign/useAssignedCardQuery";
+import Body from "../../components/atoms/Body";
 
 const ViewPage = () => {
   const { cardIdx, cardAssignedIdx } = useParams();
   const navigate = useNavigate();
-  const { status: cardStatus, data: cardData } = useCardQuery(cardIdx);
-  const { status: assignedStatus, data: assignedData } =
-    useAssignedCardQuery(cardAssignedIdx);
+  const { data: cardData } = useCardQuery(cardIdx);
+  const { data: assignedData } = useAssignedCardQuery(cardAssignedIdx);
   const { mutate: cardMutate } = useCardMutation();
   const { mutate: recordMutate } = useRecordCardMutation();
   const queryClient = useQueryClient();
@@ -80,18 +81,22 @@ const ViewPage = () => {
     );
   }, []);
   return (
-    <ViewLayout
-      cardStatus={cardStatus}
-      cardData={cardData}
-      assignedStatus={assignedStatus}
-      assignedData={assignedData}
-      users={users}
-      userIdx={userIdx}
-      address={address}
-      onMemoChange={onMemoChangeHandler}
-      onMemoFocus={onMemoFocusHandler}
-      onMark={onMarkHandler}
-    />
+    <Suspense
+      fallback={<Body className="animate-naviToView p-1">불러오는 중</Body>}
+    >
+      <ErrorBoundary fallback={<div>에러 발생</div>}>
+        <ViewLayout
+          cardData={cardData}
+          assignedData={assignedData}
+          users={users}
+          userIdx={userIdx}
+          address={address}
+          onMemoChange={onMemoChangeHandler}
+          onMemoFocus={onMemoFocusHandler}
+          onMark={onMarkHandler}
+        />
+      </ErrorBoundary>
+    </Suspense>
   );
 };
 

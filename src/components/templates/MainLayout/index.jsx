@@ -6,13 +6,7 @@ import Card from "../../atoms/Card";
 import Button from "../../atoms/Button";
 import CardLabelBox from "../../organisms/CardLabelBox";
 
-const MainLayout = ({
-  myInfoStatus,
-  myInfo,
-  onChangeAccess,
-  myCardStatus,
-  myCard,
-}) => {
+const MainLayout = ({ myInfo, myCard, onChangeAccess }) => {
   const isDriver = !!(myInfo && myInfo.driver);
   const isMale = !!(myInfo && myInfo.gender);
   const hasCar = !!(myInfo && myInfo.car);
@@ -36,7 +30,7 @@ const MainLayout = ({
   }, [setActiveModal, isDriver, hasCar]);
   return (
     <Body className="overflow-y-scroll">
-      {myInfoStatus === "success" && (
+      {!!myInfo && (
         <ProfileCard
           className={`animate-showDown p-2 border-b-4 border-yellow-400 bg-amber-500`}
           user={myInfo}
@@ -74,7 +68,7 @@ const MainLayout = ({
           </Card>
         </Modal>
       )}
-      {myCardStatus === "success" && <CardLabelBox items={myCard} />}
+      {!!myCard && <CardLabelBox items={myCard} />}
     </Body>
   );
 };
