@@ -14,7 +14,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- 구역 카드 상세 페이지를 구현한다.
+- ViewPage 및 다른 페이지 컴포넌트들에 `Suspense`와 `ErrorBoundary`를 구현한다.
 
 ## 사용한 라이브러리
 
@@ -50,11 +50,11 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. 메인 페이지의 구역 카드 목록처럼 상세 페이지 역시 사용자들이 실시간으로 현황을 볼 수 있어야 한다. 거기에 `data mutate`까지. 이 프로젝트의 핵심 기능을 구현하는 순서이다.
+1. `react-query`에서는 `React Suspense`와 `ErrorBoundary`를 지원해준다. 작성중인 ViewPage에 해당 기능을 구현해서 더 나은 사용자 경험을 제공하려한다.
 
 ## 참고한 곳
 
-[React Query 튜토리얼(3) - Background Refetch 옵션: FE-Lex-Kim/-TIL](https://github.com/FE-Lex-Kim/-TIL/blob/master/React/React%20Query%20%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC(3)%20-%20Background%20Refetch%20%EC%98%B5%EC%85%98.md#%EC%9E%90%EB%8F%99-refetch)
+[[React] ErrorBoundary 사용하여 에러 핸들링 하기 - rkd028블로그](https://velog.io/@rkd028/React-ErrorBoundary-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EC%97%90%EB%9F%AC-%ED%95%B8%EB%93%A4%EB%A7%81-%ED%95%98%EA%B8%B0)
 
 ## 만든이
 
