@@ -46,14 +46,14 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | postcss-loader               | _^7.0.2_   | postcss를 웹팩에 통합하는 로더                                                                                 |
 | react-router-dom             | _^6.6.1_   | url에 따른 페이지 컴포넌트를 지정한 dom에 렌더링시켜주는 라이브러리                                            |
 | axios                        | _^1.2.2_   | ajax request 라이브러리                                                                                        |
-| react-query                  | _^3.39.2_  | ajax 통신을 더 체계적으로 관리할 수 있는 라이브러리. 서버 상태 관리는 덤이지만 후자의 기능으로 더 유명하다.    |
 | dotenv                       | _^16.0.3_  | 환경 변수 파일을 읽어오는 라이브러리                                                                           |
+| @tanstack/react-query        | _^4.21.0_  | ajax 통신을 더 체계적으로 관리할 수 있는 라이브러리. 서버 상태 관리는 덤이지만 후자의 기능으로 더 유명하다.    |
 
 ## 특이 사항
 
 1. `react-query`에서는 `React Suspense`와 `ErrorBoundary`를 지원해준다. 작성중인 ViewPage에 해당 기능을 구현해서 더 나은 사용자 경험을 제공하려한다.
 
-2. `suspense` 옵션을 활성화할 땐 `useQueries` 사용을 권장한다. `react suspense`가 `data-fetching`에 관여하게 됨에 따라 의도치 않은`component unmount`이 일어나 `network waterfall`이 나타나게 되기 때문이다.
+2. `suspense` 옵션을 활성화할 땐 `useQueries` 사용을 권장한다. `react suspense`가 `data-fetching`에 관여하게 됨에 따라 의도치 않은`component unmount`이 일어나 `network waterfall`이 나타나게 되기 때문이다. `@tanstack/react-query v4.5.0`부터 지원.
 
 ## 참고한 곳
 

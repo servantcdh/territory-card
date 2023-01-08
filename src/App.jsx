@@ -7,7 +7,7 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
-import { useQueryClient, useQueries } from "react-query";
+import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { getAccessToken, setAccessToken } from "./hooks/storage";
 import useAccessMutation from "./hooks/query/auth/useAccessMutation";
 import useRefreshMutation from "./hooks/query/auth/useRefreshTokenMutation";
@@ -29,14 +29,16 @@ const App = () => {
   const { mutate: accessMutate } = useAccessMutation();
   const { mutate: refreshMutate } = useRefreshMutation();
   const { mutate: logoutMutate } = useLogoutMutation();
-  const results = useQueries([
-    {
-      queryKey: "myInfo",
-      queryFn: myInfoApi,
-      refetchOnMount: "always",
-      enabled: !!accessToken
-    },
-  ]);
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: ["myInfo"],
+        queryFn: myInfoApi,
+        refetchOnMount: "always",
+        enabled: !!accessToken,
+      },
+    ],
+  });
   const { data: myInfo } = results[0];
   const hasCar = !!myInfo && !!myInfo.car;
   const isLoginPage = useMatch("/login");
@@ -52,7 +54,7 @@ const App = () => {
     navigate("/login");
   }, [accessMutate, setAccessToken, logoutMutate, navigate]);
   const onSuccessAccessMutation = useCallback(() => {
-    queryClient.invalidateQueries("myInfo");
+    queryClient.invalidateQueries(["myInfo"]);
   }, []);
   const onFailAccessMutation = useCallback(() => {
     // token 갱신

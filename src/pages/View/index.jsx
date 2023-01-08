@@ -1,6 +1,6 @@
 import React, { Suspense, useCallback, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useQueryClient, useQueries } from "react-query";
+import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { ErrorBoundary } from "../../error";
 import ViewLayout from "../../components/templates/ViewLayout";
 import useCardMutation from "../../hooks/query/card/useCardMutation";
@@ -12,24 +12,28 @@ import { assignedCardApi } from "../../hooks/api/assign";
 const ViewPage = () => {
   const { cardIdx, cardAssignedIdx } = useParams();
   const navigate = useNavigate();
-  const results = useQueries([
-    {
-      queryKey: [`card/${cardIdx}`, cardIdx],
-      queryFn: cardApi,
-      refetchInterval: 2000,
-    },
-    {
-      queryKey: [`assignedCard/${cardAssignedIdx}`, cardAssignedIdx],
-      queryFn: assignedCardApi,
-      refetchInterval: 2000,
-    },
-  ]);
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: [`card/${cardIdx}`, cardIdx],
+        queryFn: cardApi,
+        refetchInterval: 2000,
+        suspense: true,
+      },
+      {
+        queryKey: [`assignedCard/${cardAssignedIdx}`, cardAssignedIdx],
+        queryFn: assignedCardApi,
+        refetchInterval: 2000,
+        suspense: true,
+      },
+    ],
+  });
   const { data: cardData } = results[0];
   const { data: assignedData } = results[1];
   const { mutate: cardMutate } = useCardMutation();
   const { mutate: recordMutate } = useRecordCardMutation();
   const queryClient = useQueryClient();
-  const user = queryClient.getQueryData("myInfo");
+  const user = queryClient.getQueryData(["myInfo"]);
   const userIdx = user ? user.userIdx : 0;
   const users = [];
   let address = "";
@@ -97,16 +101,18 @@ const ViewPage = () => {
       fallback={<Body className="animate-naviToView p-1">불러오는 중</Body>}
     >
       <ErrorBoundary fallback={<div>에러 발생</div>}>
-        <ViewLayout
-          cardData={cardData}
-          assignedData={assignedData}
-          users={users}
-          userIdx={userIdx}
-          address={address}
-          onMemoChange={onMemoChangeHandler}
-          onMemoFocus={onMemoFocusHandler}
-          onMark={onMarkHandler}
-        />
+        {cardData && assignedData && (
+          <ViewLayout
+            cardData={cardData}
+            assignedData={assignedData}
+            users={users}
+            userIdx={userIdx}
+            address={address}
+            onMemoChange={onMemoChangeHandler}
+            onMemoFocus={onMemoFocusHandler}
+            onMark={onMarkHandler}
+          />
+        )}
       </ErrorBoundary>
     </Suspense>
   );

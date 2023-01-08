@@ -1,16 +1,19 @@
 import React, { useCallback } from "react";
-import { useQueries } from "react-query";
+import { useQueries } from "@tanstack/react-query";
 import { addressSearch } from "../../../hooks/kakaoMap";
 import Button from "../Button";
 
 const KakaoMapButton = ({ className, children, dest, address }) => {
-  const results = useQueries([
-    {
-      queryKey: [`addressSearch/${address}`, address],
-      queryFn: addressSearch,
-      refetchOnMount: "always",
-    },
-  ]);
+  const results = useQueries({
+    queries: [
+      {
+        queryKey: [`addressSearch/${address}`, address],
+        queryFn: addressSearch,
+        refetchOnMount: "always",
+        suspense: false,
+      },
+    ],
+  });
   const { data } = results[0];
   const x = data ? data[0].x : "";
   const y = data ? data[0].y : "";

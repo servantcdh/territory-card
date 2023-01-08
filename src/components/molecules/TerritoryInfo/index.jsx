@@ -64,13 +64,16 @@ const TerritoryInfo = ({
               ))}
           </div>
           <div>
-            <KakaoMapButton
-              className="text-sm border-2 cursor-pointer mr-1 bg-yellow-400 text-black hover:bg-yellow-600"
-              dest={name}
-              address={address}
-            >
-              카카오내비
-            </KakaoMapButton>
+            {address && (
+              <KakaoMapButton
+                className="text-sm border-2 cursor-pointer mr-1 bg-yellow-400 text-black hover:bg-yellow-600"
+                dest={name}
+                address={address}
+              >
+                카카오내비
+              </KakaoMapButton>
+            )}
+
             {isUserAssignedTo && (
               <Button
                 className="text-sm border-2 cursor-pointer text-black hover:bg-yellow-600"

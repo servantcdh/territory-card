@@ -30,7 +30,9 @@ const TerritoryContent = ({
     setIsActiveModal(false);
   }, [setIsActiveModal]);
   const { idx, street, building, name, phone, refusal } = content;
-  const record = cardRecord.find((record) => record.cardContentIdx === idx);
+  const record = cardRecord
+    ? cardRecord.find((record) => record.cardContentIdx === idx)
+    : null;
   const { cardMarkIdx, crewAssigned } = record
     ? record
     : { cardMarkIdx: 1, crewAssigned: null };
