@@ -35,7 +35,7 @@ const ViewPage = () => {
       navigate("/");
     }
   }, [assignedData, navigate]);
-  const onMemoChangeHander = useCallback(
+  const onMemoChangeHandler = useCallback(
     (memo) => {
       if (cardData) {
         cardMutate({
@@ -49,7 +49,7 @@ const ViewPage = () => {
     },
     [cardMutate, cardData]
   );
-  const onMemoFocusHander = useCallback(
+  const onMemoFocusHandler = useCallback(
     (focused) => {
       cardMutate({
         idx: cardData.idx,
@@ -88,8 +88,8 @@ const ViewPage = () => {
       users={users}
       userIdx={userIdx}
       address={address}
-      onMemoChange={onMemoChangeHander}
-      onMemoFocus={onMemoFocusHander}
+      onMemoChange={onMemoChangeHandler}
+      onMemoFocus={onMemoFocusHandler}
       onMark={onMarkHandler}
     />
   );

@@ -27,13 +27,13 @@ const ViewLayout = ({
   const onModalCancelHandler = useCallback(() => {
     setActiveModal(false);
   }, [setActiveModal]);
-  const onMemoChangeHander = useCallback(
+  const onMemoChangeHandler = useCallback(
     (memo) => {
       onMemoChange(memo);
     },
     [onMemoChange]
   );
-  const onMemoFocusHander = useCallback(
+  const onMemoFocusHandler = useCallback(
     (focused) => {
       onMemoFocus(focused);
     },
@@ -78,8 +78,8 @@ const ViewLayout = ({
           isUserAssignedTo={isUserAssignedTo}
           dateAssigned={dateAssigned}
           address={address}
-          onMemoChange={onMemoChangeHander}
-          onMemoFocus={onMemoFocusHander}
+          onMemoChange={onMemoChangeHandler}
+          onMemoFocus={onMemoFocusHandler}
           disabledMemo={disabledMemo}
           memoFocusUser={memoFocusUser}
           onCompleteClick={onCompleteClickHandler}

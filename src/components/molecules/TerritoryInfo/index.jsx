@@ -19,7 +19,7 @@ const TerritoryInfo = ({
   onCompleteClick,
 }) => {
   const navigate = useNavigate();
-  const onMemoChangeHander = useCallback(
+  const onMemoChangeHandler = useCallback(
     (memo) => {
       onMemoChange(memo);
     },
@@ -93,7 +93,7 @@ const TerritoryInfo = ({
             <Textarea
               className="w-full py-3 text-primary-700"
               value={cardData.memo}
-              onChange={onMemoChangeHander}
+              onChange={onMemoChangeHandler}
               onFocus={onFocusHandler}
               onBlur={onBlurHandler}
               disabled={disabledMemo}

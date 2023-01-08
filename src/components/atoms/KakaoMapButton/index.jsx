@@ -7,11 +7,11 @@ const KakaoMapButton = ({ className, children, dest, address }) => {
   const x = data ? data[0].x : "";
   const y = data ? data[0].y : "";
   const url = `https://map.kakao.com/link/to/${dest},${y},${x}`;
-  const onClickHander = useCallback(() => {
+  const onClickHandler = useCallback(() => {
     window.open(url, "_blank");
   }, [url]);
   return (
-    <Button className={className} onClick={onClickHander}>
+    <Button className={className} onClick={onClickHandler}>
       {children}
     </Button>
   );
