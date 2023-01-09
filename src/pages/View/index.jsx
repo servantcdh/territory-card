@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { cardApi } from "../../hooks/api/card";
@@ -7,9 +7,11 @@ import ViewLayout from "../../components/templates/ViewLayout";
 import useCardMutation from "../../hooks/query/card/useCardMutation";
 import useRecordCardMutation from "../../hooks/query/record/useRecordCardMutation";
 import useCompleteCardMutation from "../../hooks/query/assign/useCompleteCardMutation";
+import Modal from "../../components/molecules/Modal";
 
 const ViewPage = () => {
   const { cardIdx, cardAssignedIdx } = useParams();
+  const [activeModal, setActiveModal] = useState(false);
   const navigate = useNavigate();
   const results = useQueries({
     queries: [
@@ -38,6 +40,7 @@ const ViewPage = () => {
     : { userIdx: 0, auth: 0, guide: 0 };
   const users = [];
   let address = "";
+  let hasUsed = false;
   if (assignedData) {
     assignedData.crewAssigned.forEach((crew) => {
       const user = crew.user;
@@ -47,13 +50,22 @@ const ViewPage = () => {
     });
     const { street } = assignedData.card.cardContent[0];
     address = street;
+    hasUsed =
+      assignedData.cardRecord.findIndex((record) => record.cardMarkIdx === 1) >
+      -1;
   }
   useEffect(() => {
     const { auto, guide } = authInfo;
-    if (!auto && !guide && assignedData && assignedData.dateCompleted) {
-      navigate("/");
+    if (assignedData && assignedData.dateCompleted) {
+      if (!auto && !guide) {
+        setActiveModal(true);
+      }
     }
-  }, [assignedData, navigate, authInfo]);
+  }, [assignedData, navigate, authInfo, setActiveModal]);
+  const onConfirmModalHandler = useCallback(() => {
+    setActiveModal(false);
+    navigate("/");
+  }, [setActiveModal]);
   const onMemoChangeHandler = useCallback(
     (memo) => {
       if (cardData) {
@@ -107,14 +119,24 @@ const ViewPage = () => {
     completeCardMutate(
       { cardAssignedIdx },
       {
-        onSuccess: () => {
-          navigate("/");
+        onSuccess: () => setActiveModal(true),
+        onError: (err) => {
+          if (err.message.includes("완료")) {
+            navigate("/");
+          }
         },
       }
     );
-  }, [completeCardMutate]);
+  }, [completeCardMutate, setActiveModal, navigate]);
   return (
     <>
+      {activeModal && (
+        <Modal
+          title={`카드가 ${hasUsed ? "반납" : "회수"}되었습니다.`}
+          onConfirm={onConfirmModalHandler}
+          buttonName="닫기"
+        ></Modal>
+      )}
       {cardData && (
         <ViewLayout
           cardData={cardData}

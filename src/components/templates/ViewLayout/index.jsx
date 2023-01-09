@@ -78,7 +78,7 @@ const ViewLayout = ({
           cancelName="아니오"
         >
           <div>
-            <p>이제 카드를 반납하시겠어요?</p>
+            <p>카드를 반납하시겠어요?</p>
           </div>
         </Modal>
       )}
