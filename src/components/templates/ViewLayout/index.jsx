@@ -45,6 +45,8 @@ const ViewLayout = ({
     },
     [onMark]
   );
+  const assignedDataLog = cardData ? cardData.cardAssigned : [];
+  const lastDateCompleted = assignedDataLog.length ? assignedDataLog[assignedDataLog.length - 1].dateCompleted : "";
   const {
     userIdx: userIdxAssignedTo,
     dateAssigned,
@@ -87,6 +89,7 @@ const ViewLayout = ({
           users={users}
           isUserAssignedTo={isUserAssignedTo}
           dateAssigned={dateAssigned}
+          lastDateCompleted={lastDateCompleted}
           address={address}
           onMemoChange={onMemoChangeHandler}
           onMemoFocus={onMemoFocusHandler}

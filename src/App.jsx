@@ -121,6 +121,7 @@ const App = () => {
         )}
         <Route path="/view">
           <Route path=":cardIdx/:cardAssignedIdx" element={<ViewPage />} />
+          <Route path=":cardIdx" element={<ViewPage />} />
         </Route>
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>

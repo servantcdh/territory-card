@@ -13,12 +13,12 @@ const CardLabel = ({ item }) => {
   return (
     <Frame className="animate-wiggle">
       <div className="border border-primary-300 w-full h-full p-2 flex z-10 break-all">
-        <div className="w-24">
+        <div className="w-[102px]">
           <div>구역번호.{item.cardIdx}</div>
           <div className="mb-1 text-xl">{item.card.name}</div>
           <div>배정날짜.</div>
           <div className="text-sm">
-            {new Date(item.dateAssigned).toLocaleDateString()}
+            {item.dateAssigned.split('T')[0]}
           </div>
         </div>
         <div className="border-r border-primary-300 mx-3"></div>

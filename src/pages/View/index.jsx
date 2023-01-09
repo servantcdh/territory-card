@@ -21,6 +21,7 @@ const ViewPage = () => {
       {
         queryKey: [`assignedCard/${cardAssignedIdx}`, cardAssignedIdx],
         queryFn: assignedCardApi,
+        enabled: !!cardAssignedIdx,
         refetchInterval: 2000,
       },
     ],
@@ -32,7 +33,9 @@ const ViewPage = () => {
   const { mutate: completeCardMutate } = useCompleteCardMutation();
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["myInfo"]);
-  const userIdx = user ? user.userIdx : 0;
+  const { userIdx, ...authInfo } = user
+    ? user
+    : { userIdx: 0, auth: 0, guide: 0 };
   const users = [];
   let address = "";
   if (assignedData) {
@@ -46,10 +49,11 @@ const ViewPage = () => {
     address = street;
   }
   useEffect(() => {
-    if (assignedData && assignedData.dateCompleted) {
+    const { auto, guide } = authInfo;
+    if (!auto && !guide && assignedData && assignedData.dateCompleted) {
       navigate("/");
     }
-  }, [assignedData, navigate]);
+  }, [assignedData, navigate, authInfo]);
   const onMemoChangeHandler = useCallback(
     (memo) => {
       if (cardData) {
@@ -76,34 +80,42 @@ const ViewPage = () => {
     },
     [cardMutate, cardData, userIdx]
   );
-  const onMarkHandler = useCallback((cardContentIdx, cardMarkIdx) => {
-    recordMutate(
-      {
-        cardAssignedIdx,
-        cardContentIdx,
-        cardMarkIdx,
-      },
+  const onMarkHandler = useCallback(
+    (cardContentIdx, cardMarkIdx) => {
+      if (cardAssignedIdx) {
+        recordMutate(
+          {
+            cardAssignedIdx,
+            cardContentIdx,
+            cardMarkIdx,
+          },
+          {
+            onSuccess: () => {
+              queryClient.invalidateQueries([`card/${cardIdx}`, cardIdx]);
+              queryClient.invalidateQueries([
+                `assignedCard/${cardAssignedIdx}`,
+                cardAssignedIdx,
+              ]);
+            },
+          }
+        );
+      }
+    },
+    [recordMutate, cardAssignedIdx]
+  );
+  const onCompleteCardHandler = useCallback(() => {
+    completeCardMutate(
+      { cardAssignedIdx },
       {
         onSuccess: () => {
-          queryClient.invalidateQueries([`card/${cardIdx}`, cardIdx]);
-          queryClient.invalidateQueries([
-            `assignedCard/${cardAssignedIdx}`,
-            cardAssignedIdx,
-          ]);
+          navigate("/");
         },
       }
     );
-  }, []);
-  const onCompleteCardHandler = useCallback(() => {
-    completeCardMutate({ cardAssignedIdx }, {
-      onSuccess: () => {
-        navigate("/");
-      }
-    });
   }, [completeCardMutate]);
   return (
     <>
-      {cardData && assignedData && (
+      {cardData && (
         <ViewLayout
           cardData={cardData}
           assignedData={assignedData}

@@ -11,6 +11,7 @@ const TerritoryInfo = ({
   users,
   isUserAssignedTo,
   dateAssigned,
+  lastDateCompleted,
   address,
   onMemoChange,
   onMemoFocus,
@@ -40,13 +41,25 @@ const TerritoryInfo = ({
   return (
     <div className={`w-auto h-auto ${className}`}>
       <div className="border border-primary-300 w-full h-full p-2 flex z-10 break-all mb-1">
-        <div className="w-24">
+        <div className="w-[106px]">
           <div>구역번호.{idx}</div>
           <div className="mb-1 text-xl">{name}</div>
-          <div>배정날짜.</div>
-          <div className="text-sm">
-            {new Date(dateAssigned).toLocaleDateString()}
-          </div>
+          {dateAssigned && (
+            <>
+              <div>배정날짜.</div>
+              <div className="text-sm">
+                {dateAssigned.split('T')[0]}
+              </div>
+            </>
+          )}
+          {!dateAssigned && (
+            <>
+              <div>마지막 반납날짜.</div>
+              <div className="text-sm">
+                {lastDateCompleted.split('T')[0]}
+              </div>
+            </>
+          )}
         </div>
         <div className="border-r border-primary-300 mx-3"></div>
         <div className="">
