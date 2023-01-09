@@ -4,10 +4,11 @@ import Container from "../../atoms/Container";
 import TerritoryCard from "../../molecules/TerritoryCard";
 import TagBox from "../../molecules/TagBox";
 import TerritoryCardStoreBox from "../../molecules/TerritoryCardStoreBox";
+import TerritoryCardLabel from "../../molecules/TerritoryCardLabel";
 import TerritoryCardLabelBox from "../../molecules/TerritoryCardLabelBox";
 import TerritoryCardControlBox from "../../molecules/TerritoryCardControlBox";
-import Card from "../../atoms/Card";
 import TerritoryCardStoreContainer from "../../organisms/TerritoryCardStoreContainer";
+import Button from "../../atoms/Button";
 
 const CardLayout = ({ cardsData, tagsData, onTagChange }) => {
   /**
@@ -34,6 +35,13 @@ const CardLayout = ({ cardsData, tagsData, onTagChange }) => {
     },
     [onTagChange]
   );
+  const onCardClickHandler = useCallback(
+    (card, checked) => {
+      console.log(card, checked);
+    },
+    []
+  );
+  
   return (
     <Body className="h-auto overflow-y-scroll animate-naviToCard">
       <Container className="h-[calc(97vh)] relative">
@@ -43,10 +51,23 @@ const CardLayout = ({ cardsData, tagsData, onTagChange }) => {
           title="구역카드함"
         >
           <TerritoryCardStoreContainer>
-            <TagBox tagsData={tagsData} onChange={onTagChangeHandler} />
+            <TagBox className="mb-2" tagsData={tagsData} onChange={onTagChangeHandler} />
             <TerritoryCardStoreBox>
-              <TerritoryCardLabelBox />
-              <TerritoryCardControlBox />
+              <TerritoryCardLabelBox className="flex-auto flex">
+                {cardsData &&
+                  cardsData.map((card) => (
+                    <TerritoryCardLabel
+                      key={`cardLabel_${card.idx}`}
+                      card={card}
+                      onClick={onCardClickHandler}
+                    />
+                  ))}
+              </TerritoryCardLabelBox>
+              <div className="flex-none border-r border-dashed border-primary-400 mx-1"></div>
+              <TerritoryCardControlBox className="w-[60px]">
+                <Button className="w-full h-[32px] border-2 px-0 py-0 bg-rose-500 mb-1">꺼내기</Button>
+                <Button className="w-full h-[32px] border-2 px-0 py-0 bg-primary-400">초기화</Button>
+              </TerritoryCardControlBox>
             </TerritoryCardStoreBox>
           </TerritoryCardStoreContainer>
         </TerritoryCard>
