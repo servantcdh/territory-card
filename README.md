@@ -47,7 +47,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | react-router-dom             | _^6.6.1_   | url에 따른 페이지 컴포넌트를 지정한 dom에 렌더링시켜주는 라이브러리                                            |
 | axios                        | _^1.2.2_   | ajax request 라이브러리                                                                                        |
 | dotenv                       | _^16.0.3_  | 환경 변수 파일을 읽어오는 라이브러리                                                                           |
-| @tanstack/react-query        | _^4.21.0_  | ajax 통신을 더 체계적으로 관리할 수 있는 라이브러리. 서버 상태 관리는 덤이지만 후자의 기능으로 더 유명하다.    |
+| @tanstack/react-query        | _^4.21.0_  | promise 기반 함수를 더 체계적으로 관리할 수 있는 라이브러리. 덤으로 캐싱도 지원. 후자의 기능으로 더 유명하다.  |
+| react-contenteditable        | _^3.3.6_  | div요소를 input이나 textarea 처럼 사용할 수 있는 contenteditable 기능을 react에 맞게 사용할 수 있는 라이브러리 |
 
 ## 특이 사항
 
@@ -64,7 +65,6 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 [suspense를 지원하게 된 useQueries - 단테블로그](https://velog.io/@jay/suspense-useQueries)
 
 [혹시 무분별하게 Suspense 를 사용하고 계신가요? (react-query) - 행복한 시지프](https://happysisyphe.tistory.com/54)
-
 
 ## 만든이
 
