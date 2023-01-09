@@ -28,11 +28,7 @@ const SpeedDial = ({ items }) => {
     [navigate, onClickDialHandler]
   );
   const animateShow = active ? "animate-showUp" : "";
-  const animateRotate = active
-    ? "animate-rotate45"
-    : isMainPage
-    ? "animate-rotate45"
-    : "animate-rotate0";
+  const animateRotate = active ? "animate-rotate45" : "animate-rotate0";
   const onClickCloseHandler = useCallback(() => setActive(false), [setActive]);
   return (
     <div>
