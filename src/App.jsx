@@ -34,7 +34,9 @@ const App = () => {
     ],
   });
   const { data: myInfo } = results[0];
-  const hasCar = !!myInfo && !!myInfo.car;
+  const { car, auth, guide } = myInfo ? myInfo : { car: 0, auth: 0, guide: 0 };
+  const hasCar = !!car;
+  const activeAuthMenu = !!auth || !!guide;
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();
   const onLogoutHandler = useCallback(() => {
@@ -111,8 +113,12 @@ const App = () => {
           <Route path=":userIdx" element={<SettingPage />} />
           <Route path="me" element={<SettingPage />} />
         </Route>
-        <Route path="/card" element={<CardPage />} />
-        <Route path="/s-13" element={<S13Page />} />
+        {activeAuthMenu && (
+          <>
+            <Route path="/card" element={<CardPage />} />
+            <Route path="/s-13" element={<S13Page />} />
+          </>
+        )}
         <Route path="/view">
           <Route path=":cardIdx/:cardAssignedIdx" element={<ViewPage />} />
         </Route>
@@ -122,8 +128,10 @@ const App = () => {
         <SpeedDial
           items={[
             { route: "/", svg: "home" },
-            { route: "/card", svg: "table" },
-            { route: "/s-13", svg: "document-text" },
+            ...(!activeAuthMenu ? [] : [
+              { route: "/card", svg: "table" },
+              { route: "/s-13", svg: "document-text" },
+            ]),
             { route: "/profile/me", svg: "user-circle" },
             { route: "/setting/me", svg: "cog" },
             { callback: onLogoutHandler, svg: "logout" },
