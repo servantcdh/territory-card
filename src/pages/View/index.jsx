@@ -6,7 +6,7 @@ import { assignedCardApi } from "../../hooks/api/assign";
 import ViewLayout from "../../components/templates/ViewLayout";
 import useCardMutation from "../../hooks/query/card/useCardMutation";
 import useRecordCardMutation from "../../hooks/query/record/useRecordCardMutation";
-import Body from "../../components/atoms/Body";
+import useCompleteCardMutation from "../../hooks/query/assign/useCompleteCardMutation";
 
 const ViewPage = () => {
   const { cardIdx, cardAssignedIdx } = useParams();
@@ -29,6 +29,7 @@ const ViewPage = () => {
   const { data: assignedData } = results[1];
   const { mutate: cardMutate } = useCardMutation();
   const { mutate: recordMutate } = useRecordCardMutation();
+  const { mutate: completeCardMutate } = useCompleteCardMutation();
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData(["myInfo"]);
   const userIdx = user ? user.userIdx : 0;
@@ -45,7 +46,7 @@ const ViewPage = () => {
     address = street;
   }
   useEffect(() => {
-    if (assignedData && assignedData.dataCompleted) {
+    if (assignedData && assignedData.dateCompleted) {
       navigate("/");
     }
   }, [assignedData, navigate]);
@@ -93,6 +94,13 @@ const ViewPage = () => {
       }
     );
   }, []);
+  const onCompleteCardHandler = useCallback(() => {
+    completeCardMutate({ cardAssignedIdx }, {
+      onSuccess: () => {
+        navigate("/");
+      }
+    });
+  }, [completeCardMutate]);
   return (
     <>
       {cardData && assignedData && (
@@ -105,6 +113,7 @@ const ViewPage = () => {
           onMemoChange={onMemoChangeHandler}
           onMemoFocus={onMemoFocusHandler}
           onMark={onMarkHandler}
+          onCompleteCard={onCompleteCardHandler}
         />
       )}
     </>

@@ -13,6 +13,7 @@ const ViewLayout = ({
   address,
   onMemoChange,
   onMemoFocus,
+  onCompleteCard,
   onMark,
 }) => {
   const [activeModal, setActiveModal] = useState(false);
@@ -20,6 +21,7 @@ const ViewLayout = ({
     setActiveModal(true);
   }, [setActiveModal]);
   const onModalConfirmHandler = useCallback(() => {
+    onCompleteCard();
     setActiveModal(false);
   }, [setActiveModal]);
   const onModalCancelHandler = useCallback(() => {

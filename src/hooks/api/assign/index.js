@@ -16,3 +16,10 @@ export const assignedCardApi = ({ queryKey }) => {
     url: `${baseUrl}/card/${cardAssignedIdx}`,
   });
 };
+
+export const completeCardApi = ({ cardAssignedIdx }) => {
+  return useAxios({
+    method: "PATCH",
+    url: `${baseUrl}/card/me/${cardAssignedIdx}`,
+  });
+};
