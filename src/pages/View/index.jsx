@@ -65,7 +65,7 @@ const ViewPage = () => {
   const onConfirmModalHandler = useCallback(() => {
     setActiveModal(false);
     navigate("/");
-  }, [setActiveModal]);
+  }, [setActiveModal, navigate]);
   const onMemoChangeHandler = useCallback(
     (memo) => {
       if (cardData) {
