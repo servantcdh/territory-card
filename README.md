@@ -14,8 +14,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- ViewPage 및 다른 페이지 컴포넌트들에 `Suspense`와 `ErrorBoundary`를 구현한다. >> 보류
-- `useQuery custom hook`을 `useQueries`로 수정한다.
+- 사용자 권한에 따라 페이지와 내비메뉴를 숨긴다.
+- 구역카드 관리 페이지를 구현한다.
 
 ## 사용한 라이브러리
 
@@ -48,23 +48,14 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | axios                        | _^1.2.2_   | ajax request 라이브러리                                                                                        |
 | dotenv                       | _^16.0.3_  | 환경 변수 파일을 읽어오는 라이브러리                                                                           |
 | @tanstack/react-query        | _^4.21.0_  | promise 기반 함수를 더 체계적으로 관리할 수 있는 라이브러리. 덤으로 캐싱도 지원. 후자의 기능으로 더 유명하다.  |
-| react-contenteditable        | _^3.3.6_  | div요소를 input이나 textarea 처럼 사용할 수 있는 contenteditable 기능을 react에 맞게 사용할 수 있는 라이브러리 |
 
 ## 특이 사항
 
-1. `react-query`에서는 `React Suspense`와 `ErrorBoundary`를 지원해준다. 작성중인 ViewPage에 해당 기능을 구현해서 더 나은 사용자 경험을 제공하려한다.
-
-2. `suspense` 옵션을 활성화할 땐 `useQueries` 사용을 권장한다. `react suspense`가 `data-fetching`에 관여하게 됨에 따라 의도치 않은`component unmount`이 일어나 `network waterfall`이 나타나게 되기 때문이다. `@tanstack/react-query v4.5.0`부터 지원.
-
-3. `suspense` 도입으로 성능 저하를 겪었거나 `react-query`에서 아직 완벽히 지원하지 않는다는 포스팅을 읽고 관련 기능 도입을 보류하기로 했다...
+아직 없습니다.
 
 ## 참고한 곳
 
-[[React] ErrorBoundary 사용하여 에러 핸들링 하기 - rkd028블로그](https://velog.io/@rkd028/React-ErrorBoundary-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EC%97%90%EB%9F%AC-%ED%95%B8%EB%93%A4%EB%A7%81-%ED%95%98%EA%B8%B0)
-
-[suspense를 지원하게 된 useQueries - 단테블로그](https://velog.io/@jay/suspense-useQueries)
-
-[혹시 무분별하게 Suspense 를 사용하고 계신가요? (react-query) - 행복한 시지프](https://happysisyphe.tistory.com/54)
+아직 없습니다.
 
 ## 만든이
 
