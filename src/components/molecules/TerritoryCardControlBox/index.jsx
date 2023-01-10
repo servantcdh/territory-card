@@ -1,7 +1,39 @@
-import React from "react";
+import React, { useCallback } from "react";
+import Button from "../../atoms/Button";
+import { excelFormApi } from "../../../hooks/api/file";
 
-const TerritoryCardControlBox = ({ className, children }) => {
-  return <div className={` ${className}`}>{children}</div>;
+const TerritoryCardControlBox = ({ className, onAssign, onReset, checked }) => {
+  const onExcelDownloadClickHandler = useCallback(() => {
+    excelFormApi();
+  }, []);
+  return (
+    <div className={` ${className}`}>
+      <Button
+        className={`w-full h-[32px] border-2 px-0 py-0 ${
+          checked ? "bg-violet-500" : "bg-violet-700 text-gray-700"
+        }  mb-1`}
+        onClick={onAssign}
+        disabled={!checked}
+      >
+        배정
+      </Button>
+      <Button
+        className={`w-full h-[32px] border-2 px-0 py-0 ${
+          checked ? "bg-primary-300" : "bg-primary-600 text-gray-700"
+        } mb-1`}
+        onClick={onReset}
+        disabled={!checked}
+      >
+        초기화
+      </Button>
+      <Button
+        className="w-full h-[32px] border-2 px-0 py-0 bg-emerald-500"
+        onClick={onExcelDownloadClickHandler}
+      >
+        엑셀폼
+      </Button>
+    </div>
+  );
 };
 
 export default TerritoryCardControlBox;

@@ -39,7 +39,7 @@ const ViewPage = () => {
     ? user
     : { userIdx: 0, auth: 0, guide: 0 };
   const users = [];
-  let address = "";
+  const { street: address } = cardData ? cardData.cardContent[0] : { street: "" };
   let hasUsed = false;
   if (assignedData) {
     assignedData.crewAssigned.forEach((crew) => {
@@ -48,8 +48,6 @@ const ViewPage = () => {
       const { live } = access ? access : { live: false };
       users.push({ ...user, live });
     });
-    const { street } = assignedData.card.cardContent[0];
-    address = street;
     hasUsed =
       assignedData.cardRecord.findIndex((record) => record.cardMarkIdx === 1) >
       -1;

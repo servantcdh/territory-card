@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import Tag from "../../atoms/Tag";
 
 const TagBox = ({ className, tagsData, onChange }) => {
@@ -31,14 +31,14 @@ const TagBox = ({ className, tagsData, onChange }) => {
     [tags, setTags, tagsIgnored, setTagsIgnored, onChange]
   );
   return (
-    <div className={`text-primary-900 ${className}`}>
+    <div className={`text-primary-900 h-[54px] overflow-y-scroll ${className}`}>
       {tagsData &&
         tagsData.map(({ tag }) => (
           <Tag
             key={`tag_${tag}`}
             tags={tags}
             tagsIgnored={tagsIgnored}
-            className={`mr-1`}
+            className={`inline-block mr-1 mb-1`}
             onClick={onClickHandler}
           >
             {tag}

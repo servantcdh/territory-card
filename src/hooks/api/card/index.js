@@ -33,10 +33,17 @@ export const updateCardApi = (data) => {
   });
 };
 
+export const rollbackCardApi = (data) => {
+  const { cardIdx, cardBackupIdx } = data;
+  return useAxios({
+    method: "PATCH",
+    url: `${baseUrl}/one/${cardIdx}/${cardBackupIdx}`,
+  });
+};
+
 export const tagsApi = ({ queryKey }) => {
   const [_, data] = queryKey;
-  const { orderBy } = data;
-  const params = new URLSearchParams({ orderBy });
+  const params = new URLSearchParams(data);
   return useAxios({
     method: "GET",
     url: `${baseUrl}/tag`,

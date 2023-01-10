@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import Body from "../../atoms/Body";
 import Container from "../../atoms/Container";
 import TerritoryCard from "../../molecules/TerritoryCard";
@@ -8,9 +8,14 @@ import TerritoryCardLabel from "../../molecules/TerritoryCardLabel";
 import TerritoryCardLabelBox from "../../molecules/TerritoryCardLabelBox";
 import TerritoryCardControlBox from "../../molecules/TerritoryCardControlBox";
 import TerritoryCardStoreContainer from "../../organisms/TerritoryCardStoreContainer";
-import Button from "../../atoms/Button";
 
-const CardLayout = ({ cardsData, tagsData, onTagChange }) => {
+const CardLayout = ({
+  cardsData,
+  tagsData,
+  onTagChange,
+  onRollbackCard,
+  onAssignClick,
+}) => {
   /**
    * 카드레이아웃 h-auto
    *   -구역카드함
@@ -29,45 +34,61 @@ const CardLayout = ({ cardsData, tagsData, onTagChange }) => {
    *        구역카드 라벨
    *            진행상태, 구역번호, 이름, 프로필스택, 상세보기, 전도인배정, 회수
    */
-  const onTagChangeHandler = useCallback(
-    (tags, tagsIgnored) => {
-      onTagChange(tags, tagsIgnored);
-    },
-    [onTagChange]
-  );
+  const [checkeds, setCheckeds] = useState([]);
   const onCardClickHandler = useCallback(
-    (card, checked) => {
-      console.log(card, checked);
+    (cardIdx, checked) => {
+      if (checked) {
+        const filtereds = checkeds.filter((idx) => idx !== cardIdx);
+        setCheckeds(filtereds);
+      } else {
+        const cloneds = [...checkeds];
+        cloneds.push(cardIdx);
+        setCheckeds(cloneds);
+      }
     },
-    []
+    [checkeds, setCheckeds]
   );
-  
+  const onResetClickHandler = useCallback(() => {
+    setCheckeds([]);
+  }, [setCheckeds]);
+  const onAssignClickHandler = useCallback(() => {
+    onAssignClick(checkeds);
+    setCheckeds([]);
+  }, [checkeds, setCheckeds, onAssignClick]);
   return (
     <Body className="h-auto overflow-y-scroll animate-naviToCard">
-      <Container className="h-[calc(97vh)] relative">
+      <Container className="h-[calc(98vh)] relative">
         <TerritoryCard
           className="my-0 animate-fadeIn"
           childClassName="mb-0"
           title="구역카드함"
         >
           <TerritoryCardStoreContainer>
-            <TagBox className="mb-2" tagsData={tagsData} onChange={onTagChangeHandler} />
+            <TagBox
+              className="mb-2"
+              tagsData={tagsData}
+              onChange={onTagChange}
+            />
             <TerritoryCardStoreBox>
-              <TerritoryCardLabelBox className="flex-auto flex">
+              <TerritoryCardLabelBox className="flex-auto">
                 {cardsData &&
                   cardsData.map((card) => (
                     <TerritoryCardLabel
                       key={`cardLabel_${card.idx}`}
                       card={card}
-                      onClick={onCardClickHandler}
+                      checkedCard={checkeds.includes(card.idx)}
+                      onCardClick={onCardClickHandler}
+                      onRollbackCard={onRollbackCard}
                     />
                   ))}
               </TerritoryCardLabelBox>
               <div className="flex-none border-r border-dashed border-primary-400 mx-1"></div>
-              <TerritoryCardControlBox className="w-[60px]">
-                <Button className="w-full h-[32px] border-2 px-0 py-0 bg-rose-500 mb-1">꺼내기</Button>
-                <Button className="w-full h-[32px] border-2 px-0 py-0 bg-primary-400">초기화</Button>
-              </TerritoryCardControlBox>
+              <TerritoryCardControlBox
+                className="w-[60px]"
+                checked={checkeds.length > 0}
+                onAssign={onAssignClickHandler}
+                onReset={onResetClickHandler}
+              />
             </TerritoryCardStoreBox>
           </TerritoryCardStoreContainer>
         </TerritoryCard>

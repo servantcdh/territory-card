@@ -56,7 +56,7 @@ const TerritoryInfo = ({
             <>
               <div>마지막 반납날짜.</div>
               <div className="text-sm">
-                {lastDateCompleted.split('T')[0]}
+                {lastDateCompleted ? lastDateCompleted.split('T')[0] : "-"}
               </div>
             </>
           )}

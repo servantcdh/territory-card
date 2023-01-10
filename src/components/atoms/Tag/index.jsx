@@ -17,7 +17,7 @@ const Tag = ({ className, children, tags, tagsIgnored, onClick }) => {
   }
   return (
     <span
-      className={`rounded border-black border-2 px-1 bg-rose-400 font-thin text-sm ${activeClass} ${className}`}
+      className={`rounded border-black border-2 px-1 font-thin text-sm ${activeClass} ${className}`}
       onClick={onClickHandler}
     >
       {children}
