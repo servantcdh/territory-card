@@ -9,6 +9,22 @@ export const myCardApi = () => {
   });
 };
 
+export const assignedCardsApi = () => {
+  return useAxios({
+    method: "GET",
+    url: `${baseUrl}/card`
+  });
+};
+
+export const assignCardsApi = ({ cardIdxes }) => {
+  const data = { cardIdxes: cardIdxes.join(",") };
+  return useAxios({
+    method: "POST",
+    url: `${baseUrl}/card`,
+    data,
+  });
+};
+
 export const assignedCardApi = ({ queryKey }) => {
   const [_, cardAssignedIdx] = queryKey;
   return useAxios({

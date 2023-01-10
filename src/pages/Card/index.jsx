@@ -1,34 +1,46 @@
 import React, { useCallback, useState } from "react";
 import CardLayout from "../../components/templates/CardLayout";
 import useRollbackCardMutation from "../../hooks/query/card/useRollbackCardMutation";
+import useAssignCardsMutation from "../../hooks/query/assign/useAssignCardsMutation";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
-import { cardsApi, tagsApi } from "../../hooks/api/card";
+import { tagsApi, cardsApi } from "../../hooks/api/card";
+import { assignedCardsApi } from "../../hooks/api/assign";
 
 const CardPage = () => {
   const [tags, setTags] = useState([]);
   const [tagsIgnored, setTagsIgnored] = useState([]);
   const { mutate: rollbackCardMutate } = useRollbackCardMutation();
+  const { mutate: assignCardsMutate } = useAssignCardsMutation();
   const queryClient = useQueryClient();
   const results = useQueries({
     queries: [
+      {
+        queryKey: ["tags", { orderBy: "count", desc: 1 }],
+        queryFn: tagsApi,
+        refetchInterval: 2000,
+      },
       {
         queryKey: ["cards", { tags, tagsIgnored }],
         queryFn: cardsApi,
         refetchInterval: 2000,
       },
       {
-        queryKey: ["tags", { orderBy: "count", desc: 1 }],
-        queryFn: tagsApi,
+        queryKey: ["assignedCards"],
+        queryFn: assignedCardsApi,
         refetchInterval: 2000,
       },
     ],
   });
-  const { data: cardsData } = results[0];
-  const { data: tagsData } = results[1];
+  const { data: tagsData } = results[0];
+  const { data: cardsData } = results[1];
+  const { data: assignedCardsData } = results[2];
+  const assignedIdxes = (assignedCardsData ? assignedCardsData : []).map((card) => card.cardIdx);
+  const filteredCards = (cardsData ? cardsData : []).filter((card) => !assignedIdxes.includes(card.idx));
   const onTagChangeHandler = useCallback(
-    (tags, tagsIgnored) => {
+    (tags, tagsIgnored, setCheckeds) => {
       setTags(tags);
       setTagsIgnored(tagsIgnored);
+      setCheckeds([]);
     },
     [setTags, setTagsIgnored]
   );
@@ -47,14 +59,22 @@ const CardPage = () => {
   );
   const onAssignCardsHandler = useCallback(
     (cardIdxes) => {
-      console.log(cardIdxes);
+      assignCardsMutate(
+        { cardIdxes },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries(["cards"]);
+          },
+        }
+      );
     },
-    [queryClient]
+    [queryClient, assignCardsMutate]
   );
   return (
     <CardLayout
-      cardsData={cardsData}
       tagsData={tagsData}
+      cardsData={filteredCards}
+      assignedCardsData={assignedCardsData}
       onTagChange={onTagChangeHandler}
       onRollbackCard={onRollbackCardHandler}
       onAssignClick={onAssignCardsHandler}

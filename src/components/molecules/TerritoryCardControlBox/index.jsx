@@ -15,7 +15,7 @@ const TerritoryCardControlBox = ({ className, onAssign, onReset, checked }) => {
         onClick={onAssign}
         disabled={!checked}
       >
-        배정
+        담기
       </Button>
       <Button
         className={`w-full h-[32px] border-2 px-0 py-0 ${
@@ -27,10 +27,13 @@ const TerritoryCardControlBox = ({ className, onAssign, onReset, checked }) => {
         초기화
       </Button>
       <Button
-        className="w-full h-[32px] border-2 px-0 py-0 bg-emerald-500"
+        className="w-full h-[32px] border-2 px-0 py-0 bg-emerald-500 mb-1"
         onClick={onExcelDownloadClickHandler}
       >
         엑셀폼
+      </Button>
+      <Button className="w-full h-[32px] border-2 px-0 py-0 bg-red-400">
+        업로드
       </Button>
     </div>
   );

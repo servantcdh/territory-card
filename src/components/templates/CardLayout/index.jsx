@@ -35,6 +35,12 @@ const CardLayout = ({
    *            진행상태, 구역번호, 이름, 프로필스택, 상세보기, 전도인배정, 회수
    */
   const [checkeds, setCheckeds] = useState([]);
+  const onTagChangeHandler = useCallback(
+    (tags, tagsIgnored) => {
+      onTagChange(tags, tagsIgnored, setCheckeds);
+    },
+    [setCheckeds, onTagChange]
+  );
   const onCardClickHandler = useCallback(
     (cardIdx, checked) => {
       if (checked) {
@@ -67,7 +73,7 @@ const CardLayout = ({
             <TagBox
               className="mb-2"
               tagsData={tagsData}
-              onChange={onTagChange}
+              onChange={onTagChangeHandler}
             />
             <TerritoryCardStoreBox>
               <TerritoryCardLabelBox className="flex-auto">
