@@ -14,6 +14,8 @@ const Input = ({
   onKeyUp,
   onChange,
   error,
+  multiple,
+  accept
 }) => {
   return (
     <input
@@ -31,6 +33,8 @@ const Input = ({
       required={required}
       onKeyUp={onKeyUp}
       onChange={onChange}
+      multiple={multiple}
+      accept={accept}
     />
   );
 };

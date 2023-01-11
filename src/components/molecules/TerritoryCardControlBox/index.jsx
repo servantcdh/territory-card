@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import Button from "../../atoms/Button";
 import { excelFormApi } from "../../../hooks/api/file";
 
-const TerritoryCardControlBox = ({ className, onAssign, onReset, checked }) => {
+const TerritoryCardControlBox = ({ className, onAssign, onReset, onUploadClick, checked }) => {
   const onExcelDownloadClickHandler = useCallback(() => {
     excelFormApi();
   }, []);
@@ -32,7 +32,10 @@ const TerritoryCardControlBox = ({ className, onAssign, onReset, checked }) => {
       >
         엑셀폼
       </Button>
-      <Button className="w-full h-[32px] border-2 px-0 py-0 bg-red-400">
+      <Button
+        className="w-full h-[32px] border-2 px-0 py-0 bg-red-400"
+        onClick={onUploadClick}
+      >
         업로드
       </Button>
     </div>

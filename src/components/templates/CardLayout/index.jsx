@@ -1,13 +1,17 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Body from "../../atoms/Body";
 import Container from "../../atoms/Container";
 import TerritoryCard from "../../molecules/TerritoryCard";
 import TagBox from "../../molecules/TagBox";
+import TerritoryCardDropBox from "../../molecules/TerritoryCardDropBox";
 import TerritoryCardStoreBox from "../../molecules/TerritoryCardStoreBox";
 import TerritoryCardLabel from "../../molecules/TerritoryCardLabel";
 import TerritoryCardLabelBox from "../../molecules/TerritoryCardLabelBox";
 import TerritoryCardControlBox from "../../molecules/TerritoryCardControlBox";
 import TerritoryCardStoreContainer from "../../organisms/TerritoryCardStoreContainer";
+import useDragAndDrop from "../../../hooks/dragAndDrop/useDragAndDrop";
+import Input from "../../atoms/Input";
+import Modal from "../../molecules/Modal";
 
 const CardLayout = ({
   cardsData,
@@ -15,18 +19,10 @@ const CardLayout = ({
   onTagChange,
   onRollbackCard,
   onAssignClick,
+  onUploadCard,
+  scrollRef,
 }) => {
   /**
-   * 카드레이아웃 h-auto
-   *   -구역카드함
-   *   타이틀
-   *   태그스크롤박스 - 태그
-   *   구역카드함박스
-   *        구역카드스크롤박스
-   *                구역카드라벨 - 토글(색상)
-   *                    구역번호, 이름, 마지막으로 완료한 날짜, 상세보기, 다운로드, 비활성화, 복구
-   *        컨트롤박스
-   *                꺼내기(최하단스크롤), 초기화
    *   -배정현황
    *   타이틀
    *   구역카드스크롤박스
@@ -35,6 +31,9 @@ const CardLayout = ({
    *            진행상태, 구역번호, 이름, 프로필스택, 상세보기, 전도인배정, 회수
    */
   const [checkeds, setCheckeds] = useState([]);
+  const [cardFile, setCardFile] = useState(null);
+  const { dragAreaRef, isDragging, file: cardFileReady } = useDragAndDrop();
+  const fileInputId = "fileInput";
   const onTagChangeHandler = useCallback(
     (tags, tagsIgnored) => {
       onTagChange(tags, tagsIgnored, setCheckeds);
@@ -61,8 +60,47 @@ const CardLayout = ({
     onAssignClick(checkeds);
     setCheckeds([]);
   }, [checkeds, setCheckeds, onAssignClick]);
+  const onUploadClickHandler = useCallback(() => {
+    document.getElementById(fileInputId).click();
+  }, [fileInputId]);
+  const onConfirmModalHandler = useCallback(() => {
+    onUploadCard(cardFile, setCardFile);
+  }, [cardFile]);
+  const onCancelModalHandler = useCallback(() => {
+    setCardFile(null);
+  }, []);
+  const onInputFileChangeHandler = useCallback((e) => {
+    const selectFile = e.target.files[0];
+    setCardFile(selectFile);
+    e.target.files = null;
+    e.target.value = null;
+  }, []);
+  useEffect(() => {
+    if (cardFileReady) {
+      setCardFile(cardFileReady);
+    }
+  }, [cardFileReady]);
   return (
     <Body className="h-auto overflow-y-scroll animate-naviToCard">
+      <Input
+        type="file"
+        multiple={false}
+        id={fileInputId}
+        accept=".xlsx"
+        className="hidden"
+        onChange={onInputFileChangeHandler}
+      />
+      {cardFile && (
+        <Modal
+          title="다음의 구역 카드를 업로드합니다."
+          onConfirm={onConfirmModalHandler}
+          onCancel={onCancelModalHandler}
+          buttonName="전송하기"
+          cancelName="취소"
+        >
+          <div className="text-display">{cardFile.name}</div>
+        </Modal>
+      )}
       <Container className="h-[calc(98vh)] relative">
         <TerritoryCard
           className="my-0 animate-fadeIn"
@@ -76,8 +114,13 @@ const CardLayout = ({
               onChange={onTagChangeHandler}
             />
             <TerritoryCardStoreBox>
-              <TerritoryCardLabelBox className="flex-auto">
-                {cardsData &&
+              <TerritoryCardLabelBox
+                className="flex-auto"
+                dragAreaRef={dragAreaRef}
+                fileInputId={fileInputId}
+              >
+                {(isDragging) && <TerritoryCardDropBox />}
+                {!isDragging && cardsData &&
                   cardsData.map((card) => (
                     <TerritoryCardLabel
                       key={`cardLabel_${card.idx}`}
@@ -94,12 +137,13 @@ const CardLayout = ({
                 checked={checkeds.length > 0}
                 onAssign={onAssignClickHandler}
                 onReset={onResetClickHandler}
+                onUploadClick={onUploadClickHandler}
               />
             </TerritoryCardStoreBox>
           </TerritoryCardStoreContainer>
         </TerritoryCard>
       </Container>
-      <Container className="h-[calc(90vh)] my-0 relative">
+      <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
         <TerritoryCard
           className="my-0 animate-fadeIn before:top-0"
           childClassName="-top-6 bg-sky-800"

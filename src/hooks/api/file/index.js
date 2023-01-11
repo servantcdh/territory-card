@@ -33,3 +33,16 @@ export const excelCardApi = async (cardIdx, cardName) => {
   document.body.removeChild(link);
   URL.revokeObjectURL(href);
 };
+
+export const uploadExcelCardApi = ({ cardFile }) => {
+  const data = new FormData();
+  data.append("excel", cardFile);
+  return useAxios({
+    method: "POST",
+    url: `${baseUrl}/card`,
+    data,
+    Headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
