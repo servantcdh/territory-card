@@ -29,12 +29,13 @@ const TerritoryAssignCard = ({
   const userIdxes = crewAssigned.map(({ userIdx }) => userIdx);
   const crews = crewAssigned.map(({ user }) => user);
   const { idx: cardIdx, name } = card ? card : { idx: 0, name: "" };
+  // TODO 자동차 소유 여부, 봉사 진행 여부
   // const hasCar = crewAssigned.find(
   //   ({ user }) => user.access && user.access.car
   // );
   // console.log(!!hasCar);
   const onViewClickHandler = useCallback(() => {
-    navigate(`/view/${cardIdx}`);
+    navigate(`/view/${cardIdx}/${idx}`);
   }, [navigate]);
   const onActiveUsersModalHandler = useCallback(() => {
     setActiveUsersModal(true);
