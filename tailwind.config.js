@@ -75,6 +75,10 @@ module.exports = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-200%)" },
         },
+        showRight: {
+          "0%": { transform: "translateX(-200%)" },
+          "100%": { transform: "translateX(0)" },
+        },
         naviToProfile: {
           from: { "background-color": "rgb(254 252 232)" },
           to: { "background-color": "rgb(253 224 71)" },
@@ -112,6 +116,7 @@ module.exports = {
         showDown: "showDown 0.3s ease-in-out forwards",
         hideDown: "hideDown 0.5s ease-in-out forwards",
         hideLeft: "hideLeft 1s ease-in-out forwards",
+        showRight: "showRight 0.5s ease-in-out forwards",
         naviToProfile: "naviToProfile 0.5s ease-in-out forwards",
         naviToSetting: "naviToSetting 0.5s ease-in-out forwards",
         naviToCard: "naviToCard 0.5s ease-in-out forwards",

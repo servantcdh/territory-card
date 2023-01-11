@@ -85,7 +85,7 @@ const ViewLayout = ({
           </div>
         </Modal>
       )}
-      <TerritoryCard>
+      <TerritoryCard className="animated-showRight">
         <TerritoryInfo
           className="mb-3"
           cardData={cardData}
