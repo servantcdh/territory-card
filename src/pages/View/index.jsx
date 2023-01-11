@@ -103,10 +103,9 @@ const ViewPage = () => {
           },
           {
             onSuccess: () => {
-              queryClient.invalidateQueries([`card/${cardIdx}`, cardIdx]);
               queryClient.invalidateQueries([
-                `assignedCard/${cardAssignedIdx}`,
-                cardAssignedIdx,
+                [`card/${cardIdx}`, cardIdx],
+                [`assignedCard/${cardAssignedIdx}`, cardAssignedIdx],
               ]);
             },
           }
@@ -136,7 +135,9 @@ const ViewPage = () => {
           title={`카드가 ${hasUsed ? "반납" : "회수"}되었습니다.`}
           onConfirm={onConfirmModalHandler}
           buttonName="닫기"
-        ></Modal>
+        >
+          수고하셨습니다!
+        </Modal>
       )}
       {cardData && (
         <ViewLayout
