@@ -51,6 +51,10 @@ module.exports = {
           "0%": { opacity: 0 },
           "100%": { opacity: 0.8 },
         },
+        fade: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
         rotate45: {
           "0%": { transform: "rotate(0)" },
           "100%": { transform: "rotate(45deg)" },
@@ -74,10 +78,6 @@ module.exports = {
         hideLeft: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-200%)" },
-        },
-        showRight: {
-          "0%": { transform: "translateX(-200%)" },
-          "100%": { transform: "translateX(0)" },
         },
         naviToProfile: {
           from: { "background-color": "rgb(254 252 232)" },
@@ -110,13 +110,13 @@ module.exports = {
         cloudy: "cloudy 2s ease-in infinite",
         wiggle: "wiggle 3s ease-in infinite",
         fadeIn: "fadeIn 0.5s ease-in-out forwards",
+        fade: "fade 0.5s ease-in-out forwards",
         rotate45: "rotate45 0.5s ease-in-out forwards",
         rotate0: "rotate0 0.5s ease-in-out forwards",
         showUp: "showUp 0.3s ease-in-out forwards",
         showDown: "showDown 0.3s ease-in-out forwards",
         hideDown: "hideDown 0.5s ease-in-out forwards",
         hideLeft: "hideLeft 1s ease-in-out forwards",
-        showRight: "showRight 0.5s ease-in-out forwards",
         naviToProfile: "naviToProfile 0.5s ease-in-out forwards",
         naviToSetting: "naviToSetting 0.5s ease-in-out forwards",
         naviToCard: "naviToCard 0.5s ease-in-out forwards",
