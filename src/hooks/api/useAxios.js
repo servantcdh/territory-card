@@ -6,7 +6,7 @@ if (apiHost) {
 }
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
-export const useAxios = async (config) => {
+const useAxios = async (config) => {
   const accessToken = getAccessToken();
   if (accessToken) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
@@ -19,3 +19,5 @@ export const useAxios = async (config) => {
     throw new Error(e.response.data.message);
   }
 };
+
+export default useAxios;

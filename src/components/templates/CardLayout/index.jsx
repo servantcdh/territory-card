@@ -9,6 +9,7 @@ import TerritoryCardLabel from "../../molecules/TerritoryCardLabel";
 import TerritoryCardLabelBox from "../../molecules/TerritoryCardLabelBox";
 import TerritoryCardControlBox from "../../molecules/TerritoryCardControlBox";
 import TerritoryCardStoreContainer from "../../organisms/TerritoryCardStoreContainer";
+import ProfileCardList from "../../organisms/ProfileCardList";
 import useDragAndDrop from "../../../hooks/dragAndDrop/useDragAndDrop";
 import Input from "../../atoms/Input";
 import Modal from "../../molecules/Modal";
@@ -16,50 +17,51 @@ import Modal from "../../molecules/Modal";
 const CardLayout = ({
   cardsData,
   tagsData,
+  usersData,
   onTagChange,
   onRollbackCard,
-  onAssignClick,
+  onAssignCardsClick,
+  onAssignCrewsClick,
+  onSearchUser,
   onUploadCard,
   scrollRef,
 }) => {
-  /**
-   *   -배정현황
-   *   타이틀
-   *   구역카드스크롤박스
-   *        전도인배정모달
-   *        구역카드 라벨
-   *            진행상태, 구역번호, 이름, 프로필스택, 상세보기, 전도인배정, 회수
-   */
-  const [checkeds, setCheckeds] = useState([]);
+  const users = usersData ? usersData : [];
+  const [cardAssignedIdx, setCardAssignedIdx] = useState(0);
+  const [checkedCards, setCheckedCards] = useState([]);
   const [cardFile, setCardFile] = useState(null);
   const { dragAreaRef, isDragging, file: cardFileReady } = useDragAndDrop();
   const fileInputId = "fileInput";
   const onTagChangeHandler = useCallback(
     (tags, tagsIgnored) => {
-      onTagChange(tags, tagsIgnored, setCheckeds);
+      onTagChange(tags, tagsIgnored, setCheckedCards);
     },
-    [setCheckeds, onTagChange]
+    [setCheckedCards, onTagChange]
   );
   const onCardClickHandler = useCallback(
     (cardIdx, checked) => {
       if (checked) {
-        const filtereds = checkeds.filter((idx) => idx !== cardIdx);
-        setCheckeds(filtereds);
+        const filtereds = checkedCards.filter((idx) => idx !== cardIdx);
+        setCheckedCards(filtereds);
       } else {
-        const cloneds = [...checkeds];
+        const cloneds = [...checkedCards];
         cloneds.push(cardIdx);
-        setCheckeds(cloneds);
+        setCheckedCards(cloneds);
       }
     },
-    [checkeds, setCheckeds]
+    [checkedCards, setCheckedCards]
   );
   const onResetClickHandler = useCallback(() => {
-    setCheckeds([]);
-  }, [setCheckeds]);
-  const onAssignClickHandler = useCallback(() => {
-    onAssignClick(checkeds);
-    setCheckeds([]);
-  }, [checkeds, setCheckeds, onAssignClick]);
+    setCheckedCards([]);
+  }, [setCheckedCards]);
+  const onAssignCardClickHandler = useCallback(() => {
+    onAssignCardsClick(checkedCards);
+    setCheckedCards([]);
+  }, [checkedCards, setCheckedCards, onAssignCardsClick]);
+  const onAssignCrewClickHandler = useCallback((users) => {
+    console.log(users);
+    // onAssignCrewsClick(cardAssignedIdx, )
+  }, [cardAssignedIdx, onAssignCrewsClick]);
   const onUploadClickHandler = useCallback(() => {
     document.getElementById(fileInputId).click();
   }, [fileInputId]);
@@ -92,6 +94,7 @@ const CardLayout = ({
       />
       {cardFile && (
         <Modal
+          className="bg-amber-200"
           title="다음의 구역 카드를 업로드합니다."
           onConfirm={onConfirmModalHandler}
           onCancel={onCancelModalHandler}
@@ -119,13 +122,14 @@ const CardLayout = ({
                 dragAreaRef={dragAreaRef}
                 fileInputId={fileInputId}
               >
-                {(isDragging) && <TerritoryCardDropBox />}
-                {!isDragging && cardsData &&
+                {isDragging && <TerritoryCardDropBox />}
+                {!isDragging &&
+                  cardsData &&
                   cardsData.map((card) => (
                     <TerritoryCardLabel
                       key={`cardLabel_${card.idx}`}
                       card={card}
-                      checkedCard={checkeds.includes(card.idx)}
+                      checkedCard={checkedCards.includes(card.idx)}
                       onCardClick={onCardClickHandler}
                       onRollbackCard={onRollbackCard}
                     />
@@ -134,8 +138,8 @@ const CardLayout = ({
               <div className="flex-none border-r border-dashed border-primary-400 mx-1"></div>
               <TerritoryCardControlBox
                 className="w-[60px]"
-                checked={checkeds.length > 0}
-                onAssign={onAssignClickHandler}
+                checked={checkedCards.length > 0}
+                onAssign={onAssignCardClickHandler}
                 onReset={onResetClickHandler}
                 onUploadClick={onUploadClickHandler}
               />
@@ -143,6 +147,13 @@ const CardLayout = ({
           </TerritoryCardStoreContainer>
         </TerritoryCard>
       </Container>
+      {/**
+       *   -배정현황
+       *   타이틀
+       *   구역카드스크롤박스
+       *        구역카드 라벨
+       *            진행상태, 구역번호, 이름, 프로필스택, 상세보기, 전도인배정, 회수
+       */}
       <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
         <TerritoryCard
           className="my-0 animate-fadeIn before:top-0"
@@ -150,10 +161,16 @@ const CardLayout = ({
           title="배정현황"
         >
           <TerritoryCardStoreContainer className="bg-sky-700">
-            {/* <AssignStatusBox>
-          <ProfileCardList />
-          <CardAssignedLabelBox />
-        </AssignStatusBox> */}
+            <TerritoryCardStoreBox>
+              {cardAssignedIdx > 0 && (
+                <ProfileCardList
+                  users={users}
+                  onAssign={onAssignCrewClickHandler}
+                  onSearch={onSearchUser}
+                />
+              )}
+              {/* <CardAssignedLabelBox /> */}
+            </TerritoryCardStoreBox>
           </TerritoryCardStoreContainer>
         </TerritoryCard>
       </Container>

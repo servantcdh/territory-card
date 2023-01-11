@@ -1,4 +1,4 @@
-import { useAxios } from "../useAxios";
+import useAxios from "../useAxios";
 
 const baseUrl = `${apiHost ? "" : "/api"}/assign`;
 
@@ -12,15 +12,22 @@ export const myCardApi = () => {
 export const assignedCardsApi = () => {
   return useAxios({
     method: "GET",
-    url: `${baseUrl}/card`
+    url: `${baseUrl}/card`,
   });
 };
 
-export const assignCardsApi = ({ cardIdxes }) => {
-  const data = { cardIdxes: cardIdxes.join(",") };
+export const assignCardsApi = (data) => {
   return useAxios({
     method: "POST",
     url: `${baseUrl}/card`,
+    data,
+  });
+};
+
+export const assignCrewsApi = (data) => {
+  return useAxios({
+    method: "POST",
+    url: `${baseUrl}/crew`,
     data,
   });
 };

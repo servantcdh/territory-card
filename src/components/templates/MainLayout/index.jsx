@@ -38,6 +38,7 @@ const MainLayout = ({ myInfo, myCard, onChangeAccess }) => {
       )}
       {activeModal && (
         <Modal
+          className="bg-amber-200"
           title="운전자이시군요!🪪"
           onConfirm={onModalConfirmHandler}
           buttonName="알려주기"

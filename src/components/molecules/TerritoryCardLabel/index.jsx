@@ -49,6 +49,7 @@ const TerritoryCardLabel = ({
     <>
       {activeModal && (
         <Modal
+          className="bg-amber-200"
           title="구역 카드 복구"
           onConfirm={onConfirmRollbackHandler}
           buttonName="복구하기"

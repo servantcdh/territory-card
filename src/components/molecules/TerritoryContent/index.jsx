@@ -52,6 +52,7 @@ const TerritoryContent = ({
     <>
       {activeModal && (
         <Modal
+          className="bg-amber-200"
           title={`전화 봉사`}
           onConfirm={onConfirmHandler}
           buttonName="닫기"

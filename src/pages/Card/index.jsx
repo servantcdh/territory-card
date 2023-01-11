@@ -2,16 +2,20 @@ import React, { useCallback, useRef, useState } from "react";
 import CardLayout from "../../components/templates/CardLayout";
 import useRollbackCardMutation from "../../hooks/query/card/useRollbackCardMutation";
 import useAssignCardsMutation from "../../hooks/query/assign/useAssignCardsMutation";
+import useAssignCrewsMutation from "../../hooks/query/assign/useAssignCrewsMutation";
 import useUploadExcelCardMutation from "../../hooks/query/file/useUploadExcelCardMutation";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { tagsApi, cardsApi } from "../../hooks/api/card";
 import { assignedCardsApi } from "../../hooks/api/assign";
+import { usersApi } from "../../hooks/api/user";
 
 const CardPage = () => {
   const [tags, setTags] = useState([]);
   const [tagsIgnored, setTagsIgnored] = useState([]);
+  const [searchName, setSearchName] = useState("");
   const { mutate: rollbackCardMutate } = useRollbackCardMutation();
   const { mutate: assignCardsMutate } = useAssignCardsMutation();
+  const { mutate: assignCrewsMutate } = useAssignCrewsMutation();
   const { mutate: uploadExcelCardMutate } = useUploadExcelCardMutation();
   const queryClient = useQueryClient();
   const results = useQueries({
@@ -31,11 +35,17 @@ const CardPage = () => {
         queryFn: assignedCardsApi,
         refetchInterval: 2000,
       },
+      {
+        queryKey: ["users", { name: searchName }],
+        queryFn: usersApi,
+        refetchInterval: 2000,
+      },
     ],
   });
   const { data: tagsData } = results[0];
   const { data: cardsData } = results[1];
   const { data: assignedCardsData } = results[2];
+  const { data: usersData } = results[3];
   const assignedIdxes = (assignedCardsData ? assignedCardsData : []).map(
     (card) => card.cardIdx
   );
@@ -82,6 +92,23 @@ const CardPage = () => {
     },
     [queryClient, assignCardsMutate]
   );
+  const onAssignCrewsHandler = useCallback(
+    (cardAssignedIdx, userIdxes) => {
+      assignCrewsMutate(
+        { cardAssignedIdx, userIdxes },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries(["assignedCards"]);
+          },
+        }
+      );
+    },
+    [queryClient, assignCrewsMutate]
+  );
+  const onSearchUserHandler = useCallback((name) => {
+    setSearchName(name);
+    queryClient.invalidateQueries(["users"]);
+  }, [queryClient]);
   const onUploadCardHandler = useCallback(
     (cardFile, setCardFile) => {
       uploadExcelCardMutate(
@@ -101,9 +128,12 @@ const CardPage = () => {
       tagsData={tagsData}
       cardsData={filteredCards}
       assignedCardsData={assignedCardsData}
+      usersData={usersData}
       onTagChange={onTagChangeHandler}
       onRollbackCard={onRollbackCardHandler}
-      onAssignClick={onAssignCardsHandler}
+      onAssignCardsClick={onAssignCardsHandler}
+      onAssignCrewsClick={onAssignCrewsHandler}
+      onSearchUser={onSearchUserHandler}
       onUploadCard={onUploadCardHandler}
       scrollRef={scrollRef}
     />

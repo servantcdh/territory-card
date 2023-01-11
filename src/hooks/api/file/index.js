@@ -1,4 +1,4 @@
-import { useAxios } from "../useAxios";
+import useAxios from "../useAxios";
 
 const baseUrl = `${apiHost ? "" : "/api"}/file`;
 

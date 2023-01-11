@@ -46,7 +46,9 @@ const ViewLayout = ({
     [onMark]
   );
   const assignedDataLog = cardData ? cardData.cardAssigned : [];
-  const lastDateCompleted = assignedDataLog.length ? assignedDataLog[assignedDataLog.length - 1].dateCompleted : "";
+  const lastDateCompleted = assignedDataLog.length
+    ? assignedDataLog[assignedDataLog.length - 1].dateCompleted
+    : "";
   const {
     userIdx: userIdxAssignedTo,
     dateAssigned,
@@ -71,6 +73,7 @@ const ViewLayout = ({
     <Body className="animate-naviToView p-1">
       {activeModal && (
         <Modal
+          className="bg-amber-200"
           title="수고하셨습니다!"
           onConfirm={onModalConfirmHandler}
           onCancel={onModalCancelHandler}

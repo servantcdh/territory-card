@@ -9,7 +9,7 @@ const ProfileCard = ({ className, user, checked, assigned, onClick }) => {
     user;
   const navigate = useNavigate();
   const liveActive = live ? "bg-primary-200" : "bg-primary-400";
-  const checkActive = checked ? "" : liveActive;
+  const checkActive = checked ? "bg-orange-300" : liveActive;
   const onClickHandler = useCallback(() => {
     if (onClick) {
       onClick(userIdx, checked, assigned);

@@ -2,8 +2,8 @@ import React, { useCallback } from "react";
 
 const Tag = ({ className, children, tags, tagsIgnored, onClick }) => {
   const tag = children.replace("#", "");
-  const isTags = tags.includes(tag);
-  const isIgnoreds = tagsIgnored.includes(tag);
+  const isTags = (tags ? tags : []).includes(tag);
+  const isIgnoreds = (tagsIgnored ? tagsIgnored : []).includes(tag);
   const onClickHandler = useCallback(() => {
     onClick(tag);
   }, [onClick, tag]);

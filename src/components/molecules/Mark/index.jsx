@@ -40,6 +40,7 @@ const Mark = ({ id, markType, checked, onCheck }) => {
     <>
       {activeModal && (
         <Modal
+          className="bg-amber-200"
           title="방문을 거절당하셨나요?"
           onConfirm={onConfirmHandler}
           onCancel={onCancelHandler}

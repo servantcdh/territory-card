@@ -23,11 +23,11 @@ const LoginLayout = ({ onSubmit, pending, error, success }) => {
   return (
     <div className="w-screen">
       <Card
-        className={`fixed inset-x-0 m-auto w-96 top-1/3 text-center border-4 border-amber-500 ${
+        className={`fixed inset-x-0 m-auto w-96 top-1/3 text-center border-4 border-amber-500 bg-cyan-700 ${
           success ? "animate-hideLeft" : ""
         }`}
       >
-        <div className="text-2xl mb-4">
+        <div className="text-2xl mb-4 text-primary-200">
           <h1>로그인</h1>
         </div>
         <div>

@@ -15,6 +15,9 @@ const Search = ({ className, onSubmit }) => {
   const onKeyUpHandler = (event) => {
     setKeyword(event.target.value);
   };
+  const onClickHandler = (event) => {
+    setKeyword("");
+  };
   return (
     <div className={`${className}`}>
       <div className="relative">
@@ -40,6 +43,7 @@ const Search = ({ className, onSubmit }) => {
           className="block w-full p-2 pl-10 text-sm text-gray-900 border-black border-4 rounded-lg bg-amber-100"
           placeholder="전도인을 검색합니다..."
           onKeyUp={onKeyUpHandler}
+          onClick={onClickHandler}
         />
       </div>
     </div>

@@ -32,6 +32,7 @@ const ProfileCardList = ({ users, onAssign, onSearch }) => {
   };
   return (
     <Modal
+      className="bg-amber-200"
       title="배정할 전도인 선택"
       onConfirm={onConfirmHandler}
       onCancel={onCancelHandler}
@@ -39,21 +40,20 @@ const ProfileCardList = ({ users, onAssign, onSearch }) => {
       cancelName="취소"
       buttonDisabled={!checkedUserIdx.length}
     >
-      {!!users.length &&
-        users.map((u) => (
-          <ProfileCard
-            key={u.userIdx}
-            className="rounded"
-            user={u}
-            checked={checkedUserIdx.includes(u.userIdx)}
-            assigned={assignedUserIdx === u.userIdx}
-            onClick={onCheckProfileHandler.bind(this)}
-          />
-        ))}
-      <Search
-        className="absolute bottom-3 m-auto inset-x-0 w-11/12 h-10"
-        onSubmit={onSearchHandler}
-      />
+      <Search className="fixed w-5/6 inset-x-0 mx-auto h-10 z-20" onSubmit={onSearchHandler} />
+      <div className="mt-[55px]">
+        {!!users.length &&
+          users.map((u) => (
+            <ProfileCard
+              key={u.userIdx}
+              className="rounded"
+              user={u}
+              checked={checkedUserIdx.includes(u.userIdx)}
+              assigned={assignedUserIdx === u.userIdx}
+              onClick={onCheckProfileHandler.bind(this)}
+            />
+          ))}
+      </div>
     </Modal>
   );
 };

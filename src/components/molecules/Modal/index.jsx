@@ -10,6 +10,7 @@ const Backdrop = () => {
 };
 
 const ModalOverlay = ({
+  className,
   children,
   title,
   buttonName,
@@ -19,11 +20,11 @@ const ModalOverlay = ({
   onCancel,
 }) => {
   return (
-    <Card className="fixed m-auto w-11/12 max-h-96 inset-x-0 top-24 p-0 z-30 animate-scale box-border border-amber-500 border-4 rounded">
+    <Card className={`fixed m-auto w-11/12 max-h-[600px] inset-x-0 top-24 p-0 z-30 animate-scale box-border border-amber-500 border-4 rounded ${className}`}>
       <header className="p-3 text-xl font-bold">
         <h2>{title}</h2>
       </header>
-      <div className="relative p-3 h-auto max-h-64 overflow-y-scroll bg-white text-sm font-thin">
+      <div className="relative p-3 h-auto max-h-96 overflow-y-scroll bg-white text-sm font-thin">
         {children}
       </div>
       <footer className="p-4 text-center">
@@ -47,6 +48,7 @@ const ModalOverlay = ({
 const portalElement = document.getElementById("overlays");
 
 const Modal = ({
+  className,
   children,
   title,
   buttonName,
@@ -61,6 +63,7 @@ const Modal = ({
       {ReactDOM.createPortal(
         <ModalOverlay
           title={title}
+          className={className}
           buttonName={buttonName}
           cancelName={cancelName}
           buttonDisabled={buttonDisabled}

@@ -39,7 +39,9 @@ const ViewPage = () => {
     ? user
     : { userIdx: 0, auth: 0, guide: 0 };
   const users = [];
-  const { street: address } = cardData ? cardData.cardContent[0] : { street: "" };
+  const { street: address } = cardData
+    ? cardData.cardContent[0]
+    : { street: "" };
   let hasUsed = false;
   if (assignedData) {
     assignedData.crewAssigned.forEach((crew) => {
@@ -130,6 +132,7 @@ const ViewPage = () => {
     <>
       {activeModal && (
         <Modal
+          className="bg-amber-200"
           title={`카드가 ${hasUsed ? "반납" : "회수"}되었습니다.`}
           onConfirm={onConfirmModalHandler}
           buttonName="닫기"
