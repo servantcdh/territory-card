@@ -1,16 +1,16 @@
 import React, { useCallback } from "react";
 
-const Profile = ({ className, liveClassName, profile, userIdx, name, live, onClick }) => {
+const Profile = ({ className, liveClassName, profile, userIdx, name, live, assigned, onClick }) => {
   const onClickHandler = useCallback(() => {
     if (onClick) {
       onClick(userIdx);
     }
   }, [onClick, userIdx]);
   return (
-    <div className={`w-12 relative animate-scale ${className}`}>
+    <div className={`relative animate-scale`}>
       {profile && (
         <img
-          className={`p-0 w-12 h-12 rounded-full ${className}`}
+          className={`p-0 w-12 h-12 rounded-full ${className} ${assigned ? "border-[2px] border-orange-600" : ""}`}
           src={profile}
           alt={name}
           onClick={onClickHandler}
@@ -21,7 +21,7 @@ const Profile = ({ className, liveClassName, profile, userIdx, name, live, onCli
           className={`inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-gray-600 rounded-full ${className}`}
           onClick={onClickHandler}
         >
-          <span className="text-base text-gray-300">{name.substring(1)}</span>
+          <span className="text-base text-gray-300">{name.substring(1, 3)}</span>
         </div>
       )}
       {!!live && (

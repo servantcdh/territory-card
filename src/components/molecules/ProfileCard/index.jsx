@@ -38,7 +38,7 @@ const ProfileCard = ({ className, user, checked, assigned, onClick }) => {
           {!!guide ? "💼" : ""}
           {!!auth ? "🧑🏻‍🔧" : ""}
           &nbsp;
-          {!!assigned ? <Tag>담당자</Tag> : ""}
+          {!!assigned ? <Tag>카드관리자</Tag> : ""}
           {!!car ? <p className="animate-bounce">🚗</p> : ""}
         </div>
       </div>

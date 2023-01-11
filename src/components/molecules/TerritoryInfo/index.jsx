@@ -68,11 +68,12 @@ const TerritoryInfo = ({
             {!!users.length &&
               users.map((user) => (
                 <Profile
-                  className="mr-0.5 w-11 h-11"
-                  liveClassName="left-[2.1rem]"
+                  className="mr-[2px] w-[40px] h-[40px]"
+                  liveClassName="left-[1.8rem]"
                   key={`profile_${user.idx}`}
                   {...user}
                   onClick={onProfileClickHandler.bind(null, user.idx)}
+                  assigned={isUserAssignedTo}
                 />
               ))}
           </div>

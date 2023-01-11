@@ -3,6 +3,8 @@ import CardLayout from "../../components/templates/CardLayout";
 import useRollbackCardMutation from "../../hooks/query/card/useRollbackCardMutation";
 import useAssignCardsMutation from "../../hooks/query/assign/useAssignCardsMutation";
 import useAssignCrewsMutation from "../../hooks/query/assign/useAssignCrewsMutation";
+import useAssignUserMutation from "../../hooks/query/assign/useAssignUserMutation";
+import useCompleteCardMutation from "../../hooks/query/assign/useCompleteCardMutation";
 import useUploadExcelCardMutation from "../../hooks/query/file/useUploadExcelCardMutation";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { tagsApi, cardsApi } from "../../hooks/api/card";
@@ -16,6 +18,8 @@ const CardPage = () => {
   const { mutate: rollbackCardMutate } = useRollbackCardMutation();
   const { mutate: assignCardsMutate } = useAssignCardsMutation();
   const { mutate: assignCrewsMutate } = useAssignCrewsMutation();
+  const { mutate: assignUserMutate } = useAssignUserMutation();
+  const { mutate: completeCardMutate } = useCompleteCardMutation();
   const { mutate: uploadExcelCardMutate } = useUploadExcelCardMutation();
   const queryClient = useQueryClient();
   const results = useQueries({
@@ -93,22 +97,49 @@ const CardPage = () => {
     [queryClient, assignCardsMutate]
   );
   const onAssignCrewsHandler = useCallback(
-    (cardAssignedIdx, userIdxes) => {
+    (cardAssignedIdx, { userIdx, userIdxes }) => {
       assignCrewsMutate(
         { cardAssignedIdx, userIdxes },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries(["assignedCards"]);
+            if (userIdx) {
+              assignUserMutate(
+                { cardAssignedIdx, data: { userIdx } },
+                {
+                  onSuccess: () => {
+                    queryClient.invalidateQueries(["assignedCards"]);
+                  },
+                }
+              );
+            } else {
+              queryClient.invalidateQueries(["assignedCards"]);
+            }
           },
         }
       );
     },
-    [queryClient, assignCrewsMutate]
+    [queryClient, assignCrewsMutate, assignUserMutate]
   );
-  const onSearchUserHandler = useCallback((name) => {
-    setSearchName(name);
-    queryClient.invalidateQueries(["users"]);
-  }, [queryClient]);
+  const onCompletekCardHandler = useCallback(
+    (cardAssignedIdx) => {
+      completeCardMutate(
+        { cardAssignedIdx },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries([["cards"], ["assignedCards"]]);
+          },
+        }
+      );
+    },
+    [completeCardMutate, queryClient]
+  );
+  const onSearchUserHandler = useCallback(
+    (name) => {
+      setSearchName(name);
+      queryClient.invalidateQueries(["users"]);
+    },
+    [queryClient]
+  );
   const onUploadCardHandler = useCallback(
     (cardFile, setCardFile) => {
       uploadExcelCardMutate(
@@ -131,10 +162,11 @@ const CardPage = () => {
       usersData={usersData}
       onTagChange={onTagChangeHandler}
       onRollbackCard={onRollbackCardHandler}
-      onAssignCardsClick={onAssignCardsHandler}
-      onAssignCrewsClick={onAssignCrewsHandler}
+      onAssignCards={onAssignCardsHandler}
+      onAssignCrews={onAssignCrewsHandler}
       onSearchUser={onSearchUserHandler}
       onUploadCard={onUploadCardHandler}
+      onRetrieve={onCompletekCardHandler}
       scrollRef={scrollRef}
     />
   );

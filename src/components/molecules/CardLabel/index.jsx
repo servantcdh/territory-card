@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const CardLabel = ({ item }) => {
   const navigate = useNavigate();
-  const users = [];
-  item.crewAssigned.forEach((crew) => users.push(crew.user));
+  const { userIdx, crewAssigned } = item ? item : { userIdx: 0, crewAssigned: null };
+  const users = crewAssigned ? crewAssigned.map((crew) => crew.user) : [];
   const onClickHandler = useCallback(() => {
     navigate(`/view/${item.cardIdx}/${item.idx}`);
   }, [navigate]);
@@ -25,7 +25,7 @@ const CardLabel = ({ item }) => {
         <div className="">
           <div>함께하는 사람.</div>
           <div>
-            <ProfileStack key={`stack_${item.idx}`} users={users} />
+            <ProfileStack key={`stack_${item.idx}`} users={users} userIdx={userIdx} />
           </div>
           <div
             className="absolute right-6 bottom-5 text-2xl cursor-pointer text-yellow-200 hover:text-yellow-500"

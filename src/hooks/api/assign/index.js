@@ -32,6 +32,14 @@ export const assignCrewsApi = (data) => {
   });
 };
 
+export const assignUserApi = ({ cardAssignedIdx, data }) => {
+  return useAxios({
+    method: "PATCH",
+    url: `${baseUrl}/card/${cardAssignedIdx}`,
+    data
+  });
+};
+
 export const assignedCardApi = ({ queryKey }) => {
   const [_, cardAssignedIdx] = queryKey;
   return useAxios({

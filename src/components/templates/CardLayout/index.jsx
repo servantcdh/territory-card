@@ -1,33 +1,35 @@
 import React, { useCallback, useEffect, useState } from "react";
+import useDragAndDrop from "../../../hooks/dragAndDrop/useDragAndDrop";
 import Body from "../../atoms/Body";
+import Input from "../../atoms/Input";
 import Container from "../../atoms/Container";
+import Modal from "../../molecules/Modal";
 import TerritoryCard from "../../molecules/TerritoryCard";
 import TagBox from "../../molecules/TagBox";
-import TerritoryCardDropBox from "../../molecules/TerritoryCardDropBox";
+import TerritoryCardStoreContainer from "../../organisms/TerritoryCardStoreContainer";
 import TerritoryCardStoreBox from "../../molecules/TerritoryCardStoreBox";
+import TerritoryCardDropBox from "../../molecules/TerritoryCardDropBox";
 import TerritoryCardLabel from "../../molecules/TerritoryCardLabel";
 import TerritoryCardLabelBox from "../../molecules/TerritoryCardLabelBox";
 import TerritoryCardControlBox from "../../molecules/TerritoryCardControlBox";
-import TerritoryCardStoreContainer from "../../organisms/TerritoryCardStoreContainer";
-import ProfileCardList from "../../organisms/ProfileCardList";
-import useDragAndDrop from "../../../hooks/dragAndDrop/useDragAndDrop";
-import Input from "../../atoms/Input";
-import Modal from "../../molecules/Modal";
+import TerritoryAssignCard from "../../molecules/TerritoryAssignCard";
+import TerritoryAssignCardBox from "../../molecules/TerritoryAssignCardBox";
 
 const CardLayout = ({
   cardsData,
   tagsData,
+  assignedCardsData,
   usersData,
   onTagChange,
   onRollbackCard,
-  onAssignCardsClick,
-  onAssignCrewsClick,
+  onAssignCards,
+  onAssignCrews,
   onSearchUser,
   onUploadCard,
+  onRetrieve,
   scrollRef,
 }) => {
   const users = usersData ? usersData : [];
-  const [cardAssignedIdx, setCardAssignedIdx] = useState(0);
   const [checkedCards, setCheckedCards] = useState([]);
   const [cardFile, setCardFile] = useState(null);
   const { dragAreaRef, isDragging, file: cardFileReady } = useDragAndDrop();
@@ -55,13 +57,15 @@ const CardLayout = ({
     setCheckedCards([]);
   }, [setCheckedCards]);
   const onAssignCardClickHandler = useCallback(() => {
-    onAssignCardsClick(checkedCards);
+    onAssignCards(checkedCards);
     setCheckedCards([]);
-  }, [checkedCards, setCheckedCards, onAssignCardsClick]);
-  const onAssignCrewClickHandler = useCallback((users) => {
-    console.log(users);
-    // onAssignCrewsClick(cardAssignedIdx, )
-  }, [cardAssignedIdx, onAssignCrewsClick]);
+  }, [checkedCards, setCheckedCards, onAssignCards]);
+  const onAssignCrewHandler = useCallback(
+    (cardAssignedIdx, crewInfo) => {
+      onAssignCrews(cardAssignedIdx, crewInfo);
+    },
+    [onAssignCrews]
+  );
   const onUploadClickHandler = useCallback(() => {
     document.getElementById(fileInputId).click();
   }, [fileInputId]);
@@ -147,13 +151,6 @@ const CardLayout = ({
           </TerritoryCardStoreContainer>
         </TerritoryCard>
       </Container>
-      {/**
-       *   -배정현황
-       *   타이틀
-       *   구역카드스크롤박스
-       *        구역카드 라벨
-       *            진행상태, 구역번호, 이름, 프로필스택, 상세보기, 전도인배정, 회수
-       */}
       <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
         <TerritoryCard
           className="my-0 animate-fadeIn before:top-0"
@@ -161,16 +158,19 @@ const CardLayout = ({
           title="배정현황"
         >
           <TerritoryCardStoreContainer className="bg-sky-700">
-            <TerritoryCardStoreBox>
-              {cardAssignedIdx > 0 && (
-                <ProfileCardList
-                  users={users}
-                  onAssign={onAssignCrewClickHandler}
-                  onSearch={onSearchUser}
-                />
-              )}
-              {/* <CardAssignedLabelBox /> */}
-            </TerritoryCardStoreBox>
+            <TerritoryAssignCardBox childClassName="overflow-y-scroll">
+              {assignedCardsData &&
+                assignedCardsData.map((card) => (
+                  <TerritoryAssignCard
+                    key={`assignLabel_${card.idx}`}
+                    users={users}
+                    assignedCard={card}
+                    onAssignCrew={onAssignCrewHandler}
+                    onSearch={onSearchUser}
+                    onRetrieve={onRetrieve}
+                  />
+                ))}
+            </TerritoryAssignCardBox>
           </TerritoryCardStoreContainer>
         </TerritoryCard>
       </Container>

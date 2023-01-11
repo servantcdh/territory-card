@@ -4,7 +4,7 @@ import { rollbackCardApi } from "../../api/card";
 export default () => {
   const queryClient = useQueryClient();
   return useMutation(rollbackCardApi, {
-    onMutate: async ({ cardIdx }) => {
+    onMutate: ({ cardIdx }) => {
       queryClient.cancelQueries([[`card/${cardIdx}`, cardIdx], ["cards"]]);
     },
   });

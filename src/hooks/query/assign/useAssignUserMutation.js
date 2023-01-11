@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { uploadExcelCardApi } from "../../api/file";
+import { assignUserApi } from "../../api/assign";
 
 export default () => {
   const queryClient = useQueryClient();
-  return useMutation(uploadExcelCardApi, {
+  return useMutation(assignUserApi, {
     onMutate: () => {
-      queryClient.cancelQueries(["cards"]);
+      queryClient.cancelQueries(["assignedCrews"]);
     },
   });
 };

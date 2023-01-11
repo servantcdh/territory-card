@@ -4,7 +4,7 @@ import { assignCrewsApi } from "../../api/assign";
 export default () => {
   const queryClient = useQueryClient();
   return useMutation(assignCrewsApi, {
-    onMutate: async () => {
+    onMutate: () => {
       queryClient.cancelQueries(["assignedCards"]);
     },
   });
