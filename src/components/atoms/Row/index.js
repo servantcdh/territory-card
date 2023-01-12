@@ -7,7 +7,7 @@ const Column = ({ className, children, isLast }) => {
         <div className="">{children}</div>
       </div>
       {!isLast && (
-        <div className="border-r border-dashed border-primary-600 mx-3"></div>
+        <div className="border-r border-dashed border-primary-400 mx-3"></div>
       )}
     </>
   );
@@ -23,7 +23,7 @@ const Row = ({ className, columns, header, firstRow, divide }) => {
       {!!columns && (
         <>
           {firstRow && header && <div className="mb-1">{header}</div>}
-          <div className="border border-dashed bg-orange-50 border-primary-600 w-full h-full p-2 flex">
+          <div className="border border-dashed bg-orange-50 border-primary-400 w-full h-full p-2 flex">
             {columns.map((content, index) => (
               <Column
                 key={`col_${index}`}

@@ -28,11 +28,14 @@ const TerritoryContentBox = ({
             content={content}
             cardRecord={cardRecord}
             firstRow={
-              index === 0 || content.street !== cardContent[index - 1].street
+              index === 0 ||
+              content.street !== cardContent[index - 1].street ||
+              content.building !== cardContent[index - 1].building
             }
             divide={
               cardContent.length - 1 === index ||
-              content.street !== cardContent[index + 1].street
+              content.street !== cardContent[index + 1].street ||
+              content.building !== cardContent[index + 1].building
             }
             onMark={onMarkHandler}
             userIdx={userIdx}
