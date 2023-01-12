@@ -153,7 +153,7 @@ const CardLayout = ({
       </Container>
       <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
         <TerritoryCard
-          className="my-0 animate-fadeIn before:top-0"
+          className="my-0 animate-fade before:top-0"
           childClassName="-top-6 bg-sky-800"
           title="배정현황"
         >

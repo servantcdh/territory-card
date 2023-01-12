@@ -46,3 +46,19 @@ export const uploadExcelCardApi = ({ cardFile }) => {
     },
   });
 };
+
+export const docxS13Api = async (serviceYear) => {
+  const blob = await useAxios({
+    method: "GET",
+    url: `${baseUrl}/s-13/${serviceYear}`,
+    responseType: "blob",
+  });
+  const href = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = href;
+  link.setAttribute("download", `구역배정기록-${serviceYear}년도.docx`);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(href);
+};
