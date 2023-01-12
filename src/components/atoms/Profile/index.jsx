@@ -18,7 +18,7 @@ const Profile = ({ className, liveClassName, profile, userIdx, name, live, assig
       )}
       {!profile && name && (
         <div
-          className={`inline-flex overflow-hidden relative justify-center items-center w-12 h-12 bg-gray-600 rounded-full ${className}`}
+          className={`inline-flex overflow-hidden relative justify-center items-center w-12 h-12 ${assigned ? "bg-orange-600" : "bg-gray-600"} rounded-full ${className}`}
           onClick={onClickHandler}
         >
           <span className="text-base text-gray-300">{name.substring(1, 3)}</span>

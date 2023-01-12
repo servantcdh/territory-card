@@ -91,6 +91,7 @@ const ViewLayout = ({
           cardData={cardData}
           users={users}
           isUserAssignedTo={isUserAssignedTo}
+          userIdxAssignedTo={userIdxAssignedTo}
           dateAssigned={dateAssigned}
           lastDateCompleted={lastDateCompleted}
           address={address}

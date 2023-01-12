@@ -5,7 +5,9 @@ const Tag = ({ className, children, tags, tagsIgnored, onClick }) => {
   const isTags = (tags ? tags : []).includes(tag);
   const isIgnoreds = (tagsIgnored ? tagsIgnored : []).includes(tag);
   const onClickHandler = useCallback(() => {
-    onClick(tag);
+    if (onClick) {
+      onClick(tag);
+    }
   }, [onClick, tag]);
   let activeClass = "";
   if (!isTags && !isIgnoreds) {

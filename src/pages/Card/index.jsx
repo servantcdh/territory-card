@@ -103,18 +103,14 @@ const CardPage = () => {
         { cardAssignedIdx, userIdxes },
         {
           onSuccess: () => {
-            if (userIdx) {
-              assignUserMutate(
-                { cardAssignedIdx, data: { userIdx } },
-                {
-                  onSuccess: () => {
-                    queryClient.invalidateQueries(["assignedCards"]);
-                  },
-                }
-              );
-            } else {
-              queryClient.invalidateQueries(["assignedCards"]);
-            }
+            assignUserMutate(
+              { cardAssignedIdx, data: { userIdx: userIdx ? userIdx : null } },
+              {
+                onSuccess: () => {
+                  queryClient.invalidateQueries(["assignedCards"]);
+                },
+              }
+            );
           },
         }
       );

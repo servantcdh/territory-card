@@ -10,6 +10,7 @@ const TerritoryInfo = ({
   cardData,
   users,
   isUserAssignedTo,
+  userIdxAssignedTo,
   dateAssigned,
   lastDateCompleted,
   address,
@@ -73,7 +74,7 @@ const TerritoryInfo = ({
                   key={`profile_${user.idx}`}
                   {...user}
                   onClick={onProfileClickHandler.bind(null, user.idx)}
-                  assigned={isUserAssignedTo}
+                  assigned={user.idx === userIdxAssignedTo}
                 />
               ))}
           </div>
