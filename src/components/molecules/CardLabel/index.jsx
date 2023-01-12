@@ -25,7 +25,7 @@ const CardLabel = ({ item }) => {
         <div className="">
           <div>함께하는 사람.</div>
           <div>
-            <ProfileStack key={`stack_${item.idx}`} users={users} userIdx={userIdx} />
+            <ProfileStack className="w-11 h-11" users={users} userIdx={userIdx} length={5} />
           </div>
           <div
             className="absolute right-6 bottom-5 text-2xl cursor-pointer text-yellow-200 hover:text-yellow-500"

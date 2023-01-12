@@ -140,6 +140,7 @@ const TerritoryAssignCard = ({
                 className="w-[38.5px] h-[38.5px]"
                 users={crews}
                 userIdx={userIdx}
+                length={6}
               />
             )}
           </div>

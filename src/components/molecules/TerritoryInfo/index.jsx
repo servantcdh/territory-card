@@ -4,6 +4,7 @@ import Button from "../../atoms/Button";
 import KakaoMapButton from "../../atoms/KakaoMapButton";
 import Profile from "../../atoms/Profile";
 import Textarea from "../../atoms/Textarea";
+import ProfileStack from "../ProfileStack";
 
 const TerritoryInfo = ({
   className,
@@ -66,7 +67,7 @@ const TerritoryInfo = ({
         <div className="">
           <div>함께하는 사람.</div>
           <div className="mb-2 flex">
-            {!!users.length &&
+            {users.length <= 5 &&
               users.map((user) => (
                 <Profile
                   className="mr-[2px] w-[40px] h-[40px]"
@@ -77,6 +78,14 @@ const TerritoryInfo = ({
                   assigned={user.idx === userIdxAssignedTo}
                 />
               ))}
+              {users.length > 5 && (
+                <ProfileStack
+                className="w-[38.5px] h-[38.5px]"
+                users={users}
+                userIdx={userIdxAssignedTo}
+                length={7}
+              />
+              )}
           </div>
           <div>
             {address && (

@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Profile from "../../atoms/Profile";
 
-const ProfileStack = ({ className, users, userIdx }) => {
+const ProfileStack = ({ className, users, userIdx, length }) => {
   const navigate = useNavigate();
   const onClick = useCallback(
     (userIdx) => {
@@ -10,6 +10,11 @@ const ProfileStack = ({ className, users, userIdx }) => {
     },
     [navigate]
   );
+  let overLength = 0;
+  if (users.length > length) {
+    overLength = users.length - length;
+    users = users.slice(0, length);
+  }
   return (
     <div className="flex -space-x-4">
       {users.map((u) => (
@@ -23,6 +28,13 @@ const ProfileStack = ({ className, users, userIdx }) => {
           onClick={onClick}
         />
       ))}
+      {overLength > 0 && (
+        <a
+          className={`flex items-center justify-center w-12 h-12 text-xs font-medium text-white bg-gray-700 border-2 rounded-full border-gray-800 z-20 ${className}`}
+        >
+          +{overLength}
+        </a>
+      )}
     </div>
   );
 };
