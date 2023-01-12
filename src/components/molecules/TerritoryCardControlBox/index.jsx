@@ -24,7 +24,7 @@ const TerritoryCardControlBox = ({ className, onAssign, onReset, onUploadClick, 
         onClick={onReset}
         disabled={!checked}
       >
-        초기화
+        선택해제
       </Button>
       <Button
         className="w-full h-[32px] border-2 px-0 py-0 bg-emerald-500 mb-1"

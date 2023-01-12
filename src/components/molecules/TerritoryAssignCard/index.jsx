@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../atoms/Button";
 import Profile from "../../atoms/Profile";
@@ -16,24 +16,23 @@ const TerritoryAssignCard = ({
 }) => {
   const [activeUsersModal, setActiveUsersModal] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
+  const [hasCar, setHasCar] = useState(false);
   const navigate = useNavigate();
-  const { idx, card, crewAssigned, userIdx, dateAssigned } = assignedCard
-    ? assignedCard
-    : {
-        idx: 0,
-        card: null,
-        crewAssigned: [],
-        userIdx: 0,
-        dateAssigned: "",
-      };
+  const { idx, card, crewAssigned, userIdx, dateAssigned, cardRecord } =
+    assignedCard
+      ? assignedCard
+      : {
+          idx: 0,
+          card: null,
+          crewAssigned: [],
+          userIdx: 0,
+          dateAssigned: "",
+          cardRecord: [],
+        };
   const userIdxes = crewAssigned.map(({ userIdx }) => userIdx);
   const crews = crewAssigned.map(({ user }) => user);
   const { idx: cardIdx, name } = card ? card : { idx: 0, name: "" };
-  // TODO 자동차 소유 여부, 봉사 진행 여부
-  // const hasCar = crewAssigned.find(
-  //   ({ user }) => user.access && user.access.car
-  // );
-  // console.log(!!hasCar);
+  const crewsHasCar = crews.find((user) => user.access && user.access.car);
   const onViewClickHandler = useCallback(() => {
     navigate(`/view/${cardIdx}/${idx}`);
   }, [navigate]);
@@ -60,6 +59,11 @@ const TerritoryAssignCard = ({
     setActiveModal(false);
     onRetrieve(idx);
   }, [setActiveModal, onRetrieve, idx]);
+  useEffect(() => {
+    if (crews.length && crewsHasCar) {
+      setHasCar(true);
+    }
+  }, [setHasCar, crewsHasCar, crews]);
   return (
     <>
       {activeUsersModal && (
@@ -100,7 +104,18 @@ const TerritoryAssignCard = ({
       >
         <div className="w-[36rem]">
           <div className="text-[13px]">
-            구역번호.{cardIdx} {name}
+            {cardRecord.length > 0 && (
+              <span className="inline-block mr-1 rounded px-[1px] bg-red-600 text-primary-100">
+                진행중
+              </span>
+            )}
+            {hasCar && (
+              <span className="inline-block mr-1 rounded px-[2px] bg-sky-600">
+                🚗
+              </span>
+            )}
+            구역번호.
+            {cardIdx} {name}
           </div>
           <div className="flex whitespace-nowrap overflow-hidden text-ellipsis">
             <div>
@@ -121,7 +136,11 @@ const TerritoryAssignCard = ({
                 />
               ))}
             {crewAssigned.length > 5 && (
-              <ProfileStack className="w-[38.5px] h-[38.5px]" users={crews} userIdx={userIdx} />
+              <ProfileStack
+                className="w-[38.5px] h-[38.5px]"
+                users={crews}
+                userIdx={userIdx}
+              />
             )}
           </div>
         </div>

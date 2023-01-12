@@ -62,8 +62,9 @@ const CardPage = () => {
       setTags(tags);
       setTagsIgnored(tagsIgnored);
       setCheckeds([]);
+      queryClient.invalidateQueries(["cards"]);
     },
-    [setTags, setTagsIgnored]
+    [setTags, setTagsIgnored, queryClient]
   );
   const onRollbackCardHandler = useCallback(
     (cardIdx, cardBackupIdx) => {
@@ -84,7 +85,7 @@ const CardPage = () => {
         { cardIdxes },
         {
           onSuccess: () => {
-            queryClient.invalidateQueries(["cards"]);
+            queryClient.invalidateQueries([["cards"], ["assignedCards"]]);
             scrollRef.current.scrollIntoView({
               behavior: "smooth",
               block: "end",
@@ -120,7 +121,7 @@ const CardPage = () => {
     },
     [queryClient, assignCrewsMutate, assignUserMutate]
   );
-  const onCompletekCardHandler = useCallback(
+  const onCompleteCardHandler = useCallback(
     (cardAssignedIdx) => {
       completeCardMutate(
         { cardAssignedIdx },
@@ -166,7 +167,7 @@ const CardPage = () => {
       onAssignCrews={onAssignCrewsHandler}
       onSearchUser={onSearchUserHandler}
       onUploadCard={onUploadCardHandler}
-      onRetrieve={onCompletekCardHandler}
+      onRetrieve={onCompleteCardHandler}
       scrollRef={scrollRef}
     />
   );
