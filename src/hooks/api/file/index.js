@@ -47,6 +47,26 @@ export const uploadExcelCardApi = ({ cardFile }) => {
   });
 };
 
+export const uploadProfileApi = ({ image }) => {
+  const data = new FormData();
+  data.append("profile", image);
+  return useAxios({
+    method: "POST",
+    url: `${baseUrl}/profile`,
+    data,
+    Headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const deleteProfileApi = ({ filename }) => {
+  return useAxios({
+    method: "DELETE",
+    url: `${baseUrl}/profile/${filename}`,
+  });
+};
+
 export const docxS13Api = async (serviceYear) => {
   const blob = await useAxios({
     method: "GET",

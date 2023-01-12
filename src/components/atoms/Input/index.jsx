@@ -3,6 +3,7 @@ import React from "react";
 const Input = ({
   className,
   type,
+  htmlRef,
   id,
   name,
   inputMode,
@@ -23,6 +24,7 @@ const Input = ({
         error ? "animate-error" : ""
       }`}
       type={type}
+      ref={htmlRef}
       id={id}
       name={name}
       inputMode={inputMode}
