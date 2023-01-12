@@ -56,7 +56,7 @@ const S13Layout = ({ s13Data, onServiceYearSelect, onDownload }) => {
             </Button>
           </div>
           {s13Data.length > 0 && (
-            <div className="overflow-y-scroll text-primary-800 bg-amber-200 h-[calc(100%-125px)] p-1">
+            <div className="overflow-y-scroll text-primary-800 bg-amber-200 h-auto max-h-[calc(100%-125px)] p-1">
               <div className="border border-dashed h-full border-primary-400">
                 <TerritoryS13Header className="bg-amber-200 mb-0" />
                 {s13Data.map(
@@ -96,11 +96,11 @@ const S13Layout = ({ s13Data, onServiceYearSelect, onDownload }) => {
                             }
                           />
                         ))}
+                        <Row className="bg-amber-200" />
                       </div>
                     );
                   }
                 )}
-                <Row />
               </div>
             </div>
           )}
