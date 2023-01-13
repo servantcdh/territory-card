@@ -25,7 +25,7 @@ const ProfileLayout = ({ userData, isMyProfile, hasAuth, onUploadProfile }) => {
   }, [inputFileRef]);
   const onModifyUserInfoClickHandler = useCallback(() => {
     navigate(`/setting/${isMyProfile ? "me" : userData.userIdx}`);
-  }, [navigate]);
+  }, [navigate, isMyProfile, userData]);
   const onLoadingImageHandler = useCallback(
     (isLoading) => {
       setIsLoadingImage(isLoading);
