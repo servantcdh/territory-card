@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
-import { userApi } from "../../hooks/api/user";
+import { myInfoApi, userApi } from "../../hooks/api/user";
 import useUploadProfileImageMutation from "../../hooks/query/file/useUploadProfileImageMutation";
 import useDeleteProfileImageMutation from "../../hooks/query/file/useDeleteProfileImageMutation";
 import ProfileLayout from "../../components/templates/ProfileLayout";
@@ -9,7 +9,6 @@ import ProfileLayout from "../../components/templates/ProfileLayout";
 const ProfilePage = () => {
   const { userIdx } = useParams();
   const queryClient = useQueryClient();
-  const myInfoData = queryClient.getQueryData(["myInfo"]);
   const results = useQueries({
     queries: [
       {
@@ -18,11 +17,17 @@ const ProfilePage = () => {
         enabled: !!userIdx,
         refetchOnMount: "always",
       },
+      {
+        queryKey: ["myInfo"],
+        queryFn: myInfoApi,
+        refetchInterval: 2000,
+      },
     ],
   });
   const { mutate: uploadProfileImageMutate } = useUploadProfileImageMutation();
   const { mutate: deleteProfileImageMutate } = useDeleteProfileImageMutation();
   const { data: userData } = results[0];
+  const { data: myInfoData } = results[1];
   const empty = {
     auth: 0,
     baptize: 0,
@@ -58,7 +63,7 @@ const ProfilePage = () => {
                   }
                 );
               },
-              onError: () => resolve
+              onError: () => resolve,
             }
           );
         } else {
@@ -69,7 +74,7 @@ const ProfilePage = () => {
                 queryClient.invalidateQueries(["myInfo"]);
                 resolve(true);
               },
-              onError: () => resolve
+              onError: () => resolve,
             }
           );
         }

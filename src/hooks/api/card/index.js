@@ -2,14 +2,6 @@ import useAxios from "../useAxios";
 
 const baseUrl = `${apiHost ? "" : "/api"}/card`;
 
-export const cardApi = ({ queryKey }) => {
-  const [_, cardIdx] = queryKey;
-  return useAxios({
-    method: "GET",
-    url: `${baseUrl}/one/${cardIdx}`,
-  });
-};
-
 export const cardsApi = ({ queryKey }) => {
   const [_, data] = queryKey;
   const { tags, tagsIgnored } = data;
@@ -21,6 +13,14 @@ export const cardsApi = ({ queryKey }) => {
     method: "GET",
     url: `${baseUrl}`,
     params,
+  });
+};
+
+export const cardApi = ({ queryKey }) => {
+  const [_, cardIdx] = queryKey;
+  return useAxios({
+    method: "GET",
+    url: `${baseUrl}/one/${cardIdx}`,
   });
 };
 
