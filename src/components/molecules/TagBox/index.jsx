@@ -31,7 +31,7 @@ const TagBox = ({ className, tagsData, onChange }) => {
     [tags, setTags, tagsIgnored, setTagsIgnored, onChange]
   );
   return (
-    <div className={`text-primary-900 h-[54px] overflow-y-scroll ${className}`}>
+    <div className={`text-primary-900 h-[54px] overflow-y-scroll scrollbar-hide ${className}`}>
       {tagsData &&
         tagsData.map(({ tag }) => (
           <Tag

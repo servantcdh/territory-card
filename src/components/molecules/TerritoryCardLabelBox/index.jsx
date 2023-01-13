@@ -7,7 +7,7 @@ const TerritoryCardLabelBox = ({
   fileInputId
 }) => {
   return (
-    <div className={`overflow-y-scroll relative text-sm font-thin ${className}`}>
+    <div className={`overflow-y-scroll scrollbar-hide relative text-sm font-thin ${className}`}>
       <label className="block h-full" htmlFor={fileInputId} ref={dragAreaRef}>
         {children}
       </label>

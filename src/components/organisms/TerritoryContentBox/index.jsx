@@ -18,7 +18,7 @@ const TerritoryContentBox = ({
   );
   return (
     <div
-      className={`bg-cyan-500 rounded-lg w-auto h-[calc(100%-17rem)] overflow-y-scroll p-3 text-primary-700 ${className}`}
+      className={`bg-cyan-500 rounded-lg w-auto h-[calc(100%-17rem)] overflow-y-scroll scrollbar-hide p-3 text-primary-700 ${className}`}
     >
       <TerritoryContentHeader className="" />
       {!!cardContent &&

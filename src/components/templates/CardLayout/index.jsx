@@ -87,7 +87,7 @@ const CardLayout = ({
     }
   }, [cardFileReady]);
   return (
-    <Body className="h-auto overflow-y-scroll lg:flex lg:items-center animate-naviToCard lg:inset-x-0">
+    <Body className="h-auto overflow-y-scroll scrollbar-hide lg:flex lg:items-center animate-naviToCard lg:inset-x-0">
       <Input
         type="file"
         multiple={false}
@@ -115,13 +115,13 @@ const CardLayout = ({
             childClassName="mb-0 lg:relative"
             title="구역카드함"
           >
-            <TerritoryCardStoreContainer className="lg:h-[69.2rem]">
+            <TerritoryCardStoreContainer className="lg:h-[59.2rem]">
               <TagBox
                 className="mb-2"
                 tagsData={tagsData}
                 onChange={onTagChangeHandler}
               />
-              <TerritoryCardStoreBox className="lg:h-[62.75rem]">
+              <TerritoryCardStoreBox className="lg:h-[52.75rem]">
                 <TerritoryCardLabelBox
                   className="flex-auto"
                   dragAreaRef={dragAreaRef}
@@ -158,10 +158,10 @@ const CardLayout = ({
             childClassName="-top-6 bg-sky-800 lg:relative lg:top-0"
             title="배정현황"
           >
-            <TerritoryCardStoreContainer className="bg-sky-700 lg:h-[69.2rem]">
+            <TerritoryCardStoreContainer className="bg-sky-700 lg:h-[59.2rem]">
               <TerritoryAssignCardBox
-                className="lg:h-[66.8rem]"
-                childClassName="overflow-y-scroll"
+                className="lg:h-[56.8rem]"
+                childClassName="overflow-y-scroll scrollbar-hide"
               >
                 {assignedCardsData &&
                   assignedCardsData.map((card) => (

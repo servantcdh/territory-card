@@ -29,7 +29,7 @@ const MainLayout = ({ myInfo, myCard, onChangeAccess }) => {
     setActiveModal(isDriver && !hasCar);
   }, [setActiveModal, isDriver, hasCar]);
   return (
-    <Body className="overflow-y-scroll">
+    <Body className="overflow-y-scroll scrollbar-hide">
       {!!myInfo && (
         <ProfileCard
           className={`animate-showDown p-2 border-b-4 border-yellow-400 bg-amber-500`}

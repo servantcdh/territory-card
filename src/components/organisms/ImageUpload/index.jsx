@@ -130,7 +130,7 @@ const ImageUpload = ({ htmlRef, aspect, onComplete, onLoading }) => {
             circularCrop={true}
             onChange={onCropChangeHandler}
           >
-            <img ref={imgRef} src={imgSrc} onLoad={onImageLoadedHandler} />
+            <img className="m-auto" ref={imgRef} src={imgSrc} onLoad={onImageLoadedHandler} />
           </ReactCrop>
         </Modal>
       )}

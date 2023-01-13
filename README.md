@@ -47,6 +47,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | postcss                      | _^8.4.20_  | css 후처리, css 작성을 더 편하게 만들어주는 플러그인                                                           |
 | autoprefixer                 | _^10.4.13_ | css 권고안에 포함되지 못하거나 제정되지 않은 기능을 사용하도록 벤더 프리픽스를 추가해주는 postcss 플러그인     |
 | postcss-loader               | _^7.0.2_   | postcss를 웹팩에 통합하는 로더                                                                                 |
+| tailwind-scrollbar-hide      | _^1.1.7_   | tailwindcss 스크롤바 숨김 클래스 추가 플러그인                                                                 |
 | react-router-dom             | _^6.6.1_   | url에 따른 페이지 컴포넌트를 지정한 dom에 렌더링시켜주는 라이브러리                                            |
 | axios                        | _^1.2.2_   | ajax request 라이브러리                                                                                        |
 | dotenv                       | _^16.0.3_  | 환경 변수 파일을 읽어오는 라이브러리                                                                           |
