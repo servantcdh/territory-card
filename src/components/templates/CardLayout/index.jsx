@@ -87,7 +87,7 @@ const CardLayout = ({
     }
   }, [cardFileReady]);
   return (
-    <Body className="h-auto overflow-y-scroll animate-naviToCard">
+    <Body className="h-auto overflow-y-scroll lg:flex lg:items-center animate-naviToCard lg:inset-x-0">
       <Input
         type="file"
         multiple={false}
@@ -108,72 +108,77 @@ const CardLayout = ({
           <div className="text-display">{cardFile.name}</div>
         </Modal>
       )}
-      <Container className="h-[calc(98vh)] relative">
-        <TerritoryCard
-          className="my-0 animate-fadeIn"
-          childClassName="mb-0"
-          title="구역카드함"
-        >
-          <TerritoryCardStoreContainer>
-            <TagBox
-              className="mb-2"
-              tagsData={tagsData}
-              onChange={onTagChangeHandler}
-            />
-            <TerritoryCardStoreBox>
-              <TerritoryCardLabelBox
-                className="flex-auto"
-                dragAreaRef={dragAreaRef}
-                fileInputId={fileInputId}
+      <div className="lg:m-auto lg:flex">
+        <Container className="h-[calc(98vh)] relative">
+          <TerritoryCard
+            className="my-0 animate-fadeIn lg:relative"
+            childClassName="mb-0 lg:relative"
+            title="구역카드함"
+          >
+            <TerritoryCardStoreContainer className="lg:h-[69.2rem]">
+              <TagBox
+                className="mb-2"
+                tagsData={tagsData}
+                onChange={onTagChangeHandler}
+              />
+              <TerritoryCardStoreBox className="lg:h-[62.75rem]">
+                <TerritoryCardLabelBox
+                  className="flex-auto"
+                  dragAreaRef={dragAreaRef}
+                  fileInputId={fileInputId}
+                >
+                  {isDragging && <TerritoryCardDropBox />}
+                  {!isDragging &&
+                    cardsData &&
+                    cardsData.map((card) => (
+                      <TerritoryCardLabel
+                        key={`cardLabel_${card.idx}`}
+                        card={card}
+                        checkedCard={checkedCards.includes(card.idx)}
+                        onCardClick={onCardClickHandler}
+                        onRollbackCard={onRollbackCard}
+                      />
+                    ))}
+                </TerritoryCardLabelBox>
+                <div className="flex-none border-r border-dashed border-primary-400 mx-1"></div>
+                <TerritoryCardControlBox
+                  className="w-[60px]"
+                  checked={checkedCards.length > 0}
+                  onAssign={onAssignCardClickHandler}
+                  onReset={onResetClickHandler}
+                  onUploadClick={onUploadClickHandler}
+                />
+              </TerritoryCardStoreBox>
+            </TerritoryCardStoreContainer>
+          </TerritoryCard>
+        </Container>
+        <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
+          <TerritoryCard
+            className="my-0 animate-fade before:top-0 lg:relative lg:before:top-6"
+            childClassName="-top-6 bg-sky-800 lg:relative lg:top-0"
+            title="배정현황"
+          >
+            <TerritoryCardStoreContainer className="bg-sky-700 lg:h-[69.2rem]">
+              <TerritoryAssignCardBox
+                className="lg:h-[66.8rem]"
+                childClassName="overflow-y-scroll"
               >
-                {isDragging && <TerritoryCardDropBox />}
-                {!isDragging &&
-                  cardsData &&
-                  cardsData.map((card) => (
-                    <TerritoryCardLabel
-                      key={`cardLabel_${card.idx}`}
-                      card={card}
-                      checkedCard={checkedCards.includes(card.idx)}
-                      onCardClick={onCardClickHandler}
-                      onRollbackCard={onRollbackCard}
+                {assignedCardsData &&
+                  assignedCardsData.map((card) => (
+                    <TerritoryAssignCard
+                      key={`assignLabel_${card.idx}`}
+                      users={users}
+                      assignedCard={card}
+                      onAssignCrew={onAssignCrewHandler}
+                      onSearch={onSearchUser}
+                      onRetrieve={onRetrieve}
                     />
                   ))}
-              </TerritoryCardLabelBox>
-              <div className="flex-none border-r border-dashed border-primary-400 mx-1"></div>
-              <TerritoryCardControlBox
-                className="w-[60px]"
-                checked={checkedCards.length > 0}
-                onAssign={onAssignCardClickHandler}
-                onReset={onResetClickHandler}
-                onUploadClick={onUploadClickHandler}
-              />
-            </TerritoryCardStoreBox>
-          </TerritoryCardStoreContainer>
-        </TerritoryCard>
-      </Container>
-      <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
-        <TerritoryCard
-          className="my-0 animate-fade before:top-0"
-          childClassName="-top-6 bg-sky-800"
-          title="배정현황"
-        >
-          <TerritoryCardStoreContainer className="bg-sky-700">
-            <TerritoryAssignCardBox childClassName="overflow-y-scroll">
-              {assignedCardsData &&
-                assignedCardsData.map((card) => (
-                  <TerritoryAssignCard
-                    key={`assignLabel_${card.idx}`}
-                    users={users}
-                    assignedCard={card}
-                    onAssignCrew={onAssignCrewHandler}
-                    onSearch={onSearchUser}
-                    onRetrieve={onRetrieve}
-                  />
-                ))}
-            </TerritoryAssignCardBox>
-          </TerritoryCardStoreContainer>
-        </TerritoryCard>
-      </Container>
+              </TerritoryAssignCardBox>
+            </TerritoryCardStoreContainer>
+          </TerritoryCard>
+        </Container>
+      </div>
     </Body>
   );
 };

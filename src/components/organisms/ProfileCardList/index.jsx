@@ -48,7 +48,7 @@ const ProfileCardList = ({ users, userIdxes, onAssign, onSearch, onCancel, userI
       buttonDisabled={!checkedUserIdx.length}
     >
       <Search
-        className="fixed w-5/6 inset-x-0 mx-auto h-10 z-20"
+        className="fixed w-5/6 inset-x-0 mx-auto h-10 z-20 lg:w-[470px]"
         onSubmit={onSearchHandler}
       />
       <div className="mt-[55px]">
