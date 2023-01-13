@@ -22,7 +22,7 @@ const Row = ({ className, columns, header, firstRow, divide }) => {
     >
       {!!columns && (
         <>
-          {firstRow && header && <div className="mb-1">{header}</div>}
+          {firstRow && header && <div className="mb-1 pt-1 text-[13px]">{header}</div>}
           <div className="border border-dashed bg-orange-50 border-primary-400 w-full h-full p-1 flex">
             {columns.map((content, index) => (
               <Column

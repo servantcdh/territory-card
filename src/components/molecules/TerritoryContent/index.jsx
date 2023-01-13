@@ -46,7 +46,7 @@ const TerritoryContent = ({
       isUpdate={user && userIdx !== user.idx}
       onChange={onMarkChangeHandler}
     />,
-    <Profile className="w-9 h-9" {...user} />,
+    <Profile className="w-[32px] h-[32px]" {...user} />,
   ];
   return (
     <>
