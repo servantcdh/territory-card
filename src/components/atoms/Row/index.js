@@ -18,12 +18,12 @@ const Row = ({ className, columns, header, firstRow, divide }) => {
     <div
       className={`bg-amber-200 ${!columns ? "rounded" : ""} ${
         firstRow ? "rounded-t" : ""
-      } ${divide ? "rounded-b mb-2" : ""} w-auto h-13 p-2 ${className}`}
+      } ${divide ? "rounded-b mb-2" : ""} w-auto h-13 p-1 pt-0 ${className}`}
     >
       {!!columns && (
         <>
           {firstRow && header && <div className="mb-1">{header}</div>}
-          <div className="border border-dashed bg-orange-50 border-primary-400 w-full h-full p-2 flex">
+          <div className="border border-dashed bg-orange-50 border-primary-400 w-full h-full p-1 flex">
             {columns.map((content, index) => (
               <Column
                 key={`col_${index}`}
