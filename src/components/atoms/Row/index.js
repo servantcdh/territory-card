@@ -4,10 +4,10 @@ const Column = ({ className, children, isLast }) => {
   return (
     <>
       <div className={`break-all flex items-center ${className}`}>
-        <div className="">{children}</div>
+        <div className="mx-auto">{children}</div>
       </div>
       {!isLast && (
-        <div className="border-r border-dashed border-primary-400 mx-3"></div>
+        <div className="border-r border-dashed border-primary-400 mx-1"></div>
       )}
     </>
   );
@@ -27,7 +27,7 @@ const Row = ({ className, columns, header, firstRow, divide }) => {
             {columns.map((content, index) => (
               <Column
                 key={`col_${index}`}
-                className={`${index === 2 ? "flex-auto w-[16px]" : "flex-1"}`}
+                className={`text-[11.5px] ${index === 2 ? "flex-auto w-[16px]" : "flex-1"}`}
                 isLast={columns.length - 1 === index}
               >
                 {content}
