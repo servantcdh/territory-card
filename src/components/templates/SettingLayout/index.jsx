@@ -7,7 +7,7 @@ import TerritoryCard from "../../molecules/TerritoryCard";
 import Modal from "../../molecules/Modal";
 import Button from "../../atoms/Button";
 
-const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
+const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
   const navigate = useNavigate();
   const nameRef = useRef();
   const passwordRef = useRef();
@@ -49,7 +49,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
       const data = {};
       const errors = [];
       setError([]);
-      if (name !== userData.name) {
+      if (!userData || name !== userData.name) {
         if (name.length < 2) {
           setErrorHandler("name");
           errors.push("name");
@@ -68,19 +68,19 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
       if (errors.length > 0) {
         return;
       }
-      if (gender !== userData.gender) {
+      if (!userData || gender !== userData.gender) {
         data.gender = gender;
       }
-      if (guide !== userData.guide) {
+      if (!userData || guide !== userData.guide) {
         data.guide = guide;
       }
-      if (auth !== userData.auth) {
+      if (!userData || auth !== userData.auth) {
         data.auth = auth;
       }
-      if (baptize !== userData.baptize) {
+      if (!userData || baptize !== userData.baptize) {
         data.baptize = baptize;
       }
-      if (driver !== userData.driver) {
+      if (!userData || driver !== userData.driver) {
         data.driver = driver;
       }
       setFormData(data);
@@ -89,7 +89,11 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
   );
   const onConfirmHandler = useCallback(async () => {
     try {
-      await onUpdate(formData);
+      if (onCreate) {
+        await onCreate({ ...formData, status: true });
+      } else {
+        await onUpdate(formData);
+      }
       setFormData(null);
       setActiveModal(true);
     } catch (e) {
@@ -98,7 +102,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
       }
       setFormData(null);
     }
-  }, [formData, setFormData, setError, setActiveModal]);
+  }, [formData, setFormData, setError, setActiveModal, onUpdate, onCreate]);
   const onCancelHandler = useCallback(() => {
     setFormData(null);
     setActiveModal(null);
@@ -106,16 +110,20 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
   const onConfirmModalHandler = useCallback(() => {
     setFormData(null);
     setActiveModal(null);
-    navigate(`/profile/${isMyInfo ? `me` : userData.idx}`);
-  }, [setActiveModal, navigate, isMyInfo, userData]);
+    if (onCreate) {
+      navigate("/user");
+    } else {
+      navigate(`/profile/${isMyInfo ? `me` : userData.idx}`);
+    }
+  }, [setActiveModal, navigate, isMyInfo, userData, onCreate]);
   return (
     <Body className="animate-naviToSetting p-1">
       {!!formData && (
         <Modal
           className="bg-amber-200"
-          title="계정정보를 변경하시겠습니까?"
+          title={`계정정보를 ${onCreate ? "전송" : "변경"}하시겠습니까?`}
           onConfirm={onConfirmHandler}
-          buttonName="변경하기"
+          buttonName={onCreate ? "전송하기" : "변경하기"}
           onCancel={onCancelHandler}
           cancelName="취소"
         ></Modal>
@@ -123,7 +131,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
       {activeModal && (
         <Modal
           className="bg-amber-200"
-          title="변경이 완료되었습니다."
+          title={`${onCreate ? "전송" : "변경"}했습니다.`}
           onConfirm={onConfirmModalHandler}
           buttonName="확인"
         ></Modal>
@@ -145,7 +153,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                       htmlRef={nameRef}
                       error={error.includes("name")}
                       type="text"
-                      value={userData.name}
+                      value={userData ? userData.name : ""}
                       disabled={!hasAuth}
                     />
                   </div>
@@ -186,7 +194,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                           id="default-radio-1"
                           type="radio"
                           value={true}
-                          checked={userData.gender}
+                          checked={userData ? userData.gender : false}
                           name="default-radio"
                           className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2"
                         />
@@ -203,7 +211,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                           id="default-radio-2"
                           type="radio"
                           value={false}
-                          checked={!userData.gender}
+                          checked={userData ? !userData.gender : false}
                           name="default-radio"
                           className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2"
                         />
@@ -231,7 +239,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                           htmlRef={baptizeRef}
                           type="checkbox"
                           className="sr-only peer"
-                          checked={userData.baptize}
+                          checked={userData ? userData.baptize : false}
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                       </label>
@@ -246,7 +254,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                         htmlRef={driverRef}
                         type="checkbox"
                         className="sr-only peer"
-                        checked={userData.driver}
+                        checked={userData ? userData.driver : false}
                       />
                       <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                     </label>
@@ -262,7 +270,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                             htmlRef={guideRef}
                             type="checkbox"
                             className="sr-only peer"
-                            checked={userData.guide}
+                            checked={userData ? userData.guide : false}
                             disabled={!hasAuth}
                           />
                           <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
@@ -277,7 +285,7 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                             htmlRef={authRef}
                             type="checkbox"
                             className="sr-only peer"
-                            checked={userData.auth}
+                            checked={userData ? userData.auth : false}
                             disabled={!hasAuth}
                           />
                           <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
@@ -287,7 +295,9 @@ const SettingLayout = ({ userData, onUpdate, hasAuth, isMyInfo }) => {
                   </>
                 )}
                 <div>
-                  <Button type="submit">변경하기</Button>
+                  <Button type="submit">
+                    {onCreate ? "전송하기" : "변경하기"}
+                  </Button>
                 </div>
               </form>
             </div>

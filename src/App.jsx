@@ -3,6 +3,7 @@ import "./App.css";
 import { Routes, Route, useMatch, useNavigate } from "react-router-dom";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { getAccessToken, setAccessToken } from "./hooks/storage";
+import { myInfoApi } from "./hooks/api/user";
 import useAccessMutation from "./hooks/query/auth/useAccessMutation";
 import useRefreshMutation from "./hooks/query/auth/useRefreshTokenMutation";
 import useLogoutMutation from "./hooks/query/auth/useLogoutMutation";
@@ -12,10 +13,11 @@ import ProfilePage from "./pages/Profile";
 import SettingPage from "./pages/Setting";
 import CardPage from "./pages/Card";
 import S13Page from "./pages/S-13";
+import UserPage from "./pages/User";
+import UserCreatePage from "./pages/UserCreate";
 import ViewPage from "./pages/View";
 import NotFoundPage from "./pages/NotFound";
 import SpeedDial from "./components/molecules/SpeedDial";
-import { myInfoApi } from "./hooks/api/user";
 
 const App = () => {
   const queryClient = useQueryClient();
@@ -117,6 +119,8 @@ const App = () => {
           <>
             <Route path="/card" element={<CardPage />} />
             <Route path="/s-13" element={<S13Page />} />
+            <Route path="/user" element={<UserPage />} />
+            <Route path="/user/new" element={<UserCreatePage />} />
           </>
         )}
         <Route path="/view">
@@ -129,10 +133,13 @@ const App = () => {
         <SpeedDial
           items={[
             { route: "/", svg: "home" },
-            ...(!activeAuthMenu ? [] : [
-              { route: "/card", svg: "table" },
-              { route: "/s-13", svg: "document-text" },
-            ]),
+            ...(!activeAuthMenu
+              ? []
+              : [
+                  { route: "/card", svg: "table" },
+                  { route: "/s-13", svg: "document-text" },
+                  { route: "/user", svg: "user-group" },
+                ]),
             { route: "/profile/me", svg: "user-circle" },
             { route: "/setting/me", svg: "cog" },
             { callback: onLogoutHandler, svg: "logout" },

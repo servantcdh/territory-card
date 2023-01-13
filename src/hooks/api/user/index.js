@@ -3,8 +3,8 @@ import useAxios from "../useAxios";
 const baseUrl = `${apiHost ? "" : "/api"}/user`;
 
 export const usersApi = ({ queryKey }) => {
-  const [_, { name }] = queryKey;
-  const params = new URLSearchParams({ name });
+  const [_, { name, orderBy }] = queryKey;
+  const params = new URLSearchParams({ name, ...(orderBy ? { orderBy } : {}) });
   return useAxios({
     method: "GET",
     url: `${baseUrl}`,
@@ -12,11 +12,11 @@ export const usersApi = ({ queryKey }) => {
   });
 };
 
-export const createUserApi = (data) => {
+export const createUserApi = ({ data }) => {
   return useAxios({
     method: "POST",
     url: `${baseUrl}`,
-    data
+    data,
   });
 };
 
@@ -31,7 +31,7 @@ export const updateMyInfoApi = ({ data }) => {
   return useAxios({
     method: "PATCH",
     url: `${baseUrl}/one`,
-    data
+    data,
   });
 };
 
@@ -47,6 +47,6 @@ export const updateUserInfoApi = ({ userIdx, data }) => {
   return useAxios({
     method: "PATCH",
     url: `${baseUrl}/one/${userIdx}`,
-    data
+    data,
   });
 };

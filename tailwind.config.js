@@ -99,6 +99,10 @@ module.exports = {
           from: { "background-color": "rgb(254 252 232)" },
           to: { "background-color": "rgb(52 211 153)" },
         },
+        naviToUser: {
+          from: { "background-color": "rgb(254 252 232)" },
+          to: { "background-color": "rgb(253 224 71)" },
+        },
         naviToNotFound: {
           from: { "background-color": "rgb(254 252 232)" },
           to: { "background-color": "rgb(148 163 184)" },
@@ -122,6 +126,7 @@ module.exports = {
         naviToCard: "naviToCard 0.5s ease-in-out forwards",
         naviToS13: "naviToS13 0.5s ease-in-out forwards",
         naviToView: "naviToView 0.5s ease-in-out forwards",
+        naviToUser: "naviToUser 0.5s ease-in-out forwards",
         naviToNotFound: "naviToNotFound 0.5s ease-in-out forwards",
       },
       translate: {
