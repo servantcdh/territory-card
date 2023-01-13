@@ -42,32 +42,38 @@ const ProfilePage = () => {
   const filename = profileSplit[profileSplit.length - 1];
   const onUploadProfileHandler = useCallback(
     (imageFile) => {
-      if (filename) {
-        deleteProfileImageMutate(
-          { filename },
-          {
-            onSuccess: () => {
-              uploadProfileImageMutate(
-                { image: imageFile },
-                {
-                  onSuccess: () => {
-                    queryClient.invalidateQueries(["myInfo"]);
-                  },
-                }
-              );
-            },
-          }
-        );
-      } else {
-        uploadProfileImageMutate(
-          { image: imageFile },
-          {
-            onSuccess: () => {
-              queryClient.invalidateQueries(["myInfo"]);
-            },
-          }
-        );
-      }
+      return new Promise((resolve) => {
+        if (filename) {
+          deleteProfileImageMutate(
+            { filename },
+            {
+              onSuccess: () => {
+                uploadProfileImageMutate(
+                  { image: imageFile },
+                  {
+                    onSuccess: () => {
+                      queryClient.invalidateQueries(["myInfo"]);
+                      resolve();
+                    },
+                  }
+                );
+              },
+              onError: () => resolve
+            }
+          );
+        } else {
+          uploadProfileImageMutate(
+            { image: imageFile },
+            {
+              onSuccess: () => {
+                queryClient.invalidateQueries(["myInfo"]);
+                resolve(true);
+              },
+              onError: () => resolve
+            }
+          );
+        }
+      });
     },
     [uploadProfileImageMutate, queryClient, filename]
   );

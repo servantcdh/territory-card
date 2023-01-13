@@ -1,22 +1,24 @@
-import React, { useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Body from "../../atoms/Body";
 import Button from "../../atoms/Button";
-import Input from "../../atoms/Input";
 import Profile from "../../atoms/Profile";
+import ImageUpload from "../../organisms/ImageUpload";
 
 const ProfileLayout = ({ userData, isMyProfile, hasAuth, onUploadProfile }) => {
   const navigate = useNavigate();
+  const [activeImageUpload, setActiveImageUpload] = useState(true);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
   const inputFileRef = useRef();
   const { live, car, guide, auth, baptize, ...profileData } = userData;
   const onInputFileChangeHandler = useCallback(
-    (e) => {
-      const selectFile = e.target.files[0];
-      onUploadProfile(selectFile);
-      e.target.files = null;
-      e.target.value = null;
+    (imageFile) => {
+      setActiveImageUpload(false);
+      onUploadProfile(imageFile).then(() => {
+        setActiveImageUpload(true);
+      });
     },
-    [onUploadProfile]
+    [onUploadProfile, setActiveImageUpload]
   );
   const onUploadProfileClickHandler = useCallback(() => {
     inputFileRef.current.click();
@@ -24,16 +26,20 @@ const ProfileLayout = ({ userData, isMyProfile, hasAuth, onUploadProfile }) => {
   const onModifyUserInfoClickHandler = useCallback(() => {
     navigate(`/setting/${isMyProfile ? "me" : userData.userIdx}`);
   }, [navigate]);
+  const onLoadingImageHandler = useCallback(
+    (isLoading) => {
+      setIsLoadingImage(isLoading);
+    },
+    [setIsLoadingImage]
+  );
   return (
     <Body className="animate-naviToProfile flex items-center font-display">
-      <Input
+      {activeImageUpload && <ImageUpload
         htmlRef={inputFileRef}
-        type="file"
-        multiple={false}
-        accept="image/*"
-        className="hidden"
-        onChange={onInputFileChangeHandler}
-      />
+        aspect={1 / 1}
+        onComplete={onInputFileChangeHandler}
+        onLoading={onLoadingImageHandler}
+      />}
       <div className="m-auto animate-scale">
         <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
           <div className="flex flex-col items-center p-10">
@@ -68,9 +74,9 @@ const ProfileLayout = ({ userData, isMyProfile, hasAuth, onUploadProfile }) => {
               {isMyProfile && (
                 <Button
                   className="inline-flex items-center px-2 text-sm font-medium text-center border-0 text-white bg-gray-600 rounded-lg"
-                  onClick={onUploadProfileClickHandler}
+                  onClick={onUploadProfileClickHandler} disabled={isLoadingImage}
                 >
-                  프로필 사진 변경
+                  {!isLoadingImage ? "프로필 사진 변경" : "불러오는 중입니다"}
                 </Button>
               )}
               {(isMyProfile || hasAuth) && (
