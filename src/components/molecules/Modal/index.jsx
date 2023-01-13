@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Body from "../../atoms/Body";
 import Button from "../../atoms/Button";
 import Card from "../../atoms/Card";
 
@@ -20,11 +21,13 @@ const ModalOverlay = ({
   onCancel,
 }) => {
   return (
-    <Card className={`fixed m-auto w-11/12 max-h-[600px] inset-x-0 top-24 p-0 z-30 animate-scale box-border border-amber-500 border-4 rounded ${className}`}>
+    <Card
+      className={`m-auto w-11/12 max-h-[600px] p-0 animate-scale box-border border-amber-500 border-4 rounded ${className}`}
+    >
       <header className="p-3 text-xl font-bold">
         <h2>{title}</h2>
       </header>
-      <div className="relative p-3 h-auto max-h-96 overflow-y-scroll bg-white text-sm font-thin">
+      <div className="relative p-3 h-auto max-h-[530px] overflow-y-scroll bg-white text-sm font-thin">
         {children}
       </div>
       <footer className="p-4 text-center">
@@ -61,17 +64,19 @@ const Modal = ({
     <>
       {ReactDOM.createPortal(<Backdrop />, portalElement)}
       {ReactDOM.createPortal(
-        <ModalOverlay
-          title={title}
-          className={className}
-          buttonName={buttonName}
-          cancelName={cancelName}
-          buttonDisabled={buttonDisabled}
-          onConfirm={onConfirm}
-          onCancel={onCancel}
-        >
-          {children}
-        </ModalOverlay>,
+        <Body className="fixed flex items-center animate-none bg-transparent z-30">
+          <ModalOverlay
+            title={title}
+            className={className}
+            buttonName={buttonName}
+            cancelName={cancelName}
+            buttonDisabled={buttonDisabled}
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+          >
+            {children}
+          </ModalOverlay>
+        </Body>,
         portalElement
       )}
     </>
