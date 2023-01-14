@@ -62,6 +62,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 [리액트 앱 AWS S3, CloudFront 에 배포하기 - react-etc.vlpt](https://react-etc.vlpt.us/08.deploy-s3.html)
 
+[React S3, CloudFront에 배포하기 - 현구막 기술블로그](https://hyeon9mak.github.io/react-spa-s3-cloudfront/)
+
 [CloudFront로 사설 도메인(gabia) 연결하기 - 웨지의 개발 블로그](https://sihyung92.oopy.io/devops/gabia/1)
 
 ## 만든이
