@@ -4,6 +4,7 @@ import { getAccessToken } from "../storage";
 if (apiHost) {
   axios.defaults.baseURL = apiHost;
 }
+
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const useAxios = async (config) => {

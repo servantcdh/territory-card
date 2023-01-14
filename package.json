@@ -7,7 +7,7 @@
     "start": "NODE_ENV=development webpack-dev-server --progress",
     "build": "NODE_ENV=production webpack --progress",
     "deploy": "aws s3 sync ./dist s3://territory-bucket --profile=territory-iam",
-    "invalidate": "aws cloudfront create-invalidation --profile=territory-iam --distribution-id E4T0VUXR7441L --paths / /index.html /error.html /service-worker.js /manifest.json /favicon.ico"
+    "invalidate": "aws cloudfront create-invalidation --profile=territory-iam --distribution-id E4T0VUXR7441L --paths \"/*\""
   },
   "repository": {
     "type": "git",
