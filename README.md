@@ -14,11 +14,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- 사용자 프로필 페이지를 구현한다.
-- 사용자 프로필 사진 크롭 및 업로드/삭제를 구현한다.
-- 사용자 정보 등록 페이지를 구현한다.
-- 사용자 정보 수정 페이지를 구현한다.
-- 사용자 목록 페이지를 구현한다.
+- PWA를 적용한다.
 
 ## 사용한 라이브러리
 
@@ -53,6 +49,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | dotenv                       | _^16.0.3_  | 환경 변수 파일을 읽어오는 라이브러리                                                                           |
 | @tanstack/react-query        | _^4.21.0_  | promise 기반 함수를 더 체계적으로 관리할 수 있는 라이브러리. 덤으로 캐싱도 지원. 후자의 기능으로 더 유명하다.  |
 | react-image-crop             | _^10.0.9_  | 이미지 자르기 라이브러리                                                                                       |
+| webpack-pwa-manifest         | _^4.3.0_   | 웹팩 후처리 과정 중 PWA Manifest를 생성해주는 플러그인                                                         |
+| workbox-webpack-plugin       | _^6.5.4_   | 웹팩 후처리 과정 중 serviceWorker를 생성하고 포함시키는 플러그인                                               |
 
 ## 특이 사항
 
@@ -60,7 +58,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 참고한 곳
 
-[React 이미지 크롭(자르기) - codeamor.dev](https://codeamor.dev/react/2021-10-23/)
+[Hands On! PWA - Eric's DevLog](https://kyungyeon.dev/posts/36)
 
 ## 만든이
 

@@ -6,6 +6,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
+const WebpackPwaManifest = require("webpack-pwa-manifest");
+const { GenerateSW } = require("workbox-webpack-plugin");
 // const CopyPlugin = require("copy-webpack-plugin");
 
 const mode = process.env.NODE_ENV || "development";
@@ -154,8 +156,26 @@ module.exports = {
           new MiniCssExtractPlugin({
             filename: "[name].css",
           }),
+          new WebpackPwaManifest({
+            name: "구역카드",
+            short_name: "구역카드",
+            description: "구역카드시스템",
+            background_color: "#ffffff",
+            crossOrigin: "use-credentials",
+            theme_color: "#facc15",
+            icons: [
+              {
+                src: path.resolve("src/assets/images/Icon.png"),
+                sizes: [96, 128, 192, 256, 384, 512],
+              },
+            ],
+          }),
+          new GenerateSW({
+            include: [/\.html$/, /\.js$/],
+          }),
         ]
       : []),
+
     // new CopyPlugin({
     //   patterns: [
     //     {
