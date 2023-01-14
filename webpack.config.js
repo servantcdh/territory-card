@@ -91,12 +91,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|gif|jpe?g|svg)$/,
+        test: /\.(png|gif|jpe?g|svg|ico)$/,
         // type[ asset/resource ]: 위의 정적 파일을 모듈로 사용 (webpack4의 file-loader를 대체)
         type: "asset/resource",
       },
       {
-        test: /\.(png|gif|jpe?g|svg)$/,
+        test: /\.(png|gif|jpe?g|svg|ico)$/,
         // type[ asset > parser > dataUrlCondition > maxSize ]: 정의한 용량보다 작은 이미지들은 dataUrl로 변환 (webpack4의 url-loader/limit를 대체)
         type: "asset",
         parser: {
@@ -142,6 +142,7 @@ module.exports = {
         env: mode === "development" ? "(개발용)" : "",
         kakao_key: process.env.KAKAO_KEY,
       },
+      favicon: './public/favicon.ico',
       minify:
         mode !== "development"
           ? {
@@ -175,7 +176,6 @@ module.exports = {
           }),
         ]
       : []),
-
     // new CopyPlugin({
     //   patterns: [
     //     {
