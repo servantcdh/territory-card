@@ -164,6 +164,7 @@ module.exports = {
             background_color: "#ffffff",
             crossOrigin: "use-credentials",
             theme_color: "#facc15",
+            display: "minimal-ui",
             icons: [
               {
                 src: path.resolve("src/assets/images/Icon.png"),
