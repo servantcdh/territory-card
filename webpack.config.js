@@ -158,9 +158,9 @@ module.exports = {
             filename: "[name].css",
           }),
           new WebpackPwaManifest({
-            name: "구역카드",
-            short_name: "구역카드",
-            description: "구역카드시스템",
+            name: "JW 구역 카드",
+            short_name: "JW 구역 카드",
+            description: "구역 카드 시스템",
             background_color: "#ffffff",
             crossOrigin: "use-credentials",
             theme_color: "#facc15",
