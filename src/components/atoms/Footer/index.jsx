@@ -9,7 +9,7 @@ const Footer = ({ className }) => {
         }
         className="underline hover:cursor-pointer"
       >
-        TerritoryCard by @servantcdh
+        JW Territory Card
       </p>
     </footer>
   );

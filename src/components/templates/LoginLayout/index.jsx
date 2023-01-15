@@ -3,6 +3,7 @@ import Card from "../../atoms/Card";
 import Input from "../../atoms/Input";
 import Button from "../../atoms/Button";
 import Footer from "../../atoms/Footer";
+import Icon from "../../../assets/images/Icon.png";
 
 const LoginLayout = ({ onSubmit, pending, error, success }) => {
   const [name, setName] = useState("");
@@ -21,13 +22,16 @@ const LoginLayout = ({ onSubmit, pending, error, success }) => {
     onSubmit(name, password);
   };
   return (
-    <div className="w-screen">
+    <div className="w-screen flex items-center">
       <Card
-        className={`fixed inset-x-0 m-auto w-96 top-1/3 text-center border-4 border-amber-500 bg-cyan-700 ${
+        className={`m-auto mt-[20%] w-96 text-center border-4 border-amber-500 bg-amber-200 ${
           success ? "animate-hideLeft" : ""
         }`}
       >
-        <div className="text-2xl mb-4 text-primary-200">
+        <div className="mb-4 flex items-center">
+          <img className="m-auto w-48" src={Icon} />
+        </div>
+        <div className="text-2xl mb-4">
           <h1>로그인</h1>
         </div>
         <div>
