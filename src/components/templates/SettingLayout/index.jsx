@@ -146,7 +146,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
           <div className="bg-amber-200 text-primary-900 p-1 rounded mt-2">
             <div className="border border-dashed border-gray-500 p-3 text-[15px]">
               <form onSubmit={onSubmitHandler}>
-                <div className="mb-5">
+                <div className="mb-4">
                   <div className="text-[18px]">이름(아이디).</div>
                   <div className="pl-1">
                     <Input
@@ -158,7 +158,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                     />
                   </div>
                 </div>
-                <div className="mb-5">
+                <div className="mb-4">
                   <div className="text-[18px]">암호.</div>
                   <div className="pl-1">
                     <Input
@@ -169,7 +169,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                     />
                   </div>
                 </div>
-                <div className="mb-5">
+                <div className="mb-4">
                   <div className="text-[18px]">암호 확인.</div>
                   <div className="pl-1">
                     <Input
@@ -179,7 +179,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                     />
                   </div>
                 </div>
-                <div className="mb-5">
+                <div className="mb-4">
                   <div className="text-[18px]">성별.</div>
                   {!hasAuth && (
                     <div className="pl-1">
@@ -225,7 +225,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                     </div>
                   )}
                 </div>
-                <div className="mb-5">
+                <div className="mb-4">
                   <div className="text-[18px]">침례여부.</div>
                   {!hasAuth && (
                     <div className="pl-1">
@@ -246,7 +246,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                     </div>
                   )}
                 </div>
-                <div className="mb-5">
+                <div className="mb-4">
                   <div className="text-[18px]">운전자🪪.</div>
                   <div className="pl-1">
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -262,7 +262,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                 </div>
                 {hasAuth && (
                   <>
-                    <div className="mb-5">
+                    <div className="mb-4">
                       <div className="text-[18px]">인도자💼.</div>
                       <div className="pl-1">
                         <label className="relative inline-flex items-center cursor-pointer">
@@ -277,7 +277,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                         </label>
                       </div>
                     </div>
-                    <div className="mb-5">
+                    <div className="mb-4">
                       <div className="text-[18px]">관리자🧑🏻‍🔧.</div>
                       <div className="pl-1">
                         <label className="relative inline-flex items-center cursor-pointer">
