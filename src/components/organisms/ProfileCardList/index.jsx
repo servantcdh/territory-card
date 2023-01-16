@@ -30,7 +30,6 @@ const ProfileCardList = ({ users, userIdxes, onAssign, onSearch, onCancel, userI
     },
     [checkedUserIdx, setAssignedUserIdx, setCheckedUserIdx]
   );
-  users.sort((_, curr) => userIdxes.includes(curr.userIdx) ? 1 : -1);
   const onSearchHandler = useCallback(
     (keyword) => {
       onSearch(keyword);

@@ -30,6 +30,7 @@ const TerritoryAssignCard = ({
           cardRecord: [],
         };
   const userIdxes = crewAssigned.map(({ userIdx }) => userIdx);
+  users.sort((_, curr) => userIdxes.includes(curr.userIdx) ? 1 : -1);
   const crews = crewAssigned.map(({ user }) => user);
   const { idx: cardIdx, name } = card ? card : { idx: 0, name: "" };
   const crewsHasCar = crews.find((user) => user.access && user.access.car);
