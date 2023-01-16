@@ -22,9 +22,9 @@ const LoginLayout = ({ onSubmit, pending, error, success }) => {
     onSubmit(name, password);
   };
   return (
-    <div className="w-screen flex items-center">
+    <div className="w-screen flex items-center justify-center">
       <Card
-        className={`m-auto mt-[20%] w-96 text-center border-4 border-amber-500 bg-amber-200 ${
+        className={`m-auto mt-20 w-96 text-center border-4 border-amber-500 bg-amber-200 ${
           success ? "animate-hideLeft" : ""
         }`}
       >
