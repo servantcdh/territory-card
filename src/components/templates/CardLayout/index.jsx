@@ -109,7 +109,7 @@ const CardLayout = ({
         </Modal>
       )}
       <div className="md:m-auto md:flex lg:m-auto lg:flex">
-        <Container className="h-[calc(98vh)] relative">
+        <Container className="h-[98vh] md:w-[calc(50vw-20px)] m-auto relative">
           <TerritoryCard
             className="my-0 animate-fadeIn md:relative lg:relative"
             childClassName="mb-0 md:relative lg:relative"
@@ -121,7 +121,7 @@ const CardLayout = ({
                 tagsData={tagsData}
                 onChange={onTagChangeHandler}
               />
-              <TerritoryCardStoreBox className="md:h-[52.75rem] lg:h-[52.75rem]">
+              <TerritoryCardStoreBox className="h-[66vh] md:h-[52.75rem] lg:h-[52.75rem]">
                 <TerritoryCardLabelBox
                   className="flex-auto"
                   dragAreaRef={dragAreaRef}
@@ -152,7 +152,7 @@ const CardLayout = ({
             </TerritoryCardStoreContainer>
           </TerritoryCard>
         </Container>
-        <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
+        <Container htmlRef={scrollRef} className="h-[90vh] md:w-[calc(50vw-20px)] m-auto my-0 relative">
           <TerritoryCard
             className="my-0 animate-fade before:top-0 md:relative md:before:top-6 lg:relative lg:before:top-6"
             childClassName="-top-6 bg-sky-800 md:relative md:top-0 lg:relative lg:top-0"
@@ -160,7 +160,7 @@ const CardLayout = ({
           >
             <TerritoryCardStoreContainer className="bg-sky-700 md:h-[59.2rem] lg:h-[59.2rem]">
               <TerritoryAssignCardBox
-                className="md:h-[56.8rem] lg:h-[56.8rem]"
+                className="h-[67.5vh] md:h-[56.8rem] lg:h-[56.8rem]"
                 childClassName="overflow-y-scroll scrollbar-hide"
               >
                 {assignedCardsData &&
