@@ -87,7 +87,7 @@ const CardLayout = ({
     }
   }, [cardFileReady]);
   return (
-    <Body className="h-auto overflow-y-scroll scrollbar-hide lg:flex lg:items-center animate-naviToCard lg:inset-x-0">
+    <Body className="h-auto overflow-y-scroll scrollbar-hide md:flex md:items-center md:inset-x-0 lg:flex lg:items-center lg:inset-x-0 animate-naviToCard">
       <Input
         type="file"
         multiple={false}
@@ -108,20 +108,20 @@ const CardLayout = ({
           <div className="text-display">{cardFile.name}</div>
         </Modal>
       )}
-      <div className="lg:m-auto lg:flex">
+      <div className="md:m-auto md:flex lg:m-auto lg:flex">
         <Container className="h-[calc(98vh)] relative">
           <TerritoryCard
-            className="my-0 animate-fadeIn lg:relative"
-            childClassName="mb-0 lg:relative"
+            className="my-0 animate-fadeIn md:relative lg:relative"
+            childClassName="mb-0 md:relative lg:relative"
             title="구역카드함"
           >
-            <TerritoryCardStoreContainer className="lg:h-[59.2rem]">
+            <TerritoryCardStoreContainer className="md:h-[59.2rem] lg:h-[59.2rem]">
               <TagBox
                 className="mb-2"
                 tagsData={tagsData}
                 onChange={onTagChangeHandler}
               />
-              <TerritoryCardStoreBox className="lg:h-[52.75rem]">
+              <TerritoryCardStoreBox className="md:h-[52.75rem] lg:h-[52.75rem]">
                 <TerritoryCardLabelBox
                   className="flex-auto"
                   dragAreaRef={dragAreaRef}
@@ -154,13 +154,13 @@ const CardLayout = ({
         </Container>
         <Container htmlRef={scrollRef} className="h-[calc(90vh)] my-0 relative">
           <TerritoryCard
-            className="my-0 animate-fade before:top-0 lg:relative lg:before:top-6"
-            childClassName="-top-6 bg-sky-800 lg:relative lg:top-0"
+            className="my-0 animate-fade before:top-0 md:relative md:before:top-6 lg:relative lg:before:top-6"
+            childClassName="-top-6 bg-sky-800 md:relative md:top-0 lg:relative lg:top-0"
             title="배정현황"
           >
-            <TerritoryCardStoreContainer className="bg-sky-700 lg:h-[59.2rem]">
+            <TerritoryCardStoreContainer className="bg-sky-700 md:h-[59.2rem] lg:h-[59.2rem]">
               <TerritoryAssignCardBox
-                className="lg:h-[56.8rem]"
+                className="md:h-[56.8rem] lg:h-[56.8rem]"
                 childClassName="overflow-y-scroll scrollbar-hide"
               >
                 {assignedCardsData &&

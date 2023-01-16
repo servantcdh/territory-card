@@ -22,12 +22,12 @@ const ModalOverlay = ({
 }) => {
   return (
     <Card
-      className={`m-auto w-11/12 max-h-[600px] lg:w-[500px] lg:max-h-[800px] p-0 animate-scale box-border border-amber-500 border-4 rounded ${className}`}
+      className={`m-auto w-11/12 max-h-[600px] md:w-[500px] md:max-h-[800px] lg:w-[500px] lg:max-h-[800px] p-0 animate-scale box-border border-amber-500 border-4 rounded ${className}`}
     >
       <header className="p-3 text-xl font-bold">
         <h2>{title}</h2>
       </header>
-      <div className="relative p-3 h-auto max-h-[450px] lg:max-h-[700px] overflow-y-scroll scrollbar-hide bg-white text-sm font-thin">
+      <div className="relative p-3 h-auto max-h-[450px] md:max-h-[700px] lg:max-h-[700px] overflow-y-scroll scrollbar-hide bg-white text-sm font-thin">
         {children}
       </div>
       <footer className="p-4 text-center">
