@@ -18,7 +18,7 @@ const Row = ({ className, columns, header, firstRow, divide }) => {
     <div
       className={`bg-amber-200 ${!columns ? "rounded" : ""} ${
         firstRow ? "rounded-t" : ""
-      } ${divide ? "rounded-b mb-2" : ""} w-auto h-13 p-1 pt-0 ${className}`}
+      } ${divide ? "rounded-b mb-2" : ""} w-auto h-13 p-1 ${className}`}
     >
       {!!columns && (
         <>

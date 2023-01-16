@@ -141,7 +141,7 @@ const App = () => {
                   { route: "/user", svg: "user-group" },
                 ]),
             { route: "/profile/me", svg: "user-circle" },
-            { route: "/setting/me", svg: "cog" },
+            // { route: "/setting/me", svg: "cog" },
             { callback: onLogoutHandler, svg: "logout" },
           ]}
         />
