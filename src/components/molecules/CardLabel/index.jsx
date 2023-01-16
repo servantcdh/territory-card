@@ -11,7 +11,7 @@ const CardLabel = ({ item }) => {
     navigate(`/view/${item.cardIdx}/${item.idx}`);
   }, [navigate]);
   return (
-    <Frame className="animate-wiggle md:w-[calc(50%-20px)]">
+    <Frame className="animate-wiggle">
       <div className="border border-primary-300 w-full h-full p-2 flex z-10 break-all">
         <div className="w-[102px]">
           <div>구역번호.{item.cardIdx}</div>

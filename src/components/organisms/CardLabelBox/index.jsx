@@ -3,9 +3,11 @@ import CardLabel from "../../molecules/CardLabel";
 
 const CardLabelBox = ({ className, items }) => {
   return (
-    <div className={` ${className}`}>
+    <div className={`flex flex-wrap flex-col md:flex-row lg:flex-row ${className}`}>
       {items.map((item) => (
-        <CardLabel key={item.idx} item={item} />
+        <div key={item.idx} className="relative md:w-[calc(50%)] lg:w-[420px] h-[215px]">
+          <CardLabel item={item} />
+        </div>
       ))}
     </div>
   );
