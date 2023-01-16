@@ -11,7 +11,7 @@ const UserPage = () => {
       {
         queryKey: ["users", { name: searchName, orderBy: "name" }],
         queryFn: usersApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
     ],
   });

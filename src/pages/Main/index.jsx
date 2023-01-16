@@ -16,7 +16,7 @@ const MainPage = () => {
       {
         queryKey: ["myCard"],
         queryFn: myCardApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
     ],
   });

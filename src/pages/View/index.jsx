@@ -18,13 +18,13 @@ const ViewPage = () => {
       {
         queryKey: [`card/${cardIdx}`, cardIdx],
         queryFn: cardApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
       {
         queryKey: [`assignedCard/${cardAssignedIdx}`, cardAssignedIdx],
         queryFn: assignedCardApi,
         enabled: !!cardAssignedIdx,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
     ],
   });

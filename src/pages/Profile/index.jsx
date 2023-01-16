@@ -20,7 +20,7 @@ const ProfilePage = () => {
       {
         queryKey: ["myInfo"],
         queryFn: myInfoApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
     ],
   });

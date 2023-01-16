@@ -27,22 +27,22 @@ const CardPage = () => {
       {
         queryKey: ["tags", { orderBy: "count", desc: 1 }],
         queryFn: tagsApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
       {
         queryKey: ["cards", { tags, tagsIgnored }],
         queryFn: cardsApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
       {
         queryKey: ["assignedCards"],
         queryFn: assignedCardsApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
       {
         queryKey: ["users", { name: searchName, orderBy: "name" }],
         queryFn: usersApi,
-        refetchInterval: 2000,
+        refetchInterval: 1000,
       },
     ],
   });
