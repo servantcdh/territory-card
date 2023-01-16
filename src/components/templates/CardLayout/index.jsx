@@ -115,13 +115,13 @@ const CardLayout = ({
             childClassName="mb-0 md:relative lg:relative"
             title="구역카드함"
           >
-            <TerritoryCardStoreContainer className="md:h-[59.2rem] lg:h-[59.2rem]">
+            <TerritoryCardStoreContainer className="md:h-[55.2rem] lg:h-[55.2rem]">
               <TagBox
                 className="mb-2"
                 tagsData={tagsData}
                 onChange={onTagChangeHandler}
               />
-              <TerritoryCardStoreBox className="h-[66vh] md:h-[52.75rem] lg:h-[52.75rem]">
+              <TerritoryCardStoreBox className="h-[66vh] md:h-[48.75rem] lg:h-[48.75rem]">
                 <TerritoryCardLabelBox
                   className="flex-auto"
                   dragAreaRef={dragAreaRef}
@@ -158,9 +158,9 @@ const CardLayout = ({
             childClassName="-top-6 bg-sky-800 md:relative md:top-0 lg:relative lg:top-0"
             title="배정현황"
           >
-            <TerritoryCardStoreContainer className="bg-sky-700 md:h-[59.2rem] lg:h-[59.2rem]">
+            <TerritoryCardStoreContainer className="bg-sky-700 md:h-[55.2rem] lg:h-[55.2rem]">
               <TerritoryAssignCardBox
-                className="h-[67.5vh] md:h-[56.8rem] lg:h-[56.8rem]"
+                className="h-[67.5vh] md:h-[52.65rem] lg:h-[52.65rem]"
                 childClassName="overflow-y-scroll scrollbar-hide"
               >
                 {assignedCardsData &&
