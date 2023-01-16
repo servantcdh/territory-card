@@ -40,7 +40,7 @@ const CardPage = () => {
         refetchInterval: 2000,
       },
       {
-        queryKey: ["users", { name: searchName }],
+        queryKey: ["users", { name: searchName, orderBy: "name" }],
         queryFn: usersApi,
         refetchInterval: 2000,
       },
