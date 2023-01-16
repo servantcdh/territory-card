@@ -66,12 +66,11 @@ const S13Layout = ({ s13Data, onServiceYearSelect, onDownload }) => {
                       card,
                       lastDateCompleted,
                       territoryRecordContent,
-                    },
-                    index
+                    }
                   ) => {
                     return (
                       <div key={`s13_${cardIdx}`}>
-                        {territoryRecordContent.map((content) => (
+                        {territoryRecordContent.map((content, contentIndex) => (
                           <TerritoryS13Content
                             key={`s13Content_${content.idx}`}
                             className="bg-amber-300"
@@ -86,14 +85,8 @@ const S13Layout = ({ s13Data, onServiceYearSelect, onDownload }) => {
                               </>
                             }
                             content={content}
-                            firstRow={
-                              index === 0 ||
-                              cardIdx !== s13Data[index - 1].cardIdx
-                            }
-                            divide={
-                              s13Data.length - 1 === index ||
-                              cardIdx !== s13Data[index + 1].cardIdx
-                            }
+                            firstRow={contentIndex === 0}
+                            divide={contentIndex === territoryRecordContent.length - 1}
                           />
                         ))}
                         <Row className="bg-amber-200" />
