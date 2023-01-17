@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./App.css";
 import { Routes, Route, useMatch, useNavigate } from "react-router-dom";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
@@ -7,6 +7,7 @@ import { myInfoApi } from "./hooks/api/user";
 import useAccessMutation from "./hooks/query/auth/useAccessMutation";
 import useRefreshMutation from "./hooks/query/auth/useRefreshTokenMutation";
 import useLogoutMutation from "./hooks/query/auth/useLogoutMutation";
+import useFCM from "./hooks/firebase/useFCM";
 import MainPage from "./pages/Main";
 import LoginPage from "./pages/Login";
 import ProfilePage from "./pages/Profile";
@@ -20,6 +21,8 @@ import NotFoundPage from "./pages/NotFound";
 import SpeedDial from "./components/molecules/SpeedDial";
 
 const App = () => {
+  const [pushToken, setPushToken] = useState("");
+  const [notification, setNotification] = useState({ title: "", body: "" });
   const queryClient = useQueryClient();
   const accessToken = getAccessToken();
   const { mutate: accessMutate } = useAccessMutation();
@@ -41,6 +44,13 @@ const App = () => {
   const activeAuthMenu = !!auth || !!guide;
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();
+  const { fcmToken, onMessageListener } = useFCM();
+  fcmToken().then((token) => {
+    setPushToken(token);
+  });
+  onMessageListener().then(({ notification }) => {
+    setNotification(notification);
+  });
   const onLogoutHandler = useCallback(() => {
     accessMutate({
       car: false,
@@ -87,6 +97,7 @@ const App = () => {
         {
           car: hasCar,
           live: true,
+          pushToken,
         },
         {
           onSuccess: onSuccessAccessMutation,
@@ -101,7 +112,7 @@ const App = () => {
         live: false,
       });
     });
-  }, [accessToken, hasCar]);
+  }, [accessToken, pushToken, hasCar]);
   return (
     <>
       <Routes>
