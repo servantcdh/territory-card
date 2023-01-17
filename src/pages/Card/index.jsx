@@ -135,7 +135,7 @@ const CardPage = () => {
       setSearchName(name);
       queryClient.invalidateQueries(["users"]);
     },
-    [queryClient]
+    [queryClient, setSearchName]
   );
   const onUploadCardHandler = useCallback(
     (cardFile, setCardFile) => {
