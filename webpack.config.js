@@ -8,7 +8,7 @@ const CssMinimizerWebpackPlugin = require("css-minimizer-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const WebpackPwaManifest = require("webpack-pwa-manifest");
 const { GenerateSW } = require("workbox-webpack-plugin");
-// const CopyPlugin = require("copy-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const mode = process.env.NODE_ENV || "development";
 
@@ -138,13 +138,17 @@ module.exports = {
       firebase_apiKey: JSON.stringify(process.env.FIREBASE_API_KEY),
       firebase_authDomain: JSON.stringify(process.env.FIREBASE_AUTH_DOMAIN),
       firebase_projectId: JSON.stringify(process.env.FIREBASE_PROJECT_ID),
-      firebase_storageBucket: JSON.stringify(process.env.FIREBASE_STORAGE_BUCKET),
+      firebase_storageBucket: JSON.stringify(
+        process.env.FIREBASE_STORAGE_BUCKET
+      ),
       firebase_messagingSenderId: JSON.stringify(
         process.env.FIREBASE_MESSAGING_SENDER_ID
       ),
       firebase_appId: JSON.stringify(process.env.FIREBASE_APP_ID),
-      firebase_measurementId: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
-      fcm_vapid: JSON.stringify(process.env.FCM_VAPID)
+      firebase_measurementId: JSON.stringify(
+        process.env.FIREBASE_MEASUREMENT_ID
+      ),
+      fcm_vapid: JSON.stringify(process.env.FCM_VAPID),
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
@@ -184,17 +188,16 @@ module.exports = {
           }),
           new GenerateSW({
             include: [/\.html$/, /\.js$/],
-            importScripts: ["firebase-messaging-sw.js"]
           }),
         ]
       : []),
-    // new CopyPlugin({
-    //   patterns: [
-    //     {
-    //       from: "./node_modules/axios/dist/axios.min.js",
-    //       to: "./axios.min.js",
-    //     },
-    //   ],
-    // }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "./public/firebase-messaging-sw.js",
+          to: "./firebase-messaging-sw.js",
+        },
+      ],
+    }),
   ],
 };
