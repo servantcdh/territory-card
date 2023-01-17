@@ -14,6 +14,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
+- FCM 푸시를 구현한다.
 - 전시대 카드 UI를 제작한다.
 
 ## 사용한 라이브러리
@@ -51,6 +52,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 | react-image-crop             | _^10.0.9_  | 이미지 자르기 라이브러리                                                                                       |
 | webpack-pwa-manifest         | _^4.3.0_   | 웹팩 후처리 과정 중 PWA Manifest를 생성해주는 플러그인                                                         |
 | workbox-webpack-plugin       | _^6.5.4_   | 웹팩 후처리 과정 중 serviceWorker를 생성하고 포함시키는 플러그인                                               |
+| firebase                     | _^9.15.0_  | 파이어베이스 SDK                                                                                               |
 
 ## 특이 사항
 
@@ -65,6 +67,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 [React S3, CloudFront에 배포하기 - 현구막 기술블로그](https://hyeon9mak.github.io/react-spa-s3-cloudfront/)
 
 [CloudFront로 사설 도메인(gabia) 연결하기 - 웨지의 개발 블로그](https://sihyung92.oopy.io/devops/gabia/1)
+
+[Web Push | React + FCM 구현하기 (feat. pwa, service worker) - pigme의 기술 로그](https://velog.io/@heelieben/FCM-React-Web-Push-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-feat.-pwa-service-worker)
 
 ## 만든이
 

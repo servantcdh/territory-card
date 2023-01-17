@@ -135,6 +135,16 @@ module.exports = {
       apiHost: JSON.stringify(
         mode !== "development" ? process.env.API_HOST : ""
       ),
+      firebase_apiKey: JSON.stringify(process.env.FIREBASE_API_KEY),
+      firebase_authDomain: JSON.stringify(process.env.FIREBASE_AUTH_DOMAIN),
+      firebase_projectId: JSON.stringify(process.env.FIREBASE_PROJECT_ID),
+      firebase_storageBucket: JSON.stringify(process.env.FIREBASE_STORAGE_BUCKET),
+      firebase_messagingSenderId: JSON.stringify(
+        process.env.FIREBASE_MESSAGING_SENDER_ID
+      ),
+      firebase_appId: JSON.stringify(process.env.FIREBASE_APP_ID),
+      firebase_measurementId: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
+      fcm_vapid: JSON.stringify(process.env.FCM_VAPID)
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
@@ -142,7 +152,7 @@ module.exports = {
         env: mode === "development" ? "(개발용)" : "",
         kakao_key: process.env.KAKAO_KEY,
       },
-      favicon: './public/favicon.ico',
+      favicon: "./public/favicon.ico",
       minify:
         mode !== "development"
           ? {
