@@ -184,6 +184,7 @@ module.exports = {
           }),
           new GenerateSW({
             include: [/\.html$/, /\.js$/],
+            importScripts: ["firebase-messaging-sw.js"]
           }),
         ]
       : []),
