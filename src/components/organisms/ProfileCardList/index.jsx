@@ -3,22 +3,38 @@ import Search from "../../atoms/Search";
 import Modal from "../../molecules/Modal";
 import ProfileCard from "../../molecules/ProfileCard";
 
-const ProfileCardList = ({ users, userIdxes, onAssign, onSearch, onCancel, userIdx }) => {
+const ProfileCardList = ({
+  users,
+  userIdxes,
+  onAssign,
+  onSearch,
+  onCancel,
+  userIdx,
+}) => {
   const [checkedUserIdx, setCheckedUserIdx] = useState(userIdxes);
   const [assignedUserIdx, setAssignedUserIdx] = useState(userIdx);
+  const [checkedUserPushTokens, setCheckedUserPushTokens] = useState([]);
   const onConfirmHandler = useCallback(() => {
-    onAssign({ userIdx: assignedUserIdx, userIdxes: checkedUserIdx });
-  }, [onAssign, assignedUserIdx, checkedUserIdx]);
+    onAssign({
+      userIdx: assignedUserIdx,
+      userIdxes: checkedUserIdx,
+      pushTokens: checkedUserPushTokens,
+    });
+  }, [onAssign, assignedUserIdx, checkedUserIdx, checkedUserPushTokens]);
   const onCancelHandler = useCallback(() => {
     onCancel();
   }, [onCancel]);
   const onCheckProfileHandler = useCallback(
-    (userIdx) => {
+    (userIdx, _, __, pushToken) => {
       let prev = [...checkedUserIdx];
       if (prev.includes(userIdx)) {
         prev = prev.filter((idx) => idx !== userIdx);
+        onAddPushTokenHandler(pushToken, false);
       } else {
         prev.push(userIdx);
+        if (!userIdxes.includes(userIdx) && pushToken) {
+          onAddPushTokenHandler(pushToken, true);
+        }
       }
       if (prev.length && prev.includes(userIdx) && !assignedUserIdx) {
         setAssignedUserIdx(userIdx);
@@ -28,7 +44,24 @@ const ProfileCardList = ({ users, userIdxes, onAssign, onSearch, onCancel, userI
       }
       setCheckedUserIdx(prev);
     },
-    [checkedUserIdx, setAssignedUserIdx, setCheckedUserIdx]
+    [
+      checkedUserIdx,
+      setAssignedUserIdx,
+      setCheckedUserIdx,
+      onAddPushTokenHandler,
+    ]
+  );
+  const onAddPushTokenHandler = useCallback(
+    (pushToken, isPush) => {
+      let prev = [...checkedUserPushTokens];
+      if (!isPush) {
+        prev = prev.filter((token) => token !== pushToken);
+      } else {
+        prev.push(pushToken);
+      }
+      setCheckedUserPushTokens(prev);
+    },
+    [checkedUserPushTokens, setCheckedUserPushTokens]
   );
   const onSearchHandler = useCallback(
     (keyword) => {

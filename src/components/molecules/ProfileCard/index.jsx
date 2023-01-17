@@ -5,14 +5,14 @@ import Profile from "../../atoms/Profile";
 import Tag from "../../atoms/Tag";
 
 const ProfileCard = ({ className, user, checked, assigned, onClick }) => {
-  const { userIdx, profile, name, live, gender, car, guide, auth, baptize } =
+  const { userIdx, profile, name, live, gender, car, guide, auth, baptize, pushToken } =
     user;
   const navigate = useNavigate();
   const liveActive = live ? "bg-primary-200" : "bg-primary-400";
   const checkActive = checked ? "bg-orange-300" : liveActive;
   const onClickHandler = useCallback(() => {
     if (onClick) {
-      onClick(userIdx, checked, assigned);
+      onClick(userIdx, checked, assigned, pushToken);
     }
   }, [onClick]);
   const onProfileClickHandler = useCallback(() => {

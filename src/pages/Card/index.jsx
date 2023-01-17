@@ -98,9 +98,9 @@ const CardPage = () => {
     [queryClient, assignCardsMutate]
   );
   const onAssignCrewsHandler = useCallback(
-    (cardAssignedIdx, { userIdx, userIdxes }) => {
+    (cardAssignedIdx, { userIdx, userIdxes, pushTokens }) => {
       assignCrewsMutate(
-        { cardAssignedIdx, userIdxes },
+        { cardAssignedIdx, userIdxes, pushTokens },
         {
           onSuccess: () => {
             assignUserMutate(
