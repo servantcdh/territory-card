@@ -93,7 +93,7 @@ const App = () => {
     window.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         accessMutate({
-          car: hasCar,
+          car: false,
           live: false,
         });
       } else {
@@ -111,7 +111,7 @@ const App = () => {
     });
     window.addEventListener("pagehide", () => {
       accessMutate({
-        car: false,
+        car: hasCar,
         live: false,
       });
     });
@@ -120,7 +120,7 @@ const App = () => {
     window.removeEventListener("visibilitychange", () => {
       if (document.hidden) {
         accessMutate({
-          car: hasCar,
+          car: false,
           live: false,
         });
       } else {
@@ -138,7 +138,7 @@ const App = () => {
     });
     window.removeEventListener("pagehide", () => {
       accessMutate({
-        car: false,
+        car: hasCar,
         live: false,
       });
     });
