@@ -197,6 +197,10 @@ module.exports = {
           from: "./public/firebase-messaging-sw.js",
           to: "./firebase-messaging-sw.js",
         },
+        {
+          from: "./public/android-chrome-512x512.png",
+          to: "./android-chrome-512x512.png",
+        },
       ],
     }),
   ],
