@@ -89,6 +89,60 @@ const App = () => {
     setAccessToken(null);
     navigate("/login");
   }, [setAccessToken, navigate]);
+  const onAddListeners = useCallback(() => {
+    window.addEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        accessMutate({
+          car: hasCar,
+          live: false,
+        });
+      } else {
+        accessMutate({
+          car: hasCar,
+          live: true,
+        });
+      }
+    });
+    window.addEventListener("beforeunload", () => {
+      accessMutate({
+        car: false,
+        live: false,
+      });
+    });
+    window.addEventListener("pagehide", () => {
+      accessMutate({
+        car: false,
+        live: false,
+      });
+    });
+  }, [accessMutate, hasCar]);
+  const onRemoveListeners = useCallback(() => {
+    window.removeEventListener("visibilitychange", () => {
+      if (document.hidden) {
+        accessMutate({
+          car: hasCar,
+          live: false,
+        });
+      } else {
+        accessMutate({
+          car: hasCar,
+          live: true,
+        });
+      }
+    });
+    window.removeEventListener("beforeunload", () => {
+      accessMutate({
+        car: false,
+        live: false,
+      });
+    });
+    window.removeEventListener("pagehide", () => {
+      accessMutate({
+        car: false,
+        live: false,
+      });
+    });
+  }, [accessMutate]);
   useEffect(() => {
     if (!accessToken) {
       navigate("/login");
@@ -106,21 +160,11 @@ const App = () => {
         }
       );
     }
-    window.addEventListener("pagehide", () => {
-      accessMutate({
-        car: false,
-        live: false,
-      });
-    });
+    onAddListeners();
     return () => {
-      window.removeEventListener("pagehide", () => {
-        accessMutate({
-          car: false,
-          live: false,
-        });
-      });
+      onRemoveListeners();
     };
-  }, [accessToken, pushToken, hasCar]);
+  }, [accessToken, pushToken, hasCar, onAddListeners, onRemoveListeners]);
   return (
     <>
       <Routes>
