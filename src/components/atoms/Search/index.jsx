@@ -40,7 +40,7 @@ const Search = ({ className, onSubmit }) => {
         </div>
         <input
           type="search"
-          className="block w-full p-2 pl-10 text-sm text-gray-900 border-black border-4 bg-amber-100"
+          className="block w-full p-2 pl-10 text-sm text-gray-900 border-black border-4 rounded-lg bg-amber-100"
           placeholder="전도인을 검색합니다..."
           onKeyUp={onKeyUpHandler}
           onClick={onClickHandler}
