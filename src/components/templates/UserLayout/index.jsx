@@ -38,7 +38,7 @@ const UserLayout = ({ usersData, onSearchUser }) => {
         >
           <div className="mt-3 h-[calc(100%-60px)] bg-gray-800 p-5 rounded-lg">
             <div className="w-full mx-auto h-10 mb-[60px]">
-              <Search className="mb-2" onSubmit={onSearchHandler} />
+              <Search className="mb-2 rounded" onSubmit={onSearchHandler} />
               <Button
                 className="rounded-lg text-black"
                 onClick={onCreateClickHandler}
