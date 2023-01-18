@@ -106,12 +106,20 @@ const App = () => {
         }
       );
     }
-    window.addEventListener("beforeunload", () => {
+    window.addEventListener("pagehide", () => {
       accessMutate({
         car: false,
         live: false,
       });
     });
+    return () => {
+      window.removeEventListener("pagehide", () => {
+        accessMutate({
+          car: false,
+          live: false,
+        });
+      });
+    };
   }, [accessToken, pushToken, hasCar]);
   return (
     <>
