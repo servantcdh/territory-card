@@ -42,7 +42,7 @@ const TerritoryContent = ({
     <p onClick={onRowClickHandler}>{name}{!phone ? "" : "📞"}</p>,
     <MarkBox
       cardContentIdx={idx}
-      cardMarkIdx={cardMarkIdx}
+      cardMarkIdx={refusal ? 3 : cardMarkIdx}
       isUpdate={user && userIdx !== user.idx}
       onChange={onMarkChangeHandler}
     />,
