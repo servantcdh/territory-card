@@ -2,22 +2,22 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const useDragAndDrop = () => {
   const [isDragging, setIsDragging] = useState(false);
-  const [file, setFile] = useState(null);
+  const [files, setFiles] = useState(null);
 
   // 드래그 이벤트 감지 ref
   const dragAreaRef = useRef();
 
-  const onChangeFile = useCallback(
+  const onChangeFiles = useCallback(
     (e) => {
-      let selectFile = null;
+      let selectFiles = null;
       if (e.type === "drop") {
-        selectFile = e.dataTransfer.files[0];
+        selectFiles = e.dataTransfer.files;
       } else {
-        selectFile = e.target.files[0];
+        selectFiles = e.target.files;
       }
-      setFile(selectFile);
+      setFiles(selectFiles);
     },
-    [setFile]
+    [setFiles]
   );
 
   const onClickHandler = useCallback((e) => {
@@ -43,9 +43,9 @@ const useDragAndDrop = () => {
   const onDropHandler = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
-    onChangeFile(e);
+    onChangeFiles(e);
     setIsDragging(false);
-  }, [onChangeFile]);
+  }, [onChangeFiles]);
   const initDragEvents = useCallback(() => {
     if (dragAreaRef.current !== null) {
       dragAreaRef.current.addEventListener("click", onClickHandler);
@@ -81,7 +81,7 @@ const useDragAndDrop = () => {
     return () => resetDragEvents();
   }, [initDragEvents, resetDragEvents]);
 
-  return { dragAreaRef, isDragging, file };
+  return { dragAreaRef, isDragging, files };
 };
 
 export default useDragAndDrop;

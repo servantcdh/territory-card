@@ -31,8 +31,8 @@ const CardLayout = ({
 }) => {
   const users = usersData ? usersData : [];
   const [checkedCards, setCheckedCards] = useState([]);
-  const [cardFile, setCardFile] = useState(null);
-  const { dragAreaRef, isDragging, file: cardFileReady } = useDragAndDrop();
+  const [cardFiles, setCardFiles] = useState(null);
+  const { dragAreaRef, isDragging, files: cardFilesReady } = useDragAndDrop();
   const fileInputId = "fileInput";
   const onTagChangeHandler = useCallback(
     (tags, tagsIgnored) => {
@@ -70,33 +70,33 @@ const CardLayout = ({
     document.getElementById(fileInputId).click();
   }, [fileInputId]);
   const onConfirmModalHandler = useCallback(() => {
-    onUploadCard(cardFile, setCardFile);
-  }, [cardFile]);
+    onUploadCard(cardFiles, setCardFiles);
+  }, [cardFiles]);
   const onCancelModalHandler = useCallback(() => {
-    setCardFile(null);
+    setCardFiles(null);
   }, []);
   const onInputFileChangeHandler = useCallback((e) => {
     const selectFile = e.target.files[0];
-    setCardFile(selectFile);
+    setCardFiles(selectFile);
     e.target.files = null;
     e.target.value = null;
   }, []);
   useEffect(() => {
-    if (cardFileReady) {
-      setCardFile(cardFileReady);
+    if (cardFilesReady) {
+      setCardFiles(cardFilesReady);
     }
-  }, [cardFileReady]);
+  }, [cardFilesReady]);
   return (
     <Body className="h-auto overflow-y-scroll scrollbar-hide md:flex md:items-center md:inset-x-0 lg:flex lg:items-center lg:inset-x-0 animate-naviToCard">
       <Input
         type="file"
-        multiple={false}
+        multiple={true}
         id={fileInputId}
         accept=".xlsx"
         className="hidden"
         onChange={onInputFileChangeHandler}
       />
-      {cardFile && (
+      {cardFiles && (
         <Modal
           className="bg-amber-200"
           title="다음의 구역 카드를 업로드합니다."
@@ -105,7 +105,11 @@ const CardLayout = ({
           buttonName="전송하기"
           cancelName="취소"
         >
-          <div className="text-display">{cardFile.name}</div>
+          <div className="text-display">
+            {cardFiles &&
+              cardFiles.length > 0 &&
+              cardFiles.map((file) => <p key={file.name}>{file.name}</p>)}
+          </div>
         </Modal>
       )}
       <div className="md:m-auto md:flex lg:m-auto lg:flex">
@@ -152,7 +156,10 @@ const CardLayout = ({
             </TerritoryCardStoreContainer>
           </TerritoryCard>
         </Container>
-        <Container htmlRef={scrollRef} className="h-[90vh] md:w-[calc(50vw-20px)] m-auto my-0 relative">
+        <Container
+          htmlRef={scrollRef}
+          className="h-[90vh] md:w-[calc(50vw-20px)] m-auto my-0 relative"
+        >
           <TerritoryCard
             className="my-0 animate-fade before:top-0 md:relative md:before:top-6 lg:relative lg:before:top-6"
             childClassName="-top-6 bg-sky-800 md:relative md:top-0 lg:relative lg:top-0"
