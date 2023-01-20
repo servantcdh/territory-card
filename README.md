@@ -14,8 +14,9 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
+- File 다중 업로드를 구현한다.
+- File UploadProgress를 사용자가 볼 수 있게 한다.
 - FCM 푸시를 구현한다.
-- 전시대 카드 UI를 제작한다.
 
 ## 사용한 라이브러리
 
@@ -69,6 +70,8 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 [CloudFront로 사설 도메인(gabia) 연결하기 - 웨지의 개발 블로그](https://sihyung92.oopy.io/devops/gabia/1)
 
 [Web Push | React + FCM 구현하기 (feat. pwa, service worker) - pigme의 기술 로그](https://velog.io/@heelieben/FCM-React-Web-Push-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-feat.-pwa-service-worker)
+
+[useMutation for file uploading (mutation progress) - TanStack GitHub Discussions](https://github.com/TanStack/query/discussions/1098)
 
 ## 만든이
 

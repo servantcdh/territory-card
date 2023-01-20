@@ -28,6 +28,7 @@ const CardLayout = ({
   onUploadCard,
   onRetrieve,
   scrollRef,
+  uploadProgress,
 }) => {
   const users = usersData ? usersData : [];
   const [checkedCards, setCheckedCards] = useState([]);
@@ -86,6 +87,12 @@ const CardLayout = ({
       setCardFiles(cardFilesReady);
     }
   }, [cardFilesReady]);
+  const excelNames = [];
+  if (cardFiles) {
+    for (let i = 0; i < cardFiles.length; i++) {
+      excelNames.push(cardFiles[i].name);
+    }
+  }
   return (
     <Body className="h-auto overflow-y-scroll scrollbar-hide md:flex md:items-center md:inset-x-0 lg:flex lg:items-center lg:inset-x-0 animate-naviToCard">
       <Input
@@ -98,17 +105,17 @@ const CardLayout = ({
       />
       {cardFiles && (
         <Modal
-          className="bg-amber-200"
+          className={`bg-amber-200 ${uploadProgress ? "animate-cloudy" : ""}`}
           title="다음의 구역 카드를 업로드합니다."
           onConfirm={onConfirmModalHandler}
-          onCancel={onCancelModalHandler}
-          buttonName="전송하기"
-          cancelName="취소"
+          onCancel={!uploadProgress ? onCancelModalHandler : null}
+          buttonName={`${!uploadProgress ? "전송하기" : (uploadProgress < 1 ? "전송중" : "변환중")}`}
+          cancelName={`${!uploadProgress ? "취소" : ""}`}
+          buttonDisabled={uploadProgress > 0}
         >
           <div className="text-display">
-            {cardFiles &&
-              cardFiles.length > 0 &&
-              cardFiles.map((file) => <p key={file.name}>{file.name}</p>)}
+            {excelNames.length > 0 &&
+              excelNames.map((name) => <p key={name}>{name}</p>)}
           </div>
         </Modal>
       )}

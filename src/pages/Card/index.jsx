@@ -15,6 +15,7 @@ const CardPage = () => {
   const [tags, setTags] = useState([]);
   const [tagsIgnored, setTagsIgnored] = useState([]);
   const [searchName, setSearchName] = useState("");
+  const [uploadProgress, setUploadProgress] = useState(0);
   const { mutate: rollbackCardMutate } = useRollbackCardMutation();
   const { mutate: assignCardsMutate } = useAssignCardsMutation();
   const { mutate: assignCrewsMutate } = useAssignCrewsMutation();
@@ -138,18 +139,24 @@ const CardPage = () => {
     [queryClient, setSearchName]
   );
   const onUploadCardHandler = useCallback(
-    (cardFile, setCardFile) => {
+    (cardFiles, setCardFiles) => {
       uploadExcelCardMutate(
-        { cardFile },
+        {
+          cardFiles,
+          onUploadProgress: (progress) => {
+            setUploadProgress(progress);
+          },
+        },
         {
           onSuccess: () => {
             queryClient.invalidateQueries(["cards"]);
-            setCardFile(null);
+            setUploadProgress(0);
+            setCardFiles(null);
           },
         }
       );
     },
-    [queryClient, uploadExcelCardMutate]
+    [queryClient, uploadExcelCardMutate, setUploadProgress]
   );
   return (
     <CardLayout
@@ -165,6 +172,7 @@ const CardPage = () => {
       onUploadCard={onUploadCardHandler}
       onRetrieve={onCompleteCardHandler}
       scrollRef={scrollRef}
+      uploadProgress={uploadProgress}
     />
   );
 };

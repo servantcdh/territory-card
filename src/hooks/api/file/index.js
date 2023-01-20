@@ -34,9 +34,11 @@ export const excelCardApi = async (cardIdx, cardName) => {
   URL.revokeObjectURL(href);
 };
 
-export const uploadExcelCardApi = ({ cardFile }) => {
+export const uploadExcelCardApi = ({ cardFiles, onUploadProgress }) => {
   const data = new FormData();
-  data.append("excel", cardFile);
+  for (let i = 0; i < cardFiles.length; i++) {
+    data.append("excel", cardFiles[i]);
+  }
   return useAxios({
     method: "POST",
     url: `${baseUrl}/card`,
@@ -44,10 +46,15 @@ export const uploadExcelCardApi = ({ cardFile }) => {
     Headers: {
       "Content-Type": "multipart/form-data",
     },
+    onUploadProgress: ({ progress }) => {
+      if (onUploadProgress) {
+        onUploadProgress(progress);
+      }
+    },
   });
 };
 
-export const uploadProfileApi = ({ image }) => {
+export const uploadProfileApi = ({ image, onUploadProgress }) => {
   const data = new FormData();
   data.append("profile", image);
   return useAxios({
@@ -56,6 +63,11 @@ export const uploadProfileApi = ({ image }) => {
     data,
     Headers: {
       "Content-Type": "multipart/form-data",
+    },
+    onUploadProgress: ({ progress }) => {
+      if (progressCallback) {
+        onUploadProgress((progress * 100).toFixed(2));
+      }
     },
   });
 };
