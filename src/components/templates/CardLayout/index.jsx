@@ -77,8 +77,8 @@ const CardLayout = ({
     setCardFiles(null);
   }, []);
   const onInputFileChangeHandler = useCallback((e) => {
-    const selectFile = e.target.files[0];
-    setCardFiles(selectFile);
+    const selectFiles = e.target.files;
+    setCardFiles(selectFiles);
     e.target.files = null;
     e.target.value = null;
   }, []);
