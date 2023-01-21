@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import useDragAndDrop from "../../../hooks/dragAndDrop/useDragAndDrop";
 import Body from "../../atoms/Body";
 import Input from "../../atoms/Input";
@@ -31,6 +31,7 @@ const CardLayout = ({
   uploadProgress,
 }) => {
   const users = usersData ? usersData : [];
+  const inputFileRef = useRef();
   const [checkedCards, setCheckedCards] = useState([]);
   const [cardFiles, setCardFiles] = useState(null);
   const { dragAreaRef, isDragging, files: cardFilesReady } = useDragAndDrop();
@@ -75,12 +76,12 @@ const CardLayout = ({
   }, [cardFiles]);
   const onCancelModalHandler = useCallback(() => {
     setCardFiles(null);
-  }, []);
+    inputFileRef.current.files = null;
+    inputFileRef.current.value = null;
+  }, [inputFileRef, setCardFiles]);
   const onInputFileChangeHandler = useCallback((e) => {
     const selectFiles = e.target.files;
     setCardFiles(selectFiles);
-    e.target.files = null;
-    e.target.value = null;
   }, []);
   useEffect(() => {
     if (cardFilesReady) {
@@ -96,6 +97,7 @@ const CardLayout = ({
   return (
     <Body className="h-auto overflow-y-scroll scrollbar-hide md:flex md:items-center md:inset-x-0 lg:flex lg:items-center lg:inset-x-0 animate-naviToCard">
       <Input
+        htmlRef={inputFileRef}
         type="file"
         multiple={true}
         id={fileInputId}
@@ -109,7 +111,13 @@ const CardLayout = ({
           title="다음의 구역 카드를 업로드합니다."
           onConfirm={onConfirmModalHandler}
           onCancel={!uploadProgress ? onCancelModalHandler : null}
-          buttonName={`${!uploadProgress ? "전송하기" : (uploadProgress < 1 ? "전송중" : "변환중")}`}
+          buttonName={`${
+            !uploadProgress
+              ? "전송하기"
+              : uploadProgress < 1
+              ? "전송중"
+              : "변환중"
+          }`}
           cancelName={`${!uploadProgress ? "취소" : ""}`}
           buttonDisabled={uploadProgress > 0}
         >
@@ -138,7 +146,9 @@ const CardLayout = ({
                   dragAreaRef={dragAreaRef}
                   fileInputId={fileInputId}
                 >
-                  {isDragging && <TerritoryCardDropBox />}
+                  {(!cardsData.length || isDragging) && (
+                    <TerritoryCardDropBox />
+                  )}
                   {!isDragging &&
                     cardsData &&
                     cardsData.map((card) => (
