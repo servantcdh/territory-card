@@ -110,10 +110,10 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
   const onConfirmModalHandler = useCallback(() => {
     setFormData(null);
     setActiveModal(null);
-    if (onCreate) {
-      navigate("/user");
+    if (isMyInfo) {
+      navigate(`/profile/me`);
     } else {
-      navigate(`/profile/${isMyInfo ? `me` : userData.idx}`);
+      navigate("/user");
     }
   }, [setActiveModal, navigate, isMyInfo, userData, onCreate]);
   return (
