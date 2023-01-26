@@ -14,9 +14,7 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 이번 목표
 
-- File 다중 업로드를 구현한다.
-- File UploadProgress를 사용자가 볼 수 있게 한다.
-- FCM 푸시를 구현한다.
+- 렌더링 최적화
 
 ## 사용한 라이브러리
 
@@ -57,21 +55,17 @@ TerritoryCard는 성경 마태복음 28:19, 20의 그리스도의 명령과 1세
 
 ## 특이 사항
 
-1. `SSL`과 사설 도메인을 `Route53`에 적용할 때 주의해야 할 점이 있다. `ELB`나 `CloudFront`의 퍼블릭 도메인을 호스팅 영역의 `CNAME`에 추가해야 하는데, `Route53` 뿐만 아니라 사설 도메인 서비스(내 경우에는 가비아 DNS 설정)까지 추가해야 한다는 점이다. 어느 한 쪽만 이걸 하지 않으면 `nslookup`으로 아무리 도메인을 체크해도 네임서버가 잡히질 않는다. 이 점 때문에 나의 소중한 주말이 희생되었다.
+1. 렌더링 최적화를 위해 우선 0) 페이지 컴포넌트들을 지연 로딩으로 변경하고, 1) 서드 파티 라이브러리들을 `webpack`의 `externals`로 옮겨서 후처리 대상에서 예외시키고, 2) `CopyWebpackPlugin`으로 `node_modules`안의 라이브러리 소스들을 복사한 다음, 3) `HtmlWebpackPlugin`을 통해 복사된 소스들을 추가해줬다. 이정도만 했더니 [PageSpeed](https://pagespeed.web.dev/)에서 성능이 `38%`에서 `46%`로 상승했다. 유의미한 변화인가.
+
+2. 접근성 향상을 위해서 이미지 태그 프로퍼티에 `alt`를 명시하고, 로고 이미지 파일을 `.png`에서 `.webp`로 수정했다. `84%`에서 `100%`로 상승했다...
+
+3. 성능이 아직 형편없어서 [PageSpeed](https://pagespeed.web.dev/) 보고서를 참조하면서 수정 작업을 해나갈 계획이다.
 
 ## 참고한 곳
 
-[Hands On! PWA - Eric's DevLog](https://kyungyeon.dev/posts/36)
+[브라우저 렌더링 과정과 최적화 - bumsu0211블로그](https://velog.io/@bumsu0211/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80-%EB%A0%8C%EB%8D%94%EB%A7%81-%EA%B3%BC%EC%A0%95%EA%B3%BC-%EC%B5%9C%EC%A0%81%ED%99%94)
 
-[리액트 앱 AWS S3, CloudFront 에 배포하기 - react-etc.vlpt](https://react-etc.vlpt.us/08.deploy-s3.html)
-
-[React S3, CloudFront에 배포하기 - 현구막 기술블로그](https://hyeon9mak.github.io/react-spa-s3-cloudfront/)
-
-[CloudFront로 사설 도메인(gabia) 연결하기 - 웨지의 개발 블로그](https://sihyung92.oopy.io/devops/gabia/1)
-
-[Web Push | React + FCM 구현하기 (feat. pwa, service worker) - pigme의 기술 로그](https://velog.io/@heelieben/FCM-React-Web-Push-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0-feat.-pwa-service-worker)
-
-[useMutation for file uploading (mutation progress) - TanStack GitHub Discussions](https://github.com/TanStack/query/discussions/1098)
+[[React] 리액트 lazy loading 적용하기(lighthouse 성능 최적화) - choijying21블로그](https://choijying21.tistory.com/63)
 
 ## 만든이
 

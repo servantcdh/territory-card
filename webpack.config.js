@@ -75,7 +75,17 @@ module.exports = {
         : [],
   },
   // externals: 명시된 모듈은 후처리에서 제외
-  externals: {},
+  externals: {
+    ...(mode !== "development"
+      ? {
+          react: "React",
+          "react-dom": "ReactDOM",
+          "@tanstack/react-query": "ReactQuery",
+          axios: "axios",
+          "react-image-crop": "ReactImageCrop",
+        }
+      : {}),
+  },
   // module: 웹팩이 읽어온 파일들을 모듈화하는 지점
   module: {
     // rules: 읽어온 파일의 모듈 변환 로직(로더)을 정의
@@ -91,12 +101,12 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|gif|jpe?g|svg|ico)$/,
+        test: /\.(png|gif|jpe?g|svg|ico|webp)$/,
         // type[ asset/resource ]: 위의 정적 파일을 모듈로 사용 (webpack4의 file-loader를 대체)
         type: "asset/resource",
       },
       {
-        test: /\.(png|gif|jpe?g|svg|ico)$/,
+        test: /\.(png|gif|jpe?g|svg|ico|webp)$/,
         // type[ asset > parser > dataUrlCondition > maxSize ]: 정의한 용량보다 작은 이미지들은 dataUrl로 변환 (webpack4의 url-loader/limit를 대체)
         type: "asset",
         parser: {
@@ -155,6 +165,13 @@ module.exports = {
       templateParameters: {
         env: mode === "development" ? "(개발용)" : "",
         kakao_key: process.env.KAKAO_KEY,
+        scripts: `
+        <script type="text/javascript" defer="true" src="./react.production.min.js"></script>
+        <script type="text/javascript" defer="true" src="./react-dom.production.min.js"></script>
+        <script type="text/javascript" defer="true" src="./index.production.js"></script>
+        <script type="text/javascript" defer="true" src="./axios.min.js"></script>
+        <script type="text/javascript" defer="true" src="./ReactCrop.min.js"></script>
+        `,
       },
       favicon: "./public/favicon.ico",
       minify:
@@ -181,7 +198,7 @@ module.exports = {
             display: "standalone",
             icons: [
               {
-                src: path.resolve("src/assets/images/Icon.png"),
+                src: path.resolve("src/assets/images/Icon.webp"),
                 sizes: [96, 128, 192, 256, 384, 512],
               },
             ],
@@ -200,6 +217,26 @@ module.exports = {
         {
           from: "./public/android-chrome-512x512.png",
           to: "./android-chrome-512x512.png",
+        },
+        {
+          from: "./node_modules/react/umd/react.production.min.js",
+          to: "./react.production.min.js",
+        },
+        {
+          from: "./node_modules/react-dom/umd/react-dom.production.min.js",
+          to: "./react-dom.production.min.js",
+        },
+        {
+          from: "./node_modules/@tanstack/react-query/build/umd/index.production.js",
+          to: "./index.production.js",
+        },
+        {
+          from: "./node_modules/axios/dist/axios.min.js",
+          to: "./axios.min.js",
+        },
+        {
+          from: "./node_modules/react-image-crop/dist/ReactCrop.min.js",
+          to: "./ReactCrop.min.js",
         },
       ],
     }),

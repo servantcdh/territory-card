@@ -13,6 +13,7 @@ const Profile = ({ className, liveClassName, profile, userIdx, name, live, assig
           className={`p-0 w-12 h-12 rounded-full ${className} ${assigned ? "border-[2px] border-orange-600" : ""}`}
           src={profile}
           alt={name}
+          loading="lazy"
           onClick={onClickHandler}
         />
       )}

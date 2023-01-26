@@ -3,7 +3,7 @@ import Card from "../../atoms/Card";
 import Input from "../../atoms/Input";
 import Button from "../../atoms/Button";
 import Footer from "../../atoms/Footer";
-import Icon from "../../../assets/images/Icon.png";
+import Icon from "../../../assets/images/icon_192x192.webp";
 
 const LoginLayout = ({ onSubmit, pending, error, success }) => {
   const [name, setName] = useState("");
@@ -29,7 +29,13 @@ const LoginLayout = ({ onSubmit, pending, error, success }) => {
         }`}
       >
         <div className="mb-4 flex items-center">
-          <img className="m-auto w-48" src={Icon} />
+          <img
+            className="m-auto w-48"
+            src={Icon}
+            alt="territoryCard logo"
+            width={192}
+            height={192}
+          />
         </div>
         <div className="text-2xl mb-4">
           <h1>로그인</h1>

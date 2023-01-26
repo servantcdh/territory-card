@@ -1,5 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
-import "./App.css";
+import React, { useCallback, useEffect, useState, lazy, Suspense } from "react";
 import { Routes, Route, useMatch, useNavigate } from "react-router-dom";
 import { useQueryClient, useQueries } from "@tanstack/react-query";
 import { getAccessToken, setAccessToken } from "./hooks/storage";
@@ -8,21 +7,23 @@ import useAccessMutation from "./hooks/query/auth/useAccessMutation";
 import useRefreshMutation from "./hooks/query/auth/useRefreshTokenMutation";
 import useLogoutMutation from "./hooks/query/auth/useLogoutMutation";
 import useFCM from "./hooks/firebase/useFCM";
-import MainPage from "./pages/Main";
-import LoginPage from "./pages/Login";
-import ProfilePage from "./pages/Profile";
-import SettingPage from "./pages/Setting";
-import CardPage from "./pages/Card";
-import S13Page from "./pages/S-13";
-import UserPage from "./pages/User";
-import UserCreatePage from "./pages/UserCreate";
-import ViewPage from "./pages/View";
-import NotFoundPage from "./pages/NotFound";
+
+const MainPage = lazy(() => import("./pages/Main"));
+const LoginPage = lazy(() => import("./pages/Login"));
+const ProfilePage = lazy(() => import("./pages/Profile"));
+const SettingPage = lazy(() => import("./pages/Setting"));
+const CardPage = lazy(() => import("./pages/Card"));
+const S13Page = lazy(() => import("./pages/S-13"));
+const UserPage = lazy(() => import("./pages/User"));
+const UserCreatePage = lazy(() => import("./pages/UserCreate"));
+const ViewPage = lazy(() => import("./pages/View"));
+const NotFoundPage = lazy(() => import("./pages/NotFound"));
+
 import SpeedDial from "./components/molecules/SpeedDial";
 
 const App = () => {
   const [pushToken, setPushToken] = useState("");
-  const [notification, setNotification] = useState({ title: "", body: "" });
+  // const [notification, setNotification] = useState({ title: "", body: "" });
   const queryClient = useQueryClient();
   const accessToken = getAccessToken();
   const { mutate: accessMutate } = useAccessMutation();
@@ -49,7 +50,7 @@ const App = () => {
     setPushToken(token);
   });
   onMessageListener().then(({ notification }) => {
-    setNotification(notification);
+    // setNotification(notification);
   });
   const onLogoutHandler = useCallback(() => {
     accessMutate({
@@ -166,7 +167,7 @@ const App = () => {
     };
   }, [accessToken, pushToken, hasCar, onAddListeners, onRemoveListeners]);
   return (
-    <>
+    <Suspense fallback={<div>불러오는 중...</div>}>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -209,7 +210,7 @@ const App = () => {
           ]}
         />
       )}
-    </>
+    </Suspense>
   );
 };
 
