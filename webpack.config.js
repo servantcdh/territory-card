@@ -159,12 +159,12 @@ module.exports = {
         process.env.FIREBASE_MEASUREMENT_ID
       ),
       fcm_vapid: JSON.stringify(process.env.FCM_VAPID),
+      kakao_key: JSON.stringify(process.env.KAKAO_KEY),
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
       templateParameters: {
         env: mode === "development" ? "(개발용)" : "",
-        kakao_key: process.env.KAKAO_KEY,
         scripts: `
         <script type="text/javascript" defer="true" src="./react.production.min.js"></script>
         <script type="text/javascript" defer="true" src="./react-dom.production.min.js"></script>

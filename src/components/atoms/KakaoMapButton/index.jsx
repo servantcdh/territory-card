@@ -1,9 +1,14 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { addressSearch } from "../../../hooks/kakaoMap";
 import Button from "../Button";
 
+const sdkUrl = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_key}&libraries=services`;
+
 const KakaoMapButton = ({ className, children, dest, address }) => {
+  if (!kakao_key) {
+    return <></>;
+  }
   const results = useQueries({
     queries: [
       {
@@ -20,6 +25,15 @@ const KakaoMapButton = ({ className, children, dest, address }) => {
   const onClickHandler = useCallback(() => {
     window.open(url, "_blank");
   }, [url]);
+  useEffect(() => {
+    if (document.querySelector(`script[src="${sdkUrl}"]`)) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = sdkUrl;
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
   return (
     <Button className={className} onClick={onClickHandler}>
       {children}
