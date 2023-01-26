@@ -82,7 +82,7 @@ module.exports = {
           "react-dom": "ReactDOM",
           "@tanstack/react-query": "ReactQuery",
           axios: "axios",
-          "react-image-crop": "ReactImageCrop",
+          "react-image-crop": "ReactCrop",
         }
       : {}),
   },
