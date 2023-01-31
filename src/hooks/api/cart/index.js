@@ -1,6 +1,6 @@
 import useAxios from "../useAxios";
 
-const baseUrl = `${apiHost ? "" : "/cart"}/cart`;
+const baseUrl = `${apiHost ? "" : "/api"}/cart`;
 
 export const weekApi = () => {
   return useAxios({

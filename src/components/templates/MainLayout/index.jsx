@@ -5,11 +5,13 @@ import Modal from "../../molecules/Modal";
 import Card from "../../atoms/Card";
 import Button from "../../atoms/Button";
 import CardLabelBox from "../../organisms/CardLabelBox";
+import CartWeekLabelBox from "../../organisms/CartWeekLabelBox";
 
-const MainLayout = ({ myInfo, myCard, onChangeAccess }) => {
+const MainLayout = ({ myInfo, myCard, week, onChangeAccess }) => {
   const isDriver = !!(myInfo && myInfo.driver);
   const isMale = !!(myInfo && myInfo.gender);
   const hasCar = !!(myInfo && myInfo.car);
+  const hasCart = !!(myInfo && myInfo.cart);
   const [activeModal, setActiveModal] = useState(false);
   const [checkedCar, setCheckedCar] = useState(isDriver);
   const onModalConfirmHandler = useCallback(() => {
@@ -70,6 +72,7 @@ const MainLayout = ({ myInfo, myCard, onChangeAccess }) => {
         </Modal>
       )}
       {!!myCard && <CardLabelBox items={myCard} />}
+      {!!hasCart && !!week && <CartWeekLabelBox items={week} />}
     </Body>
   );
 };
