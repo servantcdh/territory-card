@@ -17,6 +17,10 @@ const S13Page = lazy(() => import("./pages/S-13"));
 const UserPage = lazy(() => import("./pages/User"));
 const UserCreatePage = lazy(() => import("./pages/UserCreate"));
 const ViewPage = lazy(() => import("./pages/View"));
+const CartPage = lazy(() => import("./pages/Cart"));
+const CartDayPage = lazy(() => import("./pages/CartDay"));
+const CartCrewPage = lazy(() => import("./pages/CartCrew"));
+const CartLocationPage = lazy(() => import("./pages/CartLocation"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
 
 import SpeedDial from "./components/molecules/SpeedDial";
@@ -40,9 +44,12 @@ const App = () => {
     ],
   });
   const { data: myInfo } = results[0];
-  const { car, auth, guide } = myInfo ? myInfo : { car: 0, auth: 0, guide: 0 };
+  const { car, auth, guide, cart } = myInfo
+    ? myInfo
+    : { car: 0, auth: 0, guide: 0, cart: 0 };
   const hasCar = !!car;
   const activeAuthMenu = !!auth || !!guide;
+  const activeCartMenu = !!cart;
   const isLoginPage = useMatch("/login");
   const navigate = useNavigate();
   const { fcmToken, onMessageListener } = useFCM();
@@ -185,8 +192,12 @@ const App = () => {
             <Route path="/s-13" element={<S13Page />} />
             <Route path="/user" element={<UserPage />} />
             <Route path="/user/new" element={<UserCreatePage />} />
+            <Route path="/cartDay" element={<CartDayPage />} />
+            <Route path="/cartCrew" element={<CartCrewPage />} />
+            <Route path="/cartLocation" element={<CartLocationPage />} />
           </>
         )}
+        {activeCartMenu && <Route path="/cart" element={<CartPage />} />}
         <Route path="/view">
           <Route path=":cardIdx/:cardAssignedIdx" element={<ViewPage />} />
           <Route path=":cardIdx" element={<ViewPage />} />
