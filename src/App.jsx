@@ -24,6 +24,7 @@ const CartLocationPage = lazy(() => import("./pages/CartLocation"));
 const NotFoundPage = lazy(() => import("./pages/NotFound"));
 
 import SpeedDial from "./components/molecules/SpeedDial";
+import SuspenseLayout from "./components/templates/SuspenseLayout";
 
 const App = () => {
   const [pushToken, setPushToken] = useState("");
@@ -174,7 +175,7 @@ const App = () => {
     };
   }, [accessToken, pushToken, hasCar, onAddListeners, onRemoveListeners]);
   return (
-    <Suspense fallback={<div>불러오는 중...</div>}>
+    <Suspense fallback={<SuspenseLayout />}>
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<LoginPage />} />
