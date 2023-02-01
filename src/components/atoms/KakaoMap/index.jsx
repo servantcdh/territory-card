@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const defaultLatLng = {
   lat: "37.24668244441506",
@@ -12,87 +12,76 @@ const KakaoMap = ({ className, keyword, latlng, onClick }) => {
     return <></>;
   }
 
-  const mapDivRef = useRef();
-
-  const init = useCallback(() => {
-    const mapContainer = mapDivRef.current; // 지도를 표시할 div
-    const mapOption = {
-      center: new kakao.maps.LatLng(
-        latlng ? latlng.lat : defaultLatLng.lat,
-        latlng ? latlng.lng : defaultLatLng.lng
-      ), // 지도의 중심좌표
-      level: 2, // 지도의 확대 레벨
-    };
-
-    // 지도를 생성합니다
-    const map = new kakao.maps.Map(mapContainer, mapOption);
-
-    // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-    const placesSearchCB = (data, status) => {
-      if (status === kakao.maps.services.Status.OK) {
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
-        // LatLngBounds 객체에 좌표를 추가합니다
-        const bounds = new kakao.maps.LatLngBounds();
-        bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
-        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-        map.setBounds(bounds);
-      }
-    };
-
-    // 장소 검색 객체를 생성합니다
-    if (!latlng) {
-      const ps = new kakao.maps.services.Places();
-      const query = keyword ? keyword : " ";
-      ps.keywordSearch(query, placesSearchCB);
-    }
-
-    // 지도를 클릭한 위치에 표출할 마커입니다
-    const marker = new kakao.maps.Marker({
-      // 지도 중심좌표에 마커를 생성합니다
-      position: map.getCenter(),
-    });
-    // 지도에 마커를 표시합니다
-    marker.setMap(map);
-
-    // 지도에 클릭 이벤트를 등록합니다
-    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-    kakao.maps.event.addListener(map, "click", (mouseEvent) => {
-      // 클릭한 위도, 경도 정보를 가져옵니다
-      const latlng = mouseEvent.latLng;
-
-      // 마커 위치를 클릭한 위치로 옮깁니다
-      marker.setPosition(latlng);
-
-      const latlngData = {
-        lat: latlng.getLat(),
-        lng: latlng.getLng(),
-      };
-
-      onClick(latlngData);
-    });
-  }, [keyword, latlng]);
+  const [kakaoMap, setKakaoMap] = useState(null);
+  const [, setMarker] = useState(null);
+  const container = useRef();
 
   useEffect(() => {
-    if (document.querySelector(`script[src="${sdkUrl}"]`)) {
-      if (kakao) {
-        init();
-      }
-      return;
-    }
     const script = document.createElement("script");
     script.src = sdkUrl;
-    script.async = true;
+    document.head.appendChild(script);
     script.onload = () => {
       kakao.maps.load(() => {
-        const timeout = setTimeout(() => {
-          clearTimeout(timeout);
-          init();
-        }, 100);
+        const center = new kakao.maps.LatLng(
+          defaultLatLng.lat,
+          defaultLatLng.lng
+        );
+        const options = {
+          center,
+          level: 2,
+        };
+        const map = new kakao.maps.Map(container.current, options);
+        const marker = new kakao.maps.Marker({
+          position: map.getCenter(),
+        });
+        marker.setMap(map);
+        setMarker(marker);
+        kakao.maps.event.addListener(map, "click", (mouseEvent) => {
+          const latlng = mouseEvent.latLng;
+          const position = {
+            lat: latlng.getLat(),
+            lng: latlng.getLng(),
+          };
+          onClick(position);
+        });
+        setKakaoMap(map);
       });
     };
-    document.body.appendChild(script);
-  }, [keyword, latlng]);
-  return <div ref={mapDivRef} className={`z-0 ${className}`}></div>;
+  }, [container]);
+
+  useEffect(() => {
+    if (!kakaoMap || !latlng) {
+      return;
+    }
+    const position = new kakao.maps.LatLng(latlng.lat, latlng.lng);
+    setMarker((prevMarker) => {
+      if (prevMarker) {
+        prevMarker.setMap(null);
+      }
+      return new kakao.maps.Marker({ map: kakaoMap, position });
+    });
+    const bounds = new kakao.maps.LatLngBounds();
+    bounds.extend(position);
+    kakaoMap.setBounds(bounds);
+  }, [kakaoMap, latlng]);
+
+  useEffect(() => {
+    if (!kakaoMap || !keyword) {
+      return;
+    }
+    const placesSearchCB = (data, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        const bounds = new kakao.maps.LatLngBounds();
+        bounds.extend(new kakao.maps.LatLng(data[0].y, data[0].x));
+        kakaoMap.setBounds(bounds);
+      }
+    };
+    const ps = new kakao.maps.services.Places();
+    const query = keyword ? keyword : " ";
+    ps.keywordSearch(query, placesSearchCB);
+  }, [kakaoMap, keyword]);
+
+  return <div ref={container} className={`z-0 ${className}`}></div>;
 };
 
 export default KakaoMap;
