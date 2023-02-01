@@ -193,7 +193,9 @@ const App = () => {
             <Route path="/s-13" element={<S13Page />} />
             <Route path="/user" element={<UserPage />} />
             <Route path="/user/new" element={<UserCreatePage />} />
-            <Route path="/cartDay" element={<CartDayPage />} />
+            <Route path="/cartDay">
+              <Route path=":cartDayIdx" element={<CartDayPage />} />
+            </Route>
             <Route path="/cartCrew" element={<CartCrewPage />} />
             <Route path="/cartLocation" element={<CartLocationPage />} />
           </>

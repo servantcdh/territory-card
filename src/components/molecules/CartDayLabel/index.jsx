@@ -4,7 +4,7 @@ import img from "../../../assets/images/cart.webp";
 import Button from "../../atoms/Button";
 import Svg from "../../atoms/Svg";
 
-const CartDayLabel = ({ item  }) => {
+const CartDayLabel = ({ item }) => {
   const navigate = useNavigate();
   const { dayCode, cartDayTime } = item;
   let bgClass = "";
@@ -40,18 +40,23 @@ const CartDayLabel = ({ item  }) => {
       break;
   }
   const todayCode = new Date().getDay();
-  if (dayCode === todayCode) {
-    dayName = "오늘"
+  const isToday = dayCode === todayCode;
+  if (isToday) {
+    dayName = "오늘";
   }
-  const onClickHandler = useCallback(() => {}, [navigate]);
+  const onClickHandler = useCallback(() => {
+    navigate(`/cartDay/${dayCode}`);
+  }, [navigate]);
   return (
     <div
       className={`w-[300px] h-[200px] mx-1.5 p-1 text-primary-100 font-display rounded animate-scale ${bgClass}`}
     >
       <div className="w-full h-full p-1 rounded flex">
         <div>
-          <div className="text-4xl ml-1 mb-2">{dayName}.</div>
-          <div>
+          <div className="relative text-4xl ml-1 mb-2 z-10">{dayName}.</div>
+          <div
+            className={`z-0 relative opacity-60 ${isToday ? "-top-10" : ""}`}
+          >
             <img className="h-[130px]" src={img} alt="cart image" />
           </div>
         </div>
@@ -68,10 +73,13 @@ const CartDayLabel = ({ item  }) => {
             )}
           </div>
           <div className="text-right">
-            <Button className="border-0 bg-transparent">
+            <Button
+              className="border-0 bg-transparent pr-1 mt-0.5"
+              onClick={onClickHandler}
+            >
               일정관리{" "}
               <Svg
-                className="w-6 h-6 mt-1 -ml-4 animate-shakeRight"
+                className="inline w-4 h-4 mb-[3px] -ml-2 animate-shakeRight"
                 type="chevronRight"
               />
             </Button>
