@@ -77,12 +77,12 @@ const CartDayTimeEdit = ({
     const ampmAnother = words[0];
     const clockWords = words[1].split(":");
     const hourAnother = +clockWords[0];
-    const minuteAnother = +clockWords[1];
+    const minuteAnother = clockWords[1];
     const iosHourAnother =
-      ampmAnother === "오후" && hourAnother < 12 ? 12 + hourAnother : hourAnother;
+    ampmAnother === "오후" && hourAnother < 12 ? 12 + hourAnother : hourAnother;
     const timeAnother = new Date(
       `2023-02-02 ${iosHourAnother}:${minuteAnother}`
-    ).getTime();
+      ).getTime();
     if ((isStart && time < timeAnother) || (!isStart && time > timeAnother)) {
       const updateTime = `${ampm} ${hour}:${minute}`;
       const data = { cartDayTimeIdx: idx };
@@ -113,7 +113,7 @@ const CartDayTimeEdit = ({
         htmlRef={hourRef}
         type="number"
         inputMode="numeric"
-        className="text-right w-[15.5px] h-[17px] text-xs tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
+        className="appearance-none text-right w-[15.5px] h-[17px] text-xs tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
         onKeyDown={onHourKeyDownHandler}
         onBlur={onHourBlurHandler}
       />
@@ -122,7 +122,7 @@ const CartDayTimeEdit = ({
         htmlRef={minuteRef}
         type="number"
         inputMode="numeric"
-        className="text-right w-[15.5px] h-[17px] text-xs tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
+        className="appearance-none text-right w-[15.5px] h-[17px] text-xs tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
         onKeyDown={onMinuteKeyDownHandler}
         onBlur={onMinuteBlurHandler}
       />
