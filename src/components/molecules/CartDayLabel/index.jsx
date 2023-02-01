@@ -2,11 +2,11 @@ import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import img from "../../../assets/images/cart.webp";
 import Button from "../../atoms/Button";
+import Svg from "../../atoms/Svg";
 
-const CartDayLabel = ({ item }) => {
+const CartDayLabel = ({ item  }) => {
   const navigate = useNavigate();
   const { dayCode, cartDayTime } = item;
-  const onClickHandler = useCallback(() => {}, [navigate]);
   let bgClass = "";
   let dayName = "";
   switch (dayCode) {
@@ -39,6 +39,11 @@ const CartDayLabel = ({ item }) => {
       bgClass = "bg-blue-600";
       break;
   }
+  const todayCode = new Date().getDay();
+  if (dayCode === todayCode) {
+    dayName = "오늘"
+  }
+  const onClickHandler = useCallback(() => {}, [navigate]);
   return (
     <div
       className={`w-[300px] h-[200px] mx-1.5 p-1 text-primary-100 font-display rounded animate-scale ${bgClass}`}
@@ -51,11 +56,11 @@ const CartDayLabel = ({ item }) => {
           </div>
         </div>
         <div>
-          <div className="text-xs w-[215px] h-[145px] mx-2 mt-2 p-2 rounded bg-gray-900 opacity-75 overflow-y-scroll scrollbar-hide mr-2">
+          <div className="text-sm w-[215px] h-[145px] mx-2 mt-2 p-2 rounded bg-gray-900 opacity-75 overflow-y-scroll scrollbar-hide mr-2">
             {!!cartDayTime.length &&
               cartDayTime.map((time) => (
                 <div key={time.idx} className="mb-2">
-                  {time.startTime} ~ {time.endTime} 참여하기
+                  {time.startTime} ~ {time.endTime}
                 </div>
               ))}
             {!cartDayTime.length && (
@@ -63,7 +68,13 @@ const CartDayLabel = ({ item }) => {
             )}
           </div>
           <div className="text-right">
-            <Button className="border-0 bg-transparent">일정관리 &gt;</Button>
+            <Button className="border-0 bg-transparent">
+              일정관리{" "}
+              <Svg
+                className="w-6 h-6 mt-1 -ml-4 animate-shakeRight"
+                type="chevronRight"
+              />
+            </Button>
           </div>
         </div>
       </div>

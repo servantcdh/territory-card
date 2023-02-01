@@ -17,7 +17,6 @@ const Search = ({ className, placeholder, value, onSubmit }) => {
     if (!hasInit && value) {
       setHasInit(true);
       inputRef.current.value = value;
-      inputRef.current.focus();
     }
     return () => {
       clearTimeout(timeout);
@@ -33,7 +32,7 @@ const Search = ({ className, placeholder, value, onSubmit }) => {
     <input
       type="search"
       ref={inputRef}
-      className={` ${className}`}
+      className={`${className} rounded`}
       placeholder={placeholder}
       onKeyUp={onKeyUpHandler}
       onClick={onClickHandler}

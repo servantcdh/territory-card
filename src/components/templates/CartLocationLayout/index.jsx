@@ -71,7 +71,7 @@ const CartLocationLayout = ({ locations, onCreate, onUpdate, onDelete }) => {
                         {editMode && (
                           <>
                             <Search
-                              className="w-36 p-1 m-0 bg-gray-600 rounded"
+                              className="w-36 p-1 m-0 bg-gray-600"
                               value={location.name}
                               onSubmit={onSearchChangeHandler}
                             />
