@@ -41,7 +41,7 @@ const CartDayLabel = ({ item }) => {
   }
   return (
     <div
-      className={`w-[300px] h-[200px] mx-1.5 p-1 text-primary-100 font-display rounded ${bgClass}`}
+      className={`w-[300px] h-[200px] mx-1.5 p-1 text-primary-100 font-display rounded animate-scale ${bgClass}`}
     >
       <div className="w-full h-full p-1 rounded flex">
         <div>

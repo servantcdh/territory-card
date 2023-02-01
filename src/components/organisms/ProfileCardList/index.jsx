@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
-import Search from "../../atoms/Search";
 import Modal from "../../molecules/Modal";
+import SearchUser from "../../molecules/SearchUser";
 import ProfileCard from "../../molecules/ProfileCard";
 
 const ProfileCardList = ({
@@ -79,7 +79,7 @@ const ProfileCardList = ({
       cancelName="취소"
       buttonDisabled={!checkedUserIdx.length}
     >
-      <Search
+      <SearchUser
         className="fixed w-5/6 inset-x-0 mx-auto h-10 z-20 md:w-[470px] lg:w-[470px]"
         onSubmit={onSearchHandler}
       />

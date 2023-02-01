@@ -124,8 +124,7 @@ export const updateLocationApi = (data) => {
   });
 };
 
-export const deleteLocationApi = ({ queryKey }) => {
-  const [_, cartLocationIdx] = queryKey;
+export const deleteLocationApi = ({ cartLocationIdx }) => {
   return useAxios({
     method: "DELETE",
     url: `${baseUrl}/location/${cartLocationIdx}`,

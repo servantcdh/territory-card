@@ -214,6 +214,7 @@ const App = () => {
               : [
                   { route: "/card", svg: "table" },
                   { route: "/s-13", svg: "document-text" },
+                  { route: "/cartLocation", svg: "mapPin" },
                   { route: "/user", svg: "user-group" },
                 ]),
             { route: "/profile/me", svg: "user-circle" },

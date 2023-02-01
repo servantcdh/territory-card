@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Body from "../../atoms/Body";
 import Container from "../../atoms/Container";
 import Button from "../../atoms/Button";
-import Search from "../../atoms/Search";
+import SearchUser from "../../molecules/SearchUser";
 import TerritoryCard from "../../molecules/TerritoryCard";
 import ProfileCard from "../../molecules/ProfileCard";
 
@@ -38,7 +38,7 @@ const UserLayout = ({ usersData, onSearchUser }) => {
         >
           <div className="mt-3 h-[calc(100%-60px)] bg-gray-800 p-5 rounded-lg">
             <div className="w-full mx-auto h-10 mb-[60px]">
-              <Search className="mb-2 rounded" onSubmit={onSearchHandler} />
+              <SearchUser className="mb-2 rounded" onSubmit={onSearchHandler} />
               <Button
                 className="rounded-lg text-black"
                 onClick={onCreateClickHandler}

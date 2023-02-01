@@ -8,7 +8,7 @@ const SuspenseLayout = () => {
       <div className="m-auto text-center">
         <div>
           <img
-            className="w-24 h-24 m-auto mb-2"
+            className="w-48 h-48 m-auto mb-2"
             src={loadingImg}
             alt="loading image"
             width={192}

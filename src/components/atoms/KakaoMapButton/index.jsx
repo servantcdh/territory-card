@@ -1,19 +1,22 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { addressSearch } from "../../../hooks/kakaoMap";
 import Button from "../Button";
 
-const sdkUrl = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_key}&libraries=services`;
+const sdkUrl = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_key}&libraries=services&autoload=false`;
+window.kakao = null;
 
 const KakaoMapButton = ({ className, children, dest, address }) => {
   if (!kakao_key) {
     return <></>;
   }
+  const [disabled, setDisabled] = useState(true);
   const results = useQueries({
     queries: [
       {
         queryKey: [`addressSearch/${address}`, address],
         queryFn: addressSearch,
+        enabled: !!kakao,
         refetchOnMount: "always",
       },
     ],
@@ -32,10 +35,15 @@ const KakaoMapButton = ({ className, children, dest, address }) => {
     const script = document.createElement("script");
     script.src = sdkUrl;
     script.async = true;
+    script.onload = () => {
+      kakao.maps.load(() => {
+        setDisabled(false);
+      });
+    };
     document.body.appendChild(script);
   }, []);
   return (
-    <Button className={className} onClick={onClickHandler}>
+    <Button className={className} onClick={onClickHandler} disabled={disabled}>
       {children}
     </Button>
   );
