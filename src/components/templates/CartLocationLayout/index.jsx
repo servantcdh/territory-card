@@ -64,11 +64,11 @@ const CartLocationLayout = ({ locations, onCreate, onUpdate, onDelete }) => {
             <div className="mt-1 h-[calc(32%)] p-2 bg-gray-900 rounded overflow-y-scroll scrollbar-hide mb-3">
               {!!locations.length &&
                 locations.map((location) => {
-                  const editMode = editIdx === location.idx;
+                  const isEditMode = editIdx === location.idx;
                   return (
                     <div key={location.idx} className={` flex`}>
                       <div className="w-[235px]">
-                        {editMode && (
+                        {isEditMode && (
                           <>
                             <Search
                               className="w-36 p-1 m-0 bg-gray-600"
@@ -88,7 +88,7 @@ const CartLocationLayout = ({ locations, onCreate, onUpdate, onDelete }) => {
                             )}
                           </>
                         )}
-                        {!editMode && (
+                        {!isEditMode && (
                           <p
                             onClick={onEditModeChangeHandler.bind(
                               null,
@@ -105,7 +105,7 @@ const CartLocationLayout = ({ locations, onCreate, onUpdate, onDelete }) => {
                         )}
                       </div>
                       <div className="mt-1">
-                        {editMode && (
+                        {isEditMode && (
                           <>
                             <Button
                               className="text-xs border-0 px-1 mr-1 bg-gray-800 animate-pulse"

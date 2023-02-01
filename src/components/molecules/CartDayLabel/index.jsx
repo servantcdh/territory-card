@@ -4,7 +4,7 @@ import img from "../../../assets/images/cart.webp";
 import Button from "../../atoms/Button";
 import Svg from "../../atoms/Svg";
 
-const CartDayLabel = ({ item }) => {
+const CartDayLabel = ({ item, hasAuth }) => {
   const navigate = useNavigate();
   const { dayCode, cartDayTime } = item;
   let bgClass = "";
@@ -44,8 +44,11 @@ const CartDayLabel = ({ item }) => {
   if (isToday) {
     dayName = "오늘";
   }
-  const onClickHandler = useCallback(() => {
+  const onAuthClickHandler = useCallback(() => {
     navigate(`/cartDay/${dayCode}`);
+  }, [navigate]);
+  const onEntryClickHandler = useCallback(({ idx }) => {
+    navigate(`/cartCrew/${idx}`);
   }, [navigate]);
   return (
     <div
@@ -53,7 +56,7 @@ const CartDayLabel = ({ item }) => {
     >
       <div className="w-full h-full p-1 rounded flex">
         <div>
-          <div className="relative text-4xl ml-1 mb-2 z-10">{dayName}.</div>
+          <div className="relative text-4xl ml-1 mb-2 z-[1]">{dayName}.</div>
           <div
             className={`z-0 relative opacity-60 ${isToday ? "-top-10" : ""}`}
           >
@@ -61,29 +64,49 @@ const CartDayLabel = ({ item }) => {
           </div>
         </div>
         <div>
-          <div className="text-sm w-[215px] h-[145px] mx-2 mt-2 p-2 rounded bg-gray-900 opacity-75 overflow-y-scroll scrollbar-hide mr-2">
+          <div
+            className={`text-sm w-[215px] ${
+              hasAuth ? "h-[145px]" : "h-[168px]"
+            } mx-2 mt-2 p-2 rounded bg-gray-900 opacity-75 overflow-y-scroll scrollbar-hide mr-2`}
+          >
             {!!cartDayTime.length &&
               cartDayTime.map((time) => (
-                <div key={time.idx} className="mb-2">
-                  {time.startTime} ~ {time.endTime}
+                <div key={time.idx} className="mb-2 p-1 pl-2 rounded bg-black">
+                  <p>
+                    {time.startTime} ~ {time.endTime}
+                  </p>
+                  <div className="text-right">
+                    <Button
+                      className="border-0 bg-transparent pr-1 mt-0.5"
+                      onClick={onEntryClickHandler.bind(null, time)}
+                    >
+                      참여하기{" "}
+                      <Svg
+                        className="inline w-4 h-4 mb-[3px] -ml-2 animate-shakeRight"
+                        type="chevronRight"
+                      />
+                    </Button>
+                  </div>
                 </div>
               ))}
             {!cartDayTime.length && (
               <div className="mb-2">일정이 없습니다.</div>
             )}
           </div>
-          <div className="text-right">
-            <Button
-              className="border-0 bg-transparent pr-1 mt-0.5"
-              onClick={onClickHandler}
-            >
-              일정관리{" "}
-              <Svg
-                className="inline w-4 h-4 mb-[3px] -ml-2 animate-shakeRight"
-                type="chevronRight"
-              />
-            </Button>
-          </div>
+          {hasAuth && (
+            <div className="text-right">
+              <Button
+                className="border-0 bg-transparent pr-1 mt-0.5"
+                onClick={onAuthClickHandler}
+              >
+                일정관리{" "}
+                <Svg
+                  className="inline w-4 h-4 mb-[3px] -ml-2 animate-shakeRight"
+                  type="chevronRight"
+                />
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

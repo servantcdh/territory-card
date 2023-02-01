@@ -194,9 +194,11 @@ const App = () => {
             <Route path="/user" element={<UserPage />} />
             <Route path="/user/new" element={<UserCreatePage />} />
             <Route path="/cartDay">
-              <Route path=":cartDayIdx" element={<CartDayPage />} />
+              <Route path=":dayCode" element={<CartDayPage />} />
             </Route>
-            <Route path="/cartCrew" element={<CartCrewPage />} />
+            <Route path="/cartCrew">
+              <Route path=":cartDayTimeIdx" element={<CartCrewPage />} />
+            </Route>
             <Route path="/cartLocation" element={<CartLocationPage />} />
           </>
         )}
@@ -216,7 +218,6 @@ const App = () => {
               : [
                   { route: "/card", svg: "table" },
                   { route: "/s-13", svg: "document-text" },
-                  { route: "/cartLocation", svg: "mapPin" },
                   { route: "/user", svg: "user-group" },
                 ]),
             { route: "/profile/me", svg: "user-circle" },

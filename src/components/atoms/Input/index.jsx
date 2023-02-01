@@ -14,10 +14,14 @@ const Input = ({
   disabled,
   required,
   onKeyUp,
+  onKeyDown,
+  onBlur,
   onChange,
   error,
   multiple,
-  accept
+  accept,
+  max,
+  min,
 }) => {
   return (
     <input
@@ -37,8 +41,12 @@ const Input = ({
       required={required}
       onKeyUp={onKeyUp}
       onChange={onChange}
+      onKeyDown={onKeyDown}
+      onBlur={onBlur}
       multiple={multiple}
       accept={accept}
+      max={max}
+      min={min}
     />
   );
 };

@@ -12,6 +12,7 @@ const MainLayout = ({ myInfo, myCard, week, onChangeAccess }) => {
   const isMale = !!(myInfo && myInfo.gender);
   const hasCar = !!(myInfo && myInfo.car);
   const hasCart = !!(myInfo && myInfo.cart);
+  const hasAuth = !!(myInfo && myInfo.auth);
   const [activeModal, setActiveModal] = useState(false);
   const [checkedCar, setCheckedCar] = useState(isDriver);
   const onModalConfirmHandler = useCallback(() => {
@@ -72,7 +73,7 @@ const MainLayout = ({ myInfo, myCard, week, onChangeAccess }) => {
         </Modal>
       )}
       {!!myCard && <CardLabelBox items={myCard} />}
-      {!!hasCart && !!week && <CartWeekLabelBox items={week} />}
+      {!!hasCart && !!week && <CartWeekLabelBox items={week} hasAuth={hasAuth} />}
     </Body>
   );
 };

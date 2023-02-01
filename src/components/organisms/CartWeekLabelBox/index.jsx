@@ -1,7 +1,7 @@
 import React from "react";
 import CartDayLabel from "../../molecules/CartDayLabel";
 
-const CartWeekLabelBox = ({ className, items }) => {
+const CartWeekLabelBox = ({ className, items, hasAuth }) => {
   return (
     <div
       className={` ${className} w-full p-2 h-[300px] overflow-x-scroll scrollbar-hide`}
@@ -9,7 +9,7 @@ const CartWeekLabelBox = ({ className, items }) => {
       <div className="w-[2184px]">
         {items.map((item) => (
           <div key={item.idx} className="inline-block">
-            <CartDayLabel item={item} />
+            <CartDayLabel item={item} hasAuth={hasAuth} />
           </div>
         ))}
       </div>
