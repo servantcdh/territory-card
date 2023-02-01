@@ -57,7 +57,10 @@ const CartLocationLayout = ({ locations, onCreate, onUpdate, onDelete }) => {
         >
           <div className="h-[calc(100%-60px)] bg-gray-800 p-5 rounded-lg">
             <div className="w-full mx-auto">
-              <Button className="rounded-lg text-black" onClick={onCreate}>
+              <Button
+                className="text-sm px-1 rounded-lg text-black"
+                onClick={onCreate}
+              >
                 구역등록
               </Button>
             </div>
@@ -108,14 +111,14 @@ const CartLocationLayout = ({ locations, onCreate, onUpdate, onDelete }) => {
                         {isEditMode && (
                           <>
                             <Button
-                              className="text-xs border-0 px-1 mr-1 bg-gray-800 animate-pulse"
+                              className="text-sm border-0 px-1 mr-1 bg-gray-800"
                               onClick={onUpdateClickHandler}
                               disabled={!latlng}
                             >
                               수정
                             </Button>
                             <Button
-                              className="text-xs border-0 px-1 bg-gray-800 animate-pulse"
+                              className="text-sm border-0 px-1 bg-gray-800"
                               onClick={onDeleteClickHandler}
                             >
                               삭제

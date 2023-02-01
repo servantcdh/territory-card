@@ -63,7 +63,7 @@ const CartDayLayout = ({
                   return (
                     <div
                       key={idx}
-                      className="w-full h-[200px] bg-amber-100 mb-3 p-2 text-black rounded"
+                      className="w-full bg-amber-100 mb-3 p-2 text-black rounded"
                     >
                       <div className="flex mb-1">
                         <div className="text-xs tracking-tighter w-[calc(100%-114px)] mt-1">
@@ -104,11 +104,14 @@ const CartDayLayout = ({
                         {!!cartDayTimeUser.length &&
                           cartDayTimeUser.map((timeUser) => {
                             const { user, userIdx } = timeUser;
+                            const { access } = user;
                             return (
                               <Profile
                                 className="mr-[2px] w-[40px] h-[40px]"
+                                liveClassName="left-[1.8rem]"
                                 key={user.idx}
                                 {...user}
+                                {...access}
                                 onClick={onProfileClickHandler.bind(
                                   null,
                                   userIdx

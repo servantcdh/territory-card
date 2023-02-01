@@ -6,7 +6,7 @@ import Button from "../Button";
 const sdkUrl = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_key}&libraries=services&autoload=false`;
 window.kakao = null;
 
-const KakaoMapButton = ({ className, children, dest, address }) => {
+const KakaoMapButton = ({ className, children, dest, address, latlng }) => {
   if (!kakao_key) {
     return <></>;
   }
@@ -16,14 +16,21 @@ const KakaoMapButton = ({ className, children, dest, address }) => {
       {
         queryKey: [`addressSearch/${address}`, address],
         queryFn: addressSearch,
-        enabled: !!kakao,
+        enabled: !latlng,
         refetchOnMount: "always",
       },
     ],
   });
   const { data } = results[0];
-  const x = data ? data[0].x : "";
-  const y = data ? data[0].y : "";
+  let x = "";
+  let y = "";
+  if (latlng) {
+    x = latlng.lng;
+    y = latlng.lat;
+  } else if (data) {
+    x = data[0].x;
+    y = data[0].y;
+  }
   const url = `https://map.kakao.com/link/to/${dest},${y},${x}`;
   const onClickHandler = useCallback(() => {
     window.open(url, "_blank");
