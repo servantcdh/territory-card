@@ -71,18 +71,24 @@ const CartDayTimeEdit = ({
     const ampm = selectRef.current.value;
     const hour = +hourRef.current.value;
     const minute = minuteRef.current.value;
-    const iosHour = ampm === "오후" && hour < 12 ? 12 + hour : hour;
-    const time = new Date(`2023-02-02 ${iosHour}:${minute}`).getTime();
+    const isoHour = ampm === "오후" && hour < 12 ? 12 + hour : hour;
+    const time = new Date(
+      `2023-02-02 ${isoHour < 10 ? `0${isoHour}` : isoHour}:${minute}`
+    ).getTime();
     const words = anotherString.split(" ");
     const ampmAnother = words[0];
     const clockWords = words[1].split(":");
     const hourAnother = +clockWords[0];
     const minuteAnother = clockWords[1];
-    const iosHourAnother =
-    ampmAnother === "오후" && hourAnother < 12 ? 12 + hourAnother : hourAnother;
+    const isoHourAnother =
+      ampmAnother === "오후" && hourAnother < 12
+        ? 12 + hourAnother
+        : hourAnother;
     const timeAnother = new Date(
-      `2023-02-02 ${iosHourAnother}:${minuteAnother}`
-      ).getTime();
+      `2023-02-02 ${
+        isoHourAnother < 10 ? `0${isoHourAnother}` : isoHourAnother
+      }:${minuteAnother}`
+    ).getTime();
     if ((isStart && time < timeAnother) || (!isStart && time > timeAnother)) {
       const updateTime = `${ampm} ${hour}:${minute}`;
       const data = { cartDayTimeIdx: idx };
@@ -91,7 +97,9 @@ const CartDayTimeEdit = ({
       } else {
         data.endTime = updateTime;
       }
-      onChange(data);
+      if (timeString !== updateTime) {
+        onChange(data);
+      }
     } else {
       init(timeString);
     }
