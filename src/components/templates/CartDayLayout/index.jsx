@@ -29,8 +29,8 @@ const CartDayLayout = ({
   const onCreateHandler = useCallback(() => {
     onCreate({
       cartDayIdx,
-      startTime: "오전 10:00",
-      endTime: "오후 12:00",
+      startTime: "오전 9:00",
+      endTime: "오전 10:00",
     });
   }, [cartDayIdx]);
   const onDeleteHandler = useCallback((cartDayTimeIdx) => {
