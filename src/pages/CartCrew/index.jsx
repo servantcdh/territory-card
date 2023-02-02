@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { planApi } from "../../hooks/api/cart";
+import { locationsApi, planApi } from "../../hooks/api/cart";
+import useCreatePlanLocationMutation from "../../hooks/query/cart/useCreatePlanLocationMutation";
 import useAssignCartCrewsMutation from "../../hooks/query/cart/useAssignCartCrewsMutation";
 import useResetPlanUsersMutation from "../../hooks/query/cart/useResetPlanUsersMutation";
 import useDeletePlanLocationMutation from "../../hooks/query/cart/useDeletePlanLocationMutation";
@@ -9,10 +10,11 @@ import CartCrewLayout from "../../components/templates/CartCrewLayout";
 
 const CartCrewPage = () => {
   const { cartDayTimeIdx } = useParams();
-  const { mutate: assignCartCrewsMutation } = useAssignCartCrewsMutation();
+  const { mutate: useCreatePlanLocationMutate } =
+    useCreatePlanLocationMutation();
+  const { mutate: assignCartCrewsMutate } = useAssignCartCrewsMutation();
   const { mutate: resetPlanUsersMutate } = useResetPlanUsersMutation();
-  const { mutate: deletePlanLocationMutation } =
-    useDeletePlanLocationMutation();
+  const { mutate: deletePlanLocationMutate } = useDeletePlanLocationMutation();
   const results = useQueries({
     queries: [
       {
@@ -20,9 +22,15 @@ const CartCrewPage = () => {
         queryFn: planApi,
         refetchInterval: 1000,
       },
+      {
+        queryKey: ["locations"],
+        queryFn: locationsApi,
+        refetchInterval: 1000,
+      },
     ],
   });
   const { data: planData } = results[0];
+  const { data: locationsData } = results[1];
   const {
     cartDayIdx,
     cartDayTimeLocation,
@@ -38,22 +46,30 @@ const CartCrewPage = () => {
         startTime: "",
         endTime: "",
       };
+  const locations = locationsData ? locationsData : [];
+  const onCreatePlanLocationHandler = useCallback((data) => {
+    useCreatePlanLocationMutate(data);
+  }, []);
   const onAssignHandler = useCallback((data) => {
-    assignCartCrewsMutation(data);
+    assignCartCrewsMutate(data);
+  }, []);
+  const onDeleteHandler = useCallback((data) => {
+    deletePlanLocationMutate(data);
   }, []);
   const onResetHandler = useCallback((data) => {
     resetPlanUsersMutate(data);
   }, []);
-  const onDeleteHandler = useCallback((data) => {
-    deletePlanLocationMutation(data);
-  }, []);
   return (
     <CartCrewLayout
+      cartDayTimeIdx={+cartDayTimeIdx}
       cartDayIdx={cartDayIdx}
       cartDayTimeLocation={cartDayTimeLocation}
       cartDayTimeUser={cartDayTimeUser}
       startTime={startTime}
       endTime={endTime}
+      locations={locations}
+      onCreate={onCreatePlanLocationHandler}
+      onReset={onResetHandler}
     />
   );
 };

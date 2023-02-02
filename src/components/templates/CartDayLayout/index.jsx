@@ -87,7 +87,7 @@ const CartDayLayout = ({
                         </div>
                         <div className="w-[114px] text-xs text-right">
                           <Button
-                            className="border-none bg-gray-400 px-1 mr-1"
+                            className="border-none bg-rose-400 px-1 mr-1"
                             onClick={onCrewClickHandler.bind(null, idx)}
                           >
                             참가자/구역관리
@@ -100,14 +100,14 @@ const CartDayLayout = ({
                           </Button>
                         </div>
                       </div>
-                      <div className="overflow-y-scroll scrollbar-hide">
+                      <div className="flex flex-wrap overflow-y-scroll scrollbar-hide">
                         {!!cartDayTimeUser.length &&
                           cartDayTimeUser.map((timeUser) => {
                             const { user, userIdx } = timeUser;
                             const { access } = user;
                             return (
                               <Profile
-                                className="mr-[2px] w-[40px] h-[40px]"
+                                className="mr-[5px] w-[40px] h-[40px] mb-2"
                                 liveClassName="left-[1.8rem]"
                                 key={user.idx}
                                 {...user}

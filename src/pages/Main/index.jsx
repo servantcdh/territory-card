@@ -30,17 +30,14 @@ const MainPage = () => {
   const { data: myCard } = results[1];
   const { data: week } = results[2];
   const queryClient = useQueryClient();
-  const accessMutation = useAccessMutation();
-  const onChangeAccessHandler = useCallback(
-    (access) => {
-      accessMutation.mutate(access, {
-        onSuccess: () => {
-          queryClient.invalidateQueries(["myInfo"]);
-        },
-      });
-    },
-    [accessMutation, queryClient]
-  );
+  const { mutate: accessMutate } = useAccessMutation();
+  const onChangeAccessHandler = useCallback((access) => {
+    accessMutate(access, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["myInfo"]);
+      },
+    });
+  }, []);
   const weekData = week ? week : [];
   const todayCode = new Date().getDay();
   const firstPart = weekData.filter((day) => day.dayCode >= todayCode);

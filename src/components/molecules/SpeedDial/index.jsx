@@ -34,7 +34,7 @@ const SpeedDial = ({ items }) => {
     <div>
       {active && <Backdrop onClose={onClickCloseHandler} />}
       {active && (
-        <div className="fixed bottom-24 m-3 right-0 w-20">
+        <div className="fixed bottom-24 m-3 right-0 w-20 z-[2]">
           {!!items.length &&
             items.map((item, idx) => (
               <div

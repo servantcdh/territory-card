@@ -7,7 +7,12 @@ import Button from "../../atoms/Button";
 import CardLabelBox from "../../organisms/CardLabelBox";
 import CartWeekLabelBox from "../../organisms/CartWeekLabelBox";
 
-const MainLayout = ({ myInfo, myCard, week, onChangeAccess }) => {
+const MainLayout = ({
+  myInfo,
+  myCard,
+  week,
+  onChangeAccess,
+}) => {
   const isDriver = !!(myInfo && myInfo.driver);
   const isMale = !!(myInfo && myInfo.gender);
   const hasCar = !!(myInfo && myInfo.car);
@@ -73,7 +78,12 @@ const MainLayout = ({ myInfo, myCard, week, onChangeAccess }) => {
         </Modal>
       )}
       {!!myCard && <CardLabelBox items={myCard} />}
-      {!!hasCart && !!week && <CartWeekLabelBox items={week} hasAuth={hasAuth} />}
+      {!!hasCart && !!week && (
+        <CartWeekLabelBox
+          items={week}
+          hasAuth={hasAuth}
+        />
+      )}
     </Body>
   );
 };

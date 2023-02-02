@@ -202,7 +202,11 @@ const App = () => {
             <Route path="/cartLocation" element={<CartLocationPage />} />
           </>
         )}
-        {activeCartMenu && <Route path="/cart" element={<CartPage />} />}
+        {activeCartMenu && (
+          <Route path="/cart">
+            <Route path=":cartDayTimeIdx" element={<CartPage />} />
+          </Route>
+        )}
         <Route path="/view">
           <Route path=":cardIdx/:cardAssignedIdx" element={<ViewPage />} />
           <Route path=":cardIdx" element={<ViewPage />} />

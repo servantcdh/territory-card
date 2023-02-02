@@ -10,13 +10,13 @@ const KakaoMapButton = ({ className, children, dest, address, latlng }) => {
   if (!kakao_key) {
     return <></>;
   }
-  const [disabled, setDisabled] = useState(true);
+  const [load, setLoad] = useState(false);
   const results = useQueries({
     queries: [
       {
         queryKey: [`addressSearch/${address}`, address],
         queryFn: addressSearch,
-        enabled: !latlng,
+        enabled: !latlng && load,
         refetchOnMount: "always",
       },
     ],
@@ -37,20 +37,20 @@ const KakaoMapButton = ({ className, children, dest, address, latlng }) => {
   }, [url]);
   useEffect(() => {
     if (document.querySelector(`script[src="${sdkUrl}"]`)) {
+      setLoad(true);
       return;
     }
     const script = document.createElement("script");
     script.src = sdkUrl;
-    script.async = true;
     script.onload = () => {
       kakao.maps.load(() => {
-        setDisabled(false);
+        setLoad(true);
       });
     };
     document.body.appendChild(script);
   }, []);
   return (
-    <Button className={className} onClick={onClickHandler} disabled={disabled}>
+    <Button className={className} onClick={onClickHandler}>
       {children}
     </Button>
   );

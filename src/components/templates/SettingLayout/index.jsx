@@ -18,6 +18,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
   const authRef = useRef();
   const baptizeRef = useRef();
   const driverRef = useRef();
+  const cartRef = useRef();
   const [error, setError] = useState([]);
   const [formData, setFormData] = useState(null);
   const [activeModal, setActiveModal] = useState(false);
@@ -46,6 +47,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
       const auth = authRef.current.checked;
       const baptize = baptizeRef.current.checked;
       const driver = driverRef.current.checked;
+      const cart = cartRef.current.checked;
       const data = {};
       const errors = [];
       setError([]);
@@ -82,6 +84,9 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
       }
       if (!userData || driver !== userData.driver) {
         data.driver = driver;
+      }
+      if (!userData || cart !== userData.cart) {
+        data.cart = cart;
       }
       setFormData(data);
     },
@@ -179,90 +184,111 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                     />
                   </div>
                 </div>
-                <div className="mb-4">
-                  <div className="text-[18px]">성별.</div>
-                  {!hasAuth && (
-                    <div className="pl-1">
-                      {userData.gender ? "형제👨🏻‍💼" : "자매👩🏻‍💼"}
-                    </div>
-                  )}
-                  {hasAuth && (
-                    <div className="pl-1">
-                      <div className="flex items-center mb-4">
-                        <Input
-                          htmlRef={genderMaleRef}
-                          id="default-radio-1"
-                          type="radio"
-                          value={true}
-                          checked={userData ? userData.gender : false}
-                          name="default-radio"
-                          className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2"
-                        />
-                        <label
-                          htmlFor="default-radio-1"
-                          className="ml-2 text-sm font-medium text-gray-900"
-                        >
-                          형제👨🏻‍💼
-                        </label>
+                <div className="flex">
+                  <div className="mb-4 w-[120px]">
+                    <div className="text-[18px]">성별.</div>
+                    {!hasAuth && (
+                      <div className="pl-1">
+                        {userData.gender ? "형제👨🏻‍💼" : "자매👩🏻‍💼"}
                       </div>
-                      <div className="flex items-center">
-                        <Input
-                          htmlRef={genderFemaleRef}
-                          id="default-radio-2"
-                          type="radio"
-                          value={false}
-                          checked={userData ? !userData.gender : false}
-                          name="default-radio"
-                          className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2"
-                        />
-                        <label
-                          htmlFor="default-radio-2"
-                          className="ml-2 text-sm font-medium text-gray-900"
-                        >
-                          자매👩🏻‍💼
-                        </label>
+                    )}
+                    {hasAuth && (
+                      <div className="pl-1">
+                        <div className="flex items-center mb-4">
+                          <Input
+                            htmlRef={genderMaleRef}
+                            id="default-radio-1"
+                            type="radio"
+                            value={true}
+                            checked={userData ? userData.gender : false}
+                            name="default-radio"
+                            className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2"
+                          />
+                          <label
+                            htmlFor="default-radio-1"
+                            className="ml-2 text-sm font-medium text-gray-900"
+                          >
+                            형제👨🏻‍💼
+                          </label>
+                        </div>
+                        <div className="flex items-center">
+                          <Input
+                            htmlRef={genderFemaleRef}
+                            id="default-radio-2"
+                            type="radio"
+                            value={false}
+                            checked={userData ? !userData.gender : false}
+                            name="default-radio"
+                            className="w-4 h-4 text-orange-600 bg-gray-100 border-gray-300 focus:ring-orange-500 focus:ring-2"
+                          />
+                          <label
+                            htmlFor="default-radio-2"
+                            className="ml-2 text-sm font-medium text-gray-900"
+                          >
+                            자매👩🏻‍💼
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <div className="text-[18px]">침례여부.</div>
-                  {!hasAuth && (
-                    <div className="pl-1">
-                      {userData.baptize ? "침례받은 전도인" : "미침례전도인🔰"}
-                    </div>
-                  )}
-                  {hasAuth && (
+                    )}
+                  </div>
+                  <div className="mb-4">
+                    <div className="text-[18px]">운전자🪪.</div>
                     <div className="pl-1">
                       <label className="relative inline-flex items-center cursor-pointer">
                         <Input
-                          htmlRef={baptizeRef}
+                          htmlRef={driverRef}
                           type="checkbox"
                           className="sr-only peer"
-                          checked={userData ? userData.baptize : false}
+                          checked={userData ? userData.driver : false}
                         />
                         <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
                       </label>
                     </div>
-                  )}
+                  </div>
                 </div>
-                <div className="mb-4">
-                  <div className="text-[18px]">운전자🪪.</div>
-                  <div className="pl-1">
-                    <label className="relative inline-flex items-center cursor-pointer">
-                      <Input
-                        htmlRef={driverRef}
-                        type="checkbox"
-                        className="sr-only peer"
-                        checked={userData ? userData.driver : false}
-                      />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
-                    </label>
+                <div className="flex">
+                  <div className="mb-4 w-[120px]">
+                    <div className="text-[18px]">침례여부.</div>
+                    {!hasAuth && (
+                      <div className="pl-1">
+                        {userData.baptize
+                          ? "침례받은 전도인"
+                          : "미침례전도인🔰"}
+                      </div>
+                    )}
+                    {hasAuth && (
+                      <div className="pl-1">
+                        <label className="relative inline-flex items-center cursor-pointer">
+                          <Input
+                            htmlRef={baptizeRef}
+                            type="checkbox"
+                            className="sr-only peer"
+                            checked={userData ? userData.baptize : false}
+                          />
+                          <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mb-4">
+                    <div className="text-[18px]">전시대봉사자👀.</div>
+                    <div className="pl-1">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <Input
+                          htmlRef={cartRef}
+                          type="checkbox"
+                          className="sr-only peer"
+                          checked={userData ? userData.cart : false}
+                          disabled={!hasAuth}
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-600"></div>
+                      </label>
+                    </div>
                   </div>
                 </div>
                 {hasAuth && (
-                  <>
-                    <div className="mb-4">
+                  <div className="flex">
+                    <div className="mb-4 w-[120px]">
                       <div className="text-[18px]">인도자💼.</div>
                       <div className="pl-1">
                         <label className="relative inline-flex items-center cursor-pointer">
@@ -292,7 +318,7 @@ const SettingLayout = ({ userData, onUpdate, onCreate, hasAuth, isMyInfo }) => {
                         </label>
                       </div>
                     </div>
-                  </>
+                  </div>
                 )}
                 <div>
                   <Button type="submit">

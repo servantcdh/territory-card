@@ -47,9 +47,12 @@ const CartDayLabel = ({ item, hasAuth }) => {
   const onAuthClickHandler = useCallback(() => {
     navigate(`/cartDay/${dayCode}`);
   }, [navigate]);
-  const onEntryClickHandler = useCallback(({ idx }) => {
-    navigate(`/cartCrew/${idx}`);
-  }, [navigate]);
+  const onEntryClickHandler = useCallback(
+    ({ idx }) => {
+      navigate(`/cart/${idx}`);
+    },
+    [navigate]
+  );
   return (
     <div
       className={`w-[300px] h-[200px] mx-1.5 p-1 text-primary-100 font-display rounded animate-scale ${bgClass}`}
