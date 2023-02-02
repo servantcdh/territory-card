@@ -12,10 +12,9 @@ import SuspenseLayout from "../../components/templates/SuspenseLayout";
 const CartPage = () => {
   const { cartDayTimeIdx } = useParams();
   const [isCrew, setIsCrew] = useState(false);
-  const [isInit, setIsInit] = useState(false);
   const navigate = useNavigate();
   const { mutate: createPlanUserMutate } = useCreatePlanUserMutation();
-  const { mutate: deletePlanUserMutation } = useDeletePlanUserMutation();
+  const { mutate: deletePlanUserMutate } = useDeletePlanUserMutation();
   const results = useQueries({
     queries: [
       {
@@ -48,8 +47,8 @@ const CartPage = () => {
         startTime: "",
         endTime: "",
       };
-  const onDeleteHandler = useCallback((data) => {
-    deletePlanUserMutation(data, {
+  const onDeletePlanUserHandler = useCallback((data) => {
+    deletePlanUserMutate(data, {
       onSuccess: () => {
         navigate("/");
       },
@@ -75,19 +74,24 @@ const CartPage = () => {
   const entryUserIdxes = timeUserIdxes.concat(crewsIdxes);
   const isSuccess = hasPlan && hasMyInfo;
   useEffect(() => {
-    if (!isSuccess || isInit) {
+    if (!isSuccess) {
       return;
     }
+    let timeout = null;
     if (!entryUserIdxes.includes(myIdx)) {
-      setIsInit(true);
-      createPlanUserMutate(
-        {
+      timeout = setTimeout(() => {
+        createPlanUserMutate({
           userIdx: myIdx,
           cartDayTimeIdx: +cartDayTimeIdx,
-        }
-      );
+        });
+      }, 500);
     }
-  }, [isSuccess, isInit, entryUserIdxes, myIdx]);
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [isSuccess, entryUserIdxes, myIdx]);
   useEffect(() => {
     if (!isSuccess) {
       return;
@@ -107,7 +111,7 @@ const CartPage = () => {
               cartDayTimeUserIdx={cartDayTimeUserIdx}
               startTime={startTime}
               endTime={endTime}
-              onDelete={onDeleteHandler}
+              onDelete={onDeletePlanUserHandler}
             />
           )}
           {isCrew && (

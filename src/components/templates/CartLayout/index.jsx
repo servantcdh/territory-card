@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Body from "../../atoms/Body";
 import Button from "../../atoms/Button";
 import Profile from "../../atoms/Profile";
@@ -6,6 +6,7 @@ import Container from "../../atoms/Container";
 import KakaoMapButton from "../../atoms/KakaoMapButton";
 import CartDayHeader from "../../molecules/CartDayHeader";
 import TerritoryCard from "../../molecules/TerritoryCard";
+import { useNavigate } from "react-router-dom";
 
 const CartLayout = ({
   cartDayIdx,
@@ -13,6 +14,10 @@ const CartLayout = ({
   startTime,
   endTime,
 }) => {
+  const navigate = useNavigate();
+  const onProfileClickHandler = useCallback((userIdx) => {
+    navigate(`/profile/${userIdx}`);
+  }, []);
   return (
     <Body className="animate-naviToUser font-display">
       <Container className="h-[calc(90vh)]">
@@ -20,7 +25,7 @@ const CartLayout = ({
           className="my-0 animate-fade before:top-6 before:bg-red-700"
           childClassName="-top-0 bg-amber-100"
           titleClassName="text-primary-800"
-          title="전시대 대기실"
+          title="전시대 봉사현황"
         >
           <div className="h-[calc(100%-60px)] bg-gray-800 p-5 rounded-lg">
             <CartDayHeader dayCode={cartDayIdx - 1} />

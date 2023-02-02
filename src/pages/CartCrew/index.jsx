@@ -53,7 +53,7 @@ const CartCrewPage = () => {
   const onAssignHandler = useCallback((data) => {
     assignCartCrewsMutate(data);
   }, []);
-  const onDeleteHandler = useCallback((data) => {
+  const onDeletePlanLocationHandler = useCallback((data) => {
     deletePlanLocationMutate(data);
   }, []);
   const onResetHandler = useCallback((data) => {
@@ -68,7 +68,9 @@ const CartCrewPage = () => {
       startTime={startTime}
       endTime={endTime}
       locations={locations}
+      onAssign={onAssignHandler}
       onCreate={onCreatePlanLocationHandler}
+      onDelete={onDeletePlanLocationHandler}
       onReset={onResetHandler}
     />
   );

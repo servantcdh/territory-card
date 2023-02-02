@@ -18,7 +18,9 @@ const CartCrewLayout = ({
   startTime,
   endTime,
   locations,
+  onAssign,
   onCreate,
+  onDelete,
   onReset,
 }) => {
   const navigate = useNavigate();
@@ -40,6 +42,11 @@ const CartCrewLayout = ({
     setActiveModal(false);
     setSelectedLocation(null);
   }, [selectedLocation, cartDayTimeIdx]);
+  const onDeleteTimeLocationHandler = useCallback((cartDayTimeLocationIdx) => {
+    onDelete({
+      cartDayTimeLocationIdx,
+    });
+  }, []);
   const onResetClickHandler = useCallback(() => {
     onReset({ cartDayTimeIdx });
   }, [cartDayTimeIdx]);
@@ -182,7 +189,13 @@ const CartCrewLayout = ({
                           <Button className="border bg-rose-400 text-black px-1 mr-1">
                             전도인배정
                           </Button>
-                          <Button className="border text-black px-1">
+                          <Button
+                            className="border text-black px-1"
+                            onClick={onDeleteTimeLocationHandler.bind(
+                              null,
+                              idx
+                            )}
+                          >
                             삭제
                           </Button>
                         </div>
