@@ -84,6 +84,7 @@ const CartCrewLayout = ({
           onCancel={onCloseModalHandler}
           buttonName="배정"
           cancelName="취소"
+          buttonDisabled={!selectedLocation}
         >
           <div className="mt-1 max-h-[200px] p-2 bg-gray-900 rounded overflow-y-scroll scrollbar-hide mb-3">
             {!!locations.length &&
@@ -115,7 +116,7 @@ const CartCrewLayout = ({
           className="my-0 animate-fade before:top-6 before:bg-red-700"
           childClassName="-top-0 bg-amber-100"
           titleClassName="text-primary-800"
-          title="전시대 참가자/구역관리"
+          title="전시대 배정"
         >
           <div className="h-[calc(100%-60px)] bg-gray-800 p-5 rounded-lg">
             <CartDayHeader dayCode={cartDayIdx - 1}>
@@ -143,7 +144,7 @@ const CartCrewLayout = ({
             </div>
             <div className="bg-gray-700 mt-2 rounded p-3 h-[calc(100%-70px)] overflow-y-scroll scrollbar-hide">
               <div className="mb-2 bg-gray-900 rounded p-2">
-                <div className="mb-2 text-lg">구역이 배정되지 않음</div>
+                <div className="mb-2 text-lg">구역을 배정하지 않음</div>
                 <div className="pb-1 flex flex-wrap">
                   {!!cartDayTimeUser.length &&
                     cartDayTimeUser.map((timeUser) => {

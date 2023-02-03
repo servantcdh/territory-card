@@ -45,7 +45,7 @@ const CartDayLayout = ({
           className="my-0 animate-fade before:top-6 before:bg-red-700"
           childClassName="-top-0 bg-amber-100"
           titleClassName="text-primary-800"
-          title="전시대 일정관리"
+          title="전시대 일정"
         >
           <div className="h-[calc(100%-60px)] bg-gray-800 p-5 rounded-lg">
             <CartDayHeader dayCode={dayCode}>
@@ -75,7 +75,7 @@ const CartDayLayout = ({
                               isStart={true}
                               onChange={onEditModeChangeHandler}
                             />
-                            <p className="mx-1.5 ml-1 -mt-[0.7px]">~</p>
+                            <p className="mx-1.5 ml-1 leading-[19px]">~</p>
                             <CartDayTimeEdit
                               idx={idx}
                               timeString={endTime}
@@ -85,12 +85,12 @@ const CartDayLayout = ({
                             />
                           </div>
                         </div>
-                        <div className="w-[114px] text-xs text-right">
+                        <div className="w-[114px] text-xs text-right mt-0.5">
                           <Button
                             className="border-none bg-rose-400 px-1 mr-1"
                             onClick={onCrewClickHandler.bind(null, idx)}
                           >
-                            참가자/구역관리
+                            배정
                           </Button>
                           <Button
                             className="border-none bg-gray-400 px-1"

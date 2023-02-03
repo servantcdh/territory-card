@@ -23,7 +23,7 @@ const CartDayTimeEdit = ({
   };
   const onSelectChangeHandler = useCallback(() => {
     onCompleteHandler();
-  }, [onCompleteHandler]);
+  }, [onCompleteHandler, timeString, anotherString]);
   const onHourKeyDownHandler = useCallback((e) => {
     const keyInput = e.key;
     const value = e.target.value;
@@ -55,7 +55,7 @@ const CartDayTimeEdit = ({
       }
       onCompleteHandler();
     },
-    [onCompleteHandler]
+    [onCompleteHandler, timeString, anotherString]
   );
   const onMinuteBlurHandler = useCallback(
     (e) => {
@@ -65,7 +65,7 @@ const CartDayTimeEdit = ({
       }
       onCompleteHandler();
     },
-    [onCompleteHandler]
+    [onCompleteHandler, timeString, anotherString]
   );
   const onCompleteHandler = useCallback(() => {
     const ampm = selectRef.current.value;
@@ -103,15 +103,15 @@ const CartDayTimeEdit = ({
     } else {
       init(timeString);
     }
-  }, [selectRef, hourRef, minuteRef, anotherString, isStart]);
+  }, [selectRef, hourRef, minuteRef, timeString, anotherString, isStart]);
   useEffect(() => {
     init(timeString);
   }, [timeString]);
   return (
-    <div className="flex -mt-[1px] rounded">
+    <div className="flex -mt-[1px] rounded text-base">
       <select
         ref={selectRef}
-        className="h-[17px] mr-1 appearance-none bg-transparent"
+        className="h-[23px] leading-[21px] mr-1 appearance-none bg-transparent"
         onChange={onSelectChangeHandler}
       >
         <option>오전</option>
@@ -121,16 +121,16 @@ const CartDayTimeEdit = ({
         htmlRef={hourRef}
         type="number"
         inputMode="numeric"
-        className="appearance-none text-right w-[15.5px] h-[17px] text-xs tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
+        className="appearance-none text-right w-[23px] h-[23px] tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
         onKeyDown={onHourKeyDownHandler}
         onBlur={onHourBlurHandler}
       />
-      <p className="mr-0.5">:</p>
+      <p className="leading-[21px]">:</p>
       <Input
         htmlRef={minuteRef}
         type="number"
         inputMode="numeric"
-        className="appearance-none text-right w-[15.5px] h-[17px] text-xs tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
+        className="appearance-none text-right w-[23px] h-[23px] tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
         onKeyDown={onMinuteKeyDownHandler}
         onBlur={onMinuteBlurHandler}
       />

@@ -36,14 +36,16 @@ const KakaoMap = ({ className, keyword, latlng, onClick }) => {
         });
         marker.setMap(map);
         setMarker(marker);
-        kakao.maps.event.addListener(map, "click", (mouseEvent) => {
-          const latlng = mouseEvent.latLng;
-          const position = {
-            lat: latlng.getLat(),
-            lng: latlng.getLng(),
-          };
-          onClick(position);
-        });
+        if (onClick) {
+          kakao.maps.event.addListener(map, "click", (mouseEvent) => {
+            const latlng = mouseEvent.latLng;
+            const position = {
+              lat: latlng.getLat(),
+              lng: latlng.getLng(),
+            };
+            onClick(position);
+          });
+        }
         setKakaoMap(map);
       });
     };

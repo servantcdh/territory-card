@@ -109,7 +109,7 @@ module.exports = {
         },
         naviToUser: {
           from: { "background-color": "rgb(254 252 232)" },
-          to: { "background-color": "rgb(253 224 71)" },
+          to: { "background-color": "rgb(250 204 21)" },
         },
         naviToNotFound: {
           from: { "background-color": "rgb(254 252 232)" },
