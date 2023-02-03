@@ -65,9 +65,25 @@ const TerritoryAssignCard = ({
       setHasCar(true);
     }
   }, [setHasCar, crewsHasCar, crews]);
-  const proceedClass = "min-[360px]:w-[9rem] min-[390px]:w-[9.9rem]";
-  const hasCarClass = "min-[360px]:w-[10rem] min-[390px]:w-[10.7rem]";
-  const fullStatusClass = "min-[360px]:w-[7.8rem] min-[390px]:w-[8.5rem]";
+  const cardName = `구역번호.${cardIdx} ${name}`;
+  const isSmallScreen = matchMedia(
+    "only screen and (device-width: 360px)"
+  ).matches;
+  const hasCarClass = isSmallScreen ? `w-[calc(9.9rem-18px)]` : `w-[calc(11.9rem-18px)]`;
+  const proceedClass = isSmallScreen ? `w-[calc(9.9rem-34px)]` : `w-[calc(11.9rem-34px)]`;
+  const fullStatusClass = isSmallScreen ? `w-[calc(9.9rem-52px)]` : `w-[calc(11.9rem-52px)]`;
+  const basicClass = isSmallScreen ? `w-[9.9rem]` : `w-[11.9rem]`;
+  let flowTtitleClass = "";
+  if (cardRecord.length > 0) {
+    flowTtitleClass = hasCar ? fullStatusClass : proceedClass;
+  } else {
+    flowTtitleClass = hasCar ? hasCarClass : basicClass;
+  }
+  const isLongTitle =
+    cardName.length >
+    (isSmallScreen ? 17 : 20) -
+      (cardRecord.length > 0 ? 4 : 0) -
+      (hasCar ? 2 : 0);
   return (
     <>
       {activeUsersModal && (
@@ -93,9 +109,7 @@ const TerritoryAssignCard = ({
             className={`m-auto text-[10px] p-1 w-[250px] h-[70px] mb-1 bg-yellow-400 rounded-sm border border-primary-400 ${className}`}
           >
             <div className="w-[100%]">
-              <div className="text-[13px]">
-                구역번호.{cardIdx} {name}
-              </div>
+              <div className="text-[13px]">{cardName}</div>
               <div className="whitespace-nowrap overflow-hidden text-ellipsis">
                 <div>배정 날짜.{dateAssigned.split("T")[0]}</div>
               </div>
@@ -109,33 +123,19 @@ const TerritoryAssignCard = ({
         <div className="w-[36rem]">
           <div className="text-[13px] flex">
             {cardRecord.length > 0 && (
-              <span className="inline-block mr-1 rounded px-[1px] bg-red-600 text-primary-100">
+              <span className="inline-block mr-1 rounded px-[1px] w-[32px] bg-red-600 text-primary-100">
                 진행중
               </span>
             )}
             {hasCar && (
-              <span className="inline-block mr-1 rounded px-[2px] bg-sky-600">
+              <span className="inline-block mr-1 rounded px-[2px] w-[17px] bg-sky-600">
                 🚗
               </span>
             )}
-            {(cardRecord.length > 0 || hasCar) && (
-              <FlowTitle
-                className={`${
-                  !!cardRecord.length && !hasCar ? proceedClass : ""
-                }${!cardRecord.length && hasCar ? hasCarClass : ""}${
-                  !!cardRecord.length && hasCar ? fullStatusClass : ""
-                }`}
-              >
-                구역번호.
-                {cardIdx} {name}
-              </FlowTitle>
+            {isLongTitle && (
+              <FlowTitle className={`${flowTtitleClass}`}>{cardName}</FlowTitle>
             )}
-            {!cardRecord.length && !hasCar && (
-              <>
-                구역번호.
-                {cardIdx} {name}
-              </>
-            )}
+            {!isLongTitle && cardName}
           </div>
           <div className="flex whitespace-nowrap overflow-hidden text-ellipsis">
             <div>
@@ -160,7 +160,7 @@ const TerritoryAssignCard = ({
                 className="w-[38.5px] h-[38.5px]"
                 users={crews}
                 userIdx={userIdx}
-                length={6}
+                length={5}
               />
             )}
           </div>
