@@ -211,6 +211,7 @@ const CartCrewLayout = ({
                       ...access,
                       ...user,
                       userIdx: cartDayTimeUserIdx,
+                      idx: userIdx,
                     };
                   });
                   return (
@@ -269,7 +270,7 @@ const CartCrewLayout = ({
                               {...crew}
                               onClick={onProfileClickHandler.bind(
                                 null,
-                                crew.userIdx
+                                crew.idx
                               )}
                             />
                           ))}

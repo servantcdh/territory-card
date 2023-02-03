@@ -128,7 +128,7 @@ const TerritoryAssignCard = ({
               </span>
             )}
             {hasCar && (
-              <span className="inline-block mr-1 rounded px-[2px] w-[17px] bg-sky-600">
+              <span className="inline-block mr-1 rounded pl-[0.5px] w-[17px] bg-sky-600">
                 🚗
               </span>
             )}
