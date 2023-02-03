@@ -15,7 +15,6 @@ const TerritoryInfo = ({
   dateAssigned,
   lastDateCompleted,
   address,
-  onMemoChange,
   onMemoFocus,
   disabledMemo,
   memoFocusUser,
@@ -25,15 +24,11 @@ const TerritoryInfo = ({
   const { idx, name, memo } = cardData
     ? cardData
     : { idx: 0, name: "", memo: "" };
-  const onMemoChangeHandler = useCallback(
-    (memo) => {
-      onMemoChange(memo);
-      onMemoFocus(false);
-    },
-    [onMemoChange]
-  );
   const onFocusHandler = useCallback(() => {
     onMemoFocus(true);
+  }, [onMemoFocus]);
+  const onBlurHandler = useCallback((memo) => {
+    onMemoFocus(false, memo);
   }, [onMemoFocus]);
   const onProfileClickHandler = useCallback((userIdx) => {
     navigate(`/profile/${userIdx}`);
@@ -122,7 +117,7 @@ const TerritoryInfo = ({
               className="w-full py-3 text-primary-700"
               value={memo}
               onFocus={onFocusHandler}
-              onBlur={onMemoChangeHandler}
+              onBlur={onBlurHandler}
               disabled={disabledMemo}
             />
           </div>

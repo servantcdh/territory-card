@@ -66,27 +66,13 @@ const ViewPage = () => {
     setActiveModal(false);
     navigate("/");
   }, [setActiveModal, navigate]);
-  const onMemoChangeHandler = useCallback(
-    (memo) => {
-      if (cardData) {
-        cardMutate({
-          idx: cardData.idx,
-          name: cardData.name,
-          status: cardData.status,
-          memoFocusUserIdx: cardData.memoFocusUserIdx,
-          memo,
-        });
-      }
-    },
-    [cardMutate, cardData]
-  );
   const onMemoFocusHandler = useCallback(
-    (focused) => {
+    (focused, memo) => {
       cardMutate({
         idx: cardData.idx,
         name: cardData.name,
         status: cardData.status,
-        memo: cardData.memo,
+        memo: memo ? memo : cardData.memo,
         memoFocusUserIdx: focused ? userIdx : 0,
       });
     },
@@ -146,7 +132,6 @@ const ViewPage = () => {
           users={users}
           userIdx={userIdx}
           address={address}
-          onMemoChange={onMemoChangeHandler}
           onMemoFocus={onMemoFocusHandler}
           onMark={onMarkHandler}
           onCompleteCard={onCompleteCardHandler}

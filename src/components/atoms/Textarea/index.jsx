@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const Textarea = ({
   className,
@@ -9,30 +9,24 @@ const Textarea = ({
   onBlur,
   disabled,
 }) => {
-  const [inputValue, setInputValue] = useState(value);
-  const onChangeHandler = useCallback(
+  const ref = useRef();
+  const onBlurHandler = useCallback(
     (e) => {
-      setInputValue(e.target.value);
+      onBlur(e.target.value);
     },
-    [setInputValue]
+    [onBlur]
   );
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onBlur(inputValue);
-      clearTimeout(timeout);
-    }, 500);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [inputValue]);
+    ref.current.value = value;
+  }, [ref, value]);
   return (
     <textarea
       className={`resize-none whitespace-pre-wrap bg-amber-100 disabled:bg-gray-300 disabled:text-primary-500 p-2 rounded ${className}`}
       id={id}
-      value={inputValue}
+      ref={ref}
       placeholder={placeholder}
       onFocus={onFocus}
-      onBlur={onChangeHandler}
+      onBlur={onBlurHandler}
       disabled={disabled}
     />
   );

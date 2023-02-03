@@ -11,7 +11,6 @@ const ViewLayout = ({
   users,
   userIdx,
   address,
-  onMemoChange,
   onMemoFocus,
   onCompleteCard,
   onMark,
@@ -27,18 +26,6 @@ const ViewLayout = ({
   const onModalCancelHandler = useCallback(() => {
     setActiveModal(false);
   }, [setActiveModal]);
-  const onMemoChangeHandler = useCallback(
-    (memo) => {
-      onMemoChange(memo);
-    },
-    [onMemoChange]
-  );
-  const onMemoFocusHandler = useCallback(
-    (focused) => {
-      onMemoFocus(focused);
-    },
-    [onMemoFocus]
-  );
   const onMarkHandler = useCallback(
     (cardContentIdx, cardMarkIdx) => {
       onMark(cardContentIdx, cardMarkIdx);
@@ -95,8 +82,7 @@ const ViewLayout = ({
           dateAssigned={dateAssigned}
           lastDateCompleted={lastDateCompleted}
           address={address}
-          onMemoChange={onMemoChangeHandler}
-          onMemoFocus={onMemoFocusHandler}
+          onMemoFocus={onMemoFocus}
           disabledMemo={disabledMemo}
           memoFocusUser={memoFocusUser}
           onCompleteClick={onCompleteClickHandler}
