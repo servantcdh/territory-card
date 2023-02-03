@@ -28,14 +28,12 @@ const TerritoryInfo = ({
   const onMemoChangeHandler = useCallback(
     (memo) => {
       onMemoChange(memo);
+      onMemoFocus(false);
     },
     [onMemoChange]
   );
   const onFocusHandler = useCallback(() => {
     onMemoFocus(true);
-  }, [onMemoFocus]);
-  const onBlurHandler = useCallback(() => {
-    onMemoFocus(false);
   }, [onMemoFocus]);
   const onProfileClickHandler = useCallback((userIdx) => {
     navigate(`/profile/${userIdx}`);
@@ -123,9 +121,8 @@ const TerritoryInfo = ({
             <Textarea
               className="w-full py-3 text-primary-700"
               value={memo}
-              onChange={onMemoChangeHandler}
               onFocus={onFocusHandler}
-              onBlur={onBlurHandler}
+              onBlur={onMemoChangeHandler}
               disabled={disabledMemo}
             />
           </div>

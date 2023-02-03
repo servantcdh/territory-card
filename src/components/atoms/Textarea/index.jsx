@@ -5,7 +5,6 @@ const Textarea = ({
   id,
   value,
   placeholder,
-  onChange,
   onFocus,
   onBlur,
   disabled,
@@ -19,7 +18,7 @@ const Textarea = ({
   );
   useEffect(() => {
     const timeout = setTimeout(() => {
-      onChange(inputValue);
+      onBlur(inputValue);
       clearTimeout(timeout);
     }, 500);
     return () => {
@@ -32,9 +31,8 @@ const Textarea = ({
       id={id}
       value={inputValue}
       placeholder={placeholder}
-      onChange={onChangeHandler}
       onFocus={onFocus}
-      onBlur={onBlur}
+      onBlur={onChangeHandler}
       disabled={disabled}
     />
   );
