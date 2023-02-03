@@ -43,10 +43,10 @@ const CartLayout = ({
                       className="mb-2 bg-gray-900 rounded p-2"
                     >
                       <div className="flex">
-                        <div className="mb-2 text-lg w-[calc(100%-165px)]">
+                        <div className="mb-2 text-lg w-[calc(100%-60px)]">
                           {locationName}
                         </div>
-                        <div className="mt-0.5 w-[165px] text-xs text-right">
+                        <div className="mt-0.5 w-[60px] text-xs text-right">
                           <KakaoMapButton
                             className="border-none bg-yellow-400 text-black px-1"
                             dest={locationName}

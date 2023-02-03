@@ -115,6 +115,10 @@ module.exports = {
           from: { "background-color": "rgb(254 252 232)" },
           to: { "background-color": "rgb(148 163 184)" },
         },
+        title: {
+          from: { "transform": "translateX(0)" },
+          to: { "transform": "translateX(-40%)" },
+        },
       },
       animation: {
         error: "error 0.5s ease-in-out forwards",
@@ -138,6 +142,7 @@ module.exports = {
         naviToView: "naviToView 0.5s ease-in-out forwards",
         naviToUser: "naviToUser 0.5s ease-in-out forwards",
         naviToNotFound: "naviToNotFound 0.5s ease-in-out forwards",
+        title: "title 8s ease-in-out infinite",
       },
       translate: {
         550: "550%",

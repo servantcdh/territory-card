@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../atoms/Button";
+import FlowTitle from "../../atoms/FlowTitle";
 import Profile from "../../atoms/Profile";
 import ProfileCardList from "../../organisms/ProfileCardList";
 import Modal from "../Modal";
@@ -30,7 +31,6 @@ const TerritoryAssignCard = ({
           cardRecord: [],
         };
   const userIdxes = crewAssigned.map(({ userIdx }) => userIdx);
-  // users.sort((prev, _) => userIdxes.includes(prev.userIdx) ? -1 : 1);
   const crews = crewAssigned.map(({ user }) => user);
   const { idx: cardIdx, name } = card ? card : { idx: 0, name: "" };
   const crewsHasCar = crews.find((user) => user.access && user.access.car);
@@ -65,6 +65,9 @@ const TerritoryAssignCard = ({
       setHasCar(true);
     }
   }, [setHasCar, crewsHasCar, crews]);
+  const proceedClass = "min-[360px]:w-[9rem] min-[390px]:w-[9.9rem]";
+  const hasCarClass = "min-[360px]:w-[10rem] min-[390px]:w-[10.7rem]";
+  const fullStatusClass = "min-[360px]:w-[7.8rem] min-[390px]:w-[8.5rem]";
   return (
     <>
       {activeUsersModal && (
@@ -104,7 +107,7 @@ const TerritoryAssignCard = ({
         className={`flex text-[10px] p-1 w-full h-[97px] mb-1 bg-yellow-400 rounded-sm border border-primary-400 ${className}`}
       >
         <div className="w-[36rem]">
-          <div className="text-[13px]">
+          <div className="text-[13px] flex">
             {cardRecord.length > 0 && (
               <span className="inline-block mr-1 rounded px-[1px] bg-red-600 text-primary-100">
                 진행중
@@ -115,8 +118,24 @@ const TerritoryAssignCard = ({
                 🚗
               </span>
             )}
-            구역번호.
-            {cardIdx} {name}
+            {(cardRecord.length > 0 || hasCar) && (
+              <FlowTitle
+                className={`${
+                  !!cardRecord.length && !hasCar ? proceedClass : ""
+                }${!cardRecord.length && hasCar ? hasCarClass : ""}${
+                  !!cardRecord.length && hasCar ? fullStatusClass : ""
+                }`}
+              >
+                구역번호.
+                {cardIdx} {name}
+              </FlowTitle>
+            )}
+            {!cardRecord.length && !hasCar && (
+              <>
+                구역번호.
+                {cardIdx} {name}
+              </>
+            )}
           </div>
           <div className="flex whitespace-nowrap overflow-hidden text-ellipsis">
             <div>
