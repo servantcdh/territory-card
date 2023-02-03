@@ -121,7 +121,7 @@ const CartDayTimeEdit = ({
         htmlRef={hourRef}
         type="number"
         inputMode="numeric"
-        className="appearance-none text-right w-[23px] h-[23px] tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
+        className="appearance-none leading-normal text-right w-[23px] h-[23px] tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
         onKeyDown={onHourKeyDownHandler}
         onBlur={onHourBlurHandler}
       />
@@ -130,7 +130,7 @@ const CartDayTimeEdit = ({
         htmlRef={minuteRef}
         type="number"
         inputMode="numeric"
-        className="appearance-none text-right w-[23px] h-[23px] tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
+        className="appearance-none leading-normal text-right w-[23px] h-[23px] tracking-tighter border-none px-0 pr-0.5 m-0 bg-transparent"
         onKeyDown={onMinuteKeyDownHandler}
         onBlur={onMinuteBlurHandler}
       />
