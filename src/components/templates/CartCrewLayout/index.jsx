@@ -9,6 +9,7 @@ import KakaoMapButton from "../../atoms/KakaoMapButton";
 import Modal from "../../molecules/Modal";
 import CartDayHeader from "../../molecules/CartDayHeader";
 import TerritoryCard from "../../molecules/TerritoryCard";
+import ProfileCardList from "../../organisms/ProfileCardList";
 
 const CartCrewLayout = ({
   cartDayTimeIdx,
@@ -25,8 +26,17 @@ const CartCrewLayout = ({
 }) => {
   const navigate = useNavigate();
   const [activeModal, setActiveModal] = useState(false);
+  const [activeUsersModal, setActiveUsersModal] = useState(0);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [latlng, setLatlng] = useState(null);
+  const users = cartDayTimeUser.map(({ idx, user }) => {
+    const { access } = user;
+    return {
+      ...access,
+      ...user,
+      userIdx: idx,
+    };
+  });
   const onProfileClickHandler = useCallback((userIdx) => {
     navigate(`/profile/${userIdx}`);
   }, []);
@@ -57,6 +67,15 @@ const CartCrewLayout = ({
     setActiveModal(false);
     setSelectedLocation(null);
   }, []);
+  const onActiveUsersModalHandler = useCallback(
+    (cartDayTimeLocationIdx) => {
+      setActiveUsersModal(cartDayTimeLocationIdx);
+    },
+    [setActiveUsersModal]
+  );
+  const onDectiveUsersModalHandler = useCallback(() => {
+    setActiveUsersModal(0);
+  }, [setActiveUsersModal]);
   const onClickLocationHandler = useCallback((location) => {
     setSelectedLocation((prevState) => {
       if (prevState && prevState.idx === location.idx) {
@@ -65,6 +84,17 @@ const CartCrewLayout = ({
       return location;
     });
   }, []);
+  const onAssignCrewsHandler = useCallback(
+    (cartDayTimeLocationIdx, { userIdxes, pushTokens }) => {
+      onAssign({
+        cartDayTimeLocationIdx,
+        cartDayTimeUserIdxes: userIdxes,
+        pushTokens,
+      });
+      setActiveUsersModal(0);
+    },
+    []
+  );
   useEffect(() => {
     if (!selectedLocation) {
       return;
@@ -167,6 +197,22 @@ const CartCrewLayout = ({
                 cartDayTimeLocation.map((timeLocation) => {
                   const { idx, cartLocation, cartCrewAssigned } = timeLocation;
                   const { name: locationName, lat, lng } = cartLocation;
+                  const userIdxes = [];
+                  const crews = cartCrewAssigned.map((crew) => {
+                    const { cartDayTimeUser } = crew;
+                    const {
+                      idx: cartDayTimeUserIdx,
+                      user,
+                      userIdx,
+                    } = cartDayTimeUser;
+                    const { access } = user;
+                    userIdxes.push(cartDayTimeUserIdx);
+                    return {
+                      ...access,
+                      ...user,
+                      userIdx: cartDayTimeUserIdx,
+                    };
+                  });
                   return (
                     <div
                       key={`location_${idx}`}
@@ -187,7 +233,10 @@ const CartCrewLayout = ({
                           >
                             카카오내비
                           </KakaoMapButton>
-                          <Button className="border bg-rose-400 text-black px-1 mr-1">
+                          <Button
+                            className="border bg-rose-400 text-black px-1 mr-1"
+                            onClick={onActiveUsersModalHandler.bind(null, idx)}
+                          >
                             전도인배정
                           </Button>
                           <Button
@@ -196,31 +245,34 @@ const CartCrewLayout = ({
                               null,
                               idx
                             )}
+                            disabled={crews.length}
                           >
                             삭제
                           </Button>
                         </div>
                       </div>
+                      {activeUsersModal === idx && (
+                        <ProfileCardList
+                          users={users.concat(crews)}
+                          userIdxes={userIdxes}
+                          onAssign={onAssignCrewsHandler.bind(null, idx)}
+                          onCancel={onDectiveUsersModalHandler}
+                        />
+                      )}
                       <div className="pb-1 flex flex-wrap">
-                        {!!cartCrewAssigned.length &&
-                          cartCrewAssigned.map((crew) => {
-                            const { cartDayTimeUser } = crew;
-                            const { user, userIdx } = cartDayTimeUser;
-                            const { access } = user;
-                            return (
-                              <Profile
-                                className="mr-[5px] w-[40px] h-[40px] mb-1"
-                                liveClassName="left-[1.8rem]"
-                                key={`crew_${userIdx}`}
-                                {...user}
-                                {...access}
-                                onClick={onProfileClickHandler.bind(
-                                  null,
-                                  userIdx
-                                )}
-                              />
-                            );
-                          })}
+                        {!!crews.length &&
+                          crews.map((crew) => (
+                            <Profile
+                              className="mr-[5px] w-[40px] h-[40px] mb-1"
+                              liveClassName="left-[1.8rem]"
+                              key={`crew_${crew.userIdx}`}
+                              {...crew}
+                              onClick={onProfileClickHandler.bind(
+                                null,
+                                crew.userIdx
+                              )}
+                            />
+                          ))}
                       </div>
                     </div>
                   );

@@ -36,11 +36,13 @@ const ProfileCardList = ({
           onAddPushTokenHandler(pushToken, true);
         }
       }
-      if (prev.length && prev.includes(userIdx) && !assignedUserIdx) {
-        setAssignedUserIdx(userIdx);
-      }
-      if (assignedUserIdx === userIdx) {
-        return setAssignedUserIdx(0);
+      if (!isNaN(assignedUserIdx)) {
+        if (prev.length && prev.includes(userIdx) && !assignedUserIdx) {
+          setAssignedUserIdx(userIdx);
+        }
+        if (assignedUserIdx === userIdx) {
+          setAssignedUserIdx(0);
+        }
       }
       setCheckedUserIdx(prev);
     },
@@ -77,23 +79,24 @@ const ProfileCardList = ({
       onCancel={onCancelHandler}
       buttonName="배정"
       cancelName="취소"
-      buttonDisabled={!checkedUserIdx.length}
     >
-      <SearchUser
-        className="fixed w-5/6 inset-x-0 mx-auto h-10 z-20 md:w-[470px] lg:w-[470px]"
-        onSubmit={onSearchHandler}
-      />
-      <div className="mt-[55px]">
+      {onSearch && (
+        <SearchUser
+          className="fixed w-5/6 inset-x-0 mx-auto h-10 z-20 md:w-[470px] lg:w-[470px]"
+          onSubmit={onSearchHandler}
+        />
+      )}
+      <div className={`${onSearch ? "mt-[55px]" : ""}`}>
         {!!users.length &&
           users.map((u) => (
             <ProfileCard
-              key={u.userIdx}
+              key={`profileCard_${u.userIdx}`}
               className="rounded"
               user={u}
               checked={checkedUserIdx.includes(u.userIdx)}
-              assigned={assignedUserIdx === u.userIdx}
+              assigned={assignedUserIdx ? assignedUserIdx === u.userIdx : false}
               userIdx={userIdx}
-              onClick={onCheckProfileHandler.bind(this)}
+              onClick={onCheckProfileHandler}
             />
           ))}
       </div>
