@@ -66,7 +66,7 @@ const CartDayLayout = ({
                       className="w-full bg-amber-100 mb-3 p-2 text-black rounded"
                     >
                       <div className="flex mb-1">
-                        <div className="text-xs tracking-tighter w-[calc(100%-114px)] mt-1">
+                        <div className="text-xs tracking-tighter w-[calc(100%-61px)] mt-1">
                           <div className="flex">
                             <CartDayTimeEdit
                               idx={idx}
@@ -85,7 +85,7 @@ const CartDayLayout = ({
                             />
                           </div>
                         </div>
-                        <div className="w-[114px] text-xs text-right mt-0.5">
+                        <div className="w-[61px] text-xs text-right mt-0.5">
                           <Button
                             className="border-none bg-rose-400 px-1 mr-1"
                             onClick={onCrewClickHandler.bind(null, idx)}
