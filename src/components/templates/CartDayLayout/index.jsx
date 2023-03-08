@@ -16,6 +16,7 @@ const CartDayLayout = ({
   onUpdate,
   onDelete,
 }) => {
+  console.log(items);
   const navigate = useNavigate();
   const onProfileClickHandler = useCallback((userIdx) => {
     navigate(`/profile/${userIdx}`);
@@ -27,12 +28,38 @@ const CartDayLayout = ({
     onUpdate(time);
   }, []);
   const onCreateHandler = useCallback(() => {
+    let start = "오전 9:00";
+    let end = "오전 10:00";
+    if (items.length) {
+      const { startTime } = items[items.length - 1];
+      const startArr = startTime.split(" ");
+      const startHour = +startArr[1].split(":")[0];
+      const add = startArr[0] === "오후" ? 12 : 0;
+      const nextHour = add + startHour + 1;
+      if (nextHour > 23) {
+        return;
+      }
+      const isAM = nextHour < 12;
+      const nextHour12 = nextHour - 12;
+      const nextEndHour = nextHour + 1;
+      if (nextEndHour > 23) {
+        return;
+      }
+      const endIsAM = nextEndHour < 12;
+      const nextEndHour12 = nextEndHour - 12;
+      start = `${isAM ? "오전" : "오후"} ${
+        isAM ? nextHour : !nextHour12 ? 12 : nextHour12
+      }:00`;
+      end = `${endIsAM ? "오전" : "오후"} ${
+        endIsAM ? nextEndHour : !nextEndHour12 ? 12 : nextEndHour12
+      }:00`;
+    }
     onCreate({
       cartDayIdx,
-      startTime: "오전 9:00",
-      endTime: "오전 10:00",
+      startTime: start,
+      endTime: end,
     });
-  }, [cartDayIdx]);
+  }, [cartDayIdx, items]);
   const onDeleteHandler = useCallback((cartDayTimeIdx) => {
     onDelete({
       cartDayTimeIdx,
