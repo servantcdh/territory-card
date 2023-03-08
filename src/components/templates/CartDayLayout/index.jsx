@@ -16,6 +16,22 @@ const CartDayLayout = ({
   onUpdate,
   onDelete,
 }) => {
+  items.sort((pre, cur) => {
+    const { startTime: preTime } = pre;
+    const { startTime: curTime } = cur;
+    // 
+    const preArr = preTime.split(" ");
+    const preStartHour = +preArr[1].split(":")[0];
+    const preAdd = preArr[0] === "오후" && preStartHour !== 12 ? 12 : 0;
+    const preStartHour24 = preAdd + preStartHour;
+    // 
+    const curArr = curTime.split(" ");
+    const curStartHour = +curArr[1].split(":")[0];
+    const curAdd = curArr[0] === "오후" && curStartHour !== 12 ? 12 : 0;
+    const curStartHour24 = curAdd + curStartHour;
+    // 
+    return preStartHour24 < curStartHour24 ? -1 : 1;
+  });
   const navigate = useNavigate();
   const onProfileClickHandler = useCallback((userIdx) => {
     navigate(`/profile/${userIdx}`);
@@ -34,7 +50,7 @@ const CartDayLayout = ({
       const startArr = startTime.split(" ");
       const startHour = +startArr[1].split(":")[0];
       const add = startArr[0] === "오후" && startHour !== 12 ? 12 : 0;
-
+      // 
       const nextHour = add + startHour + 1;
       const nextHourStr = nextHour < 10 ? `0${nextHour}` : nextHour;
       if (nextHour > 23) {
@@ -43,7 +59,7 @@ const CartDayLayout = ({
       const isAM = nextHour < 12 && startArr[0] === "오전";
       const nextHour12 = nextHour - 12;
       const nextHour12Str = nextHour12 < 10 ? `0${nextHour12}` : nextHour12;
-
+      // 
       const nextEndHour = nextHour + 1;
       const nextEndHourStr = nextEndHour < 10 ? `0${nextEndHour}` : nextEndHour;
       if (nextEndHour > 23) {
@@ -53,7 +69,7 @@ const CartDayLayout = ({
       const nextEndHour12 = nextEndHour - 12;
       const nextEndHour12Str =
         nextEndHour12 < 10 ? `0${nextEndHour12}` : nextEndHour12;
-
+      // 
       start = `${isAM ? "오전" : "오후"} ${
         isAM ? nextHourStr : !nextHour12 ? 12 : nextHour12Str
       }:00`;
