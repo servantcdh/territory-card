@@ -27,30 +27,38 @@ const CartDayLayout = ({
     onUpdate(time);
   }, []);
   const onCreateHandler = useCallback(() => {
-    let start = "오전 9:00";
+    let start = "오전 09:00";
     let end = "오전 10:00";
     if (items.length) {
       const { startTime } = items[items.length - 1];
       const startArr = startTime.split(" ");
       const startHour = +startArr[1].split(":")[0];
-      const add = startArr[0] === "오후" ? 12 : 0;
+      const add = startArr[0] === "오후" && startHour !== 12 ? 12 : 0;
+
       const nextHour = add + startHour + 1;
+      const nextHourStr = nextHour < 10 ? `0${nextHour}` : nextHour;
       if (nextHour > 23) {
         return;
       }
-      const isAM = nextHour < 12;
+      const isAM = nextHour < 12 && startArr[0] === "오전";
       const nextHour12 = nextHour - 12;
+      const nextHour12Str = nextHour12 < 10 ? `0${nextHour12}` : nextHour12;
+
       const nextEndHour = nextHour + 1;
+      const nextEndHourStr = nextEndHour < 10 ? `0${nextEndHour}` : nextEndHour;
       if (nextEndHour > 23) {
         return;
       }
       const endIsAM = nextEndHour < 12;
       const nextEndHour12 = nextEndHour - 12;
+      const nextEndHour12Str =
+        nextEndHour12 < 10 ? `0${nextEndHour12}` : nextEndHour12;
+
       start = `${isAM ? "오전" : "오후"} ${
-        isAM ? nextHour : !nextHour12 ? 12 : nextHour12
+        isAM ? nextHourStr : !nextHour12 ? 12 : nextHour12Str
       }:00`;
       end = `${endIsAM ? "오전" : "오후"} ${
-        endIsAM ? nextEndHour : !nextEndHour12 ? 12 : nextEndHour12
+        endIsAM ? nextEndHourStr : !nextEndHour12 ? 12 : nextEndHour12Str
       }:00`;
     }
     onCreate({

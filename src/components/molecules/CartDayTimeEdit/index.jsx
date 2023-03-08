@@ -98,6 +98,17 @@ const CartDayTimeEdit = ({
         data.endTime = updateTime;
       }
       if (timeString !== updateTime) {
+        const key = Object.keys(data).find((k) => k !== "cartDayTimeIdx");
+        const arr = data[key].split(" ");
+        const timeArr = arr[1].split(":");
+        const timeStartHour = +timeArr[0];
+        const timeStartHourStr =
+          timeStartHour < 10 ? `0${timeStartHour}` : timeStartHour;
+        const timeEndHour = +timeArr[1];
+        const timeEndHourStr =
+          timeEndHour < 10 ? `0${timeEndHour}` : timeEndHour;
+        const converted = `${arr[0]} ${timeStartHourStr}:${timeEndHourStr}`;
+        data[key] = converted;
         onChange(data);
       }
     } else {
