@@ -16,7 +16,6 @@ const CartDayLayout = ({
   onUpdate,
   onDelete,
 }) => {
-  console.log(items);
   const navigate = useNavigate();
   const onProfileClickHandler = useCallback((userIdx) => {
     navigate(`/profile/${userIdx}`);
