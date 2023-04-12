@@ -70,6 +70,7 @@ php에서 react + nestjs로 새롭게 개발하여 생산성과 성능을 향상
 | webpack-pwa-manifest         | _^4.3.0_   | 웹팩 후처리 과정 중 PWA Manifest를 생성해주는 플러그인                                                         |
 | workbox-webpack-plugin       | _^6.5.4_   | 웹팩 후처리 과정 중 serviceWorker를 생성하고 포함시키는 플러그인                                               |
 | firebase                     | _^9.15.0_  | 파이어베이스 SDK                                                                                               |
+| twin.macro                   | _^3.3.0_   | tailwindcss className을 object로 직렬화해 마지막 디자인 적용                                                   |
 
 ## 특이 사항
 
